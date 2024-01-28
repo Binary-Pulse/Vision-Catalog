@@ -1,6 +1,4 @@
 packages:
   - "apps/web"
-  - "apps/dashboard"
-  - 'apps/express-server'
   - "packages/*"
   - "tooling/*"
