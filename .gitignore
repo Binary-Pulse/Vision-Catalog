@@ -36,5 +36,5 @@ yarn-error.log*
 # turbo
 .turbo
 
-
 .env
+.vscode
