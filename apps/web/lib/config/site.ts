@@ -26,8 +26,8 @@ export const Company = [
     title: "Contact",
     href: "/contact",
     external: false,
-  }
-]
+  },
+];
 export const mySocials: MySocialsProps[] = [
   {
     title: "Github",

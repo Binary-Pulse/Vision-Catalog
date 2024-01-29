@@ -26,7 +26,7 @@ export const createComputer = async (computer: NewComputerParams) => {
 
 export const updateComputer = async (
   id: ComputerId,
-  computer: UpdateComputerParams
+  computer: UpdateComputerParams,
 ) => {
   const { id: computerId } = computerIdSchema.parse({ id });
   const newComputer = updateComputerSchema.parse({

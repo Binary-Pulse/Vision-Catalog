@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from "react";
 
 export function ForceRenderUntilClient({ children }: { children: ReactNode }) {
   const [rendered, setRendered] = useState(false);

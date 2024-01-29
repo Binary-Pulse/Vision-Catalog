@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   flexRender,
@@ -13,18 +13,28 @@ import {
   type ColumnFiltersState,
   type SortingState,
   type VisibilityState,
-} from '@tanstack/react-table';
-import { useState } from 'react';
-import { DataTablePagination } from './data-table-pagination';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
-import { ChevronDown, ChevronUp } from '../icons';
+} from "@tanstack/react-table";
+import { useState } from "react";
+import { DataTablePagination } from "./data-table-pagination";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./table";
+import { ChevronDown, ChevronUp } from "../icons";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -61,11 +71,17 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} onClick={header.column.getToggleSortingHandler()}>
+                    <TableHead
+                      key={header.id}
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
                       <div className="relative">
                         {header.isPlaceholder
                           ? null
-                          : flexRender(header.column.columnDef.header, header.getContext())}
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
                         <span className="absolute inset-y-0 right-0 flex items-center pr-2">
                           {{
                             asc: <ChevronUp size={16} />,
@@ -82,17 +98,26 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -100,7 +125,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           </TableBody>
         </Table>
       </div>
-      {Boolean(table.getRowModel().rows?.length) && <DataTablePagination table={table} />}
+      {Boolean(table.getRowModel().rows?.length) && (
+        <DataTablePagination table={table} />
+      )}
     </div>
   );
 }

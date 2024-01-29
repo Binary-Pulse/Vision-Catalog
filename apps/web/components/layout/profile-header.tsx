@@ -1,4 +1,3 @@
-
 import React from "react";
 import Link from "next/link";
 import { authOptions, getServerSession } from "@repo/auth/server";

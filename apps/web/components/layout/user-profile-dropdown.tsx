@@ -1,8 +1,18 @@
-
 import React from "react";
 import Link from "next/link";
 import type { UserProfileDropdownProps } from "@repo/utils";
-import { Avatar, AvatarFallback, AvatarImage, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@repo/ui/components";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@repo/ui/components";
 import { Icons } from "@repo/ui/icons";
 
 export const UserProfileDropdown = ({

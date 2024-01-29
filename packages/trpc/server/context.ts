@@ -1,9 +1,5 @@
 import * as trpcNext from "@trpc/server/adapters/next";
-import {
-  type Session,
-  getServerSession,
-  authOptions,
-} from "@repo/auth/server";
+import { type Session, getServerSession, authOptions } from "@repo/auth/server";
 
 interface CreateInnerContextOptions
   extends Partial<trpcNext.CreateNextContextOptions> {

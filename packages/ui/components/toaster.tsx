@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Toast,
@@ -7,9 +7,9 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from './toast';
-import { useToast } from './use-toast';
-import { CheckCircle2, AlertTriangle, InfoIcon } from 'lucide-react';
+} from "./toast";
+import { useToast } from "./use-toast";
+import { CheckCircle2, AlertTriangle, InfoIcon } from "lucide-react";
 
 const ICONS = {
   default: <InfoIcon fill="#8B5CF6" color="#fff" size={32} />,
@@ -22,7 +22,14 @@ export function Toaster() {
 
   return (
     <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, variant, ...props }) {
+      {toasts.map(function ({
+        id,
+        title,
+        description,
+        action,
+        variant,
+        ...props
+      }) {
         const Icon = variant ? ICONS[variant] : null;
 
         return (
@@ -36,9 +43,13 @@ export function Toaster() {
             </div>
             <div className="grid gap-1">
               {title ? <ToastTitle>{title}</ToastTitle> : null}
-              {description ? <ToastDescription>{description}</ToastDescription> : null}
+              {description ? (
+                <ToastDescription>{description}</ToastDescription>
+              ) : null}
             </div>
-            <div className="ml-auto inline-flex">{action ? action : <ToastClose />}</div>
+            <div className="ml-auto inline-flex">
+              {action ? action : <ToastClose />}
+            </div>
           </Toast>
         );
       })}
