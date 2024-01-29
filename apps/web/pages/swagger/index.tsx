@@ -7,7 +7,7 @@ const SwaggerUIDynamic: SwaggerUI & { url: string } = dynamic(
   () => import("swagger-ui-react"),
   {
     ssr: false,
-  }
+  },
 );
 
 const swaggerURI =

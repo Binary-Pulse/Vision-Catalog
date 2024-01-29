@@ -27,7 +27,7 @@ export const SiteFooter = () => {
             .
           </div>
           <ul className="flex-1 flex flex-row space-x-3">
-            {Company.map((link,index) => (
+            {Company.map((link, index) => (
               <li key={index}>
                 <Link
                   href={link.href}
@@ -44,10 +44,15 @@ export const SiteFooter = () => {
                 ...props
               }: LucideProps) => JSX.Element;
               return (
-                <Link key={index} href={social.href} target="_blank" rel="noreferrer">
+                <Link
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <div
                     className={cn(
-                      buttonVariants({ variant: "ghost", size: "xs" })
+                      buttonVariants({ variant: "ghost", size: "xs" }),
                     )}
                   >
                     <Icon className="h-4 w-4" />

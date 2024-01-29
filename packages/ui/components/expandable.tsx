@@ -1,6 +1,6 @@
-'use client';
-import clsx from 'clsx';
-import React from 'react';
+"use client";
+import clsx from "clsx";
+import React from "react";
 
 export interface ExpandableProps extends React.HTMLProps<HTMLDetailsElement> {
   header: React.ReactNode;
@@ -13,7 +13,7 @@ export function Expandable({
   ...props
 }: React.PropsWithChildren<ExpandableProps>) {
   return (
-    <details className={clsx('expandable', className)} {...props}>
+    <details className={clsx("expandable", className)} {...props}>
       <summary className="cursor-pointer [&::marker]:hidden [&::marker]:content-none">
         {header}
       </summary>

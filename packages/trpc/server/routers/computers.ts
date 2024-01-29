@@ -26,7 +26,7 @@ export const computersRouter = createTRPCRouter({
       z.object({
         computers: z.array(computerSchema),
         totalComputer: z.number(),
-      })
+      }),
     )
     .query(async () => {
       return getComputers();
@@ -42,7 +42,7 @@ export const computersRouter = createTRPCRouter({
     .input(
       z.object({
         insertComputerParams,
-      })
+      }),
     )
     .output(z.object({ computer: computerSchema }))
     .mutation(async ({ input }) => {
@@ -60,7 +60,7 @@ export const computersRouter = createTRPCRouter({
       z.object({
         id: computerIdSchema,
         computer: updateComputerParams,
-      })
+      }),
     )
     .output(z.object({ computer: computerSchema }))
     .mutation(async ({ input }) => {

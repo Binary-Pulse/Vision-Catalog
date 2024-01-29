@@ -30,7 +30,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "tsBuildInfoFile": ".tsbuildinfo",
-    "lib": ["esnext","DOM", "DOM.Iterable"],
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
     "newLine": "lf",
     "noEmitHelpers": true,
     "noFallthroughCasesInSwitch": true,

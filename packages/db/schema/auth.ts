@@ -9,7 +9,6 @@ export const signupSchema = loginSchema.extend({
   name: z.string().min(3).max(24),
 });
 
-
 export const updateUserSchema = z.object({
   name: z.string().min(3).max(24),
   email: z.string().email(),

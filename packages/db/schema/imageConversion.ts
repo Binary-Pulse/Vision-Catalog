@@ -2,10 +2,10 @@ import fs from "fs";
 
 export function encodeImageToBase64(filePath: string) {
   const imageAsBase64 = fs.readFileSync(filePath, "base64");
-  if(imageAsBase64.startsWith("data:image/")){
-    return imageAsBase64
+  if (imageAsBase64.startsWith("data:image/")) {
+    return imageAsBase64;
   }
-  return "data:image/png;base64,"+imageAsBase64;
+  return "data:image/png;base64," + imageAsBase64;
 }
 
 export function base64ToImageData(rawBinaryImageString: string) {

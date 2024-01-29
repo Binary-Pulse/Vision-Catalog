@@ -1,5 +1,5 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useMemo } from 'react';
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useMemo } from "react";
 
 export interface OnPageChangePayload {
   page: number;
@@ -40,7 +40,7 @@ export function Pagination({
           disabled={currentPage === 1}
           onClick={() =>
             onChange(
-              new CustomEvent('page:change', {
+              new CustomEvent("page:change", {
                 detail: {
                   page: currentPage - 1,
                   pageLoaded: true,
@@ -55,7 +55,7 @@ export function Pagination({
       {fuck.map((page, i) => (
         <button key={`pagination-${page}`}>
           {page}
-          {i === fuck.length - 1 && hasNextPage ? '+' : null}
+          {i === fuck.length - 1 && hasNextPage ? "+" : null}
         </button>
       ))}
       <div className="next">
@@ -63,7 +63,7 @@ export function Pagination({
           disabled={!hasNextPage && currentPage === totalPages}
           onClick={() =>
             onChange(
-              new CustomEvent('page:change', {
+              new CustomEvent("page:change", {
                 detail: {
                   page: currentPage + 1,
                   pageLoaded: hasNextPage && currentPage !== totalPages,
