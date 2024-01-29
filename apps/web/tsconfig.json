@@ -4,14 +4,14 @@
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
     },
     "plugins": [
       {
-        "name": "next"
-      }
+        "name": "next",
+      },
     ],
-    "strictNullChecks": true
+    "strictNullChecks": true,
   },
   "include": [
     ".",
@@ -20,6 +20,6 @@
     "postcss.config.cjs",
     "tailwind.config.ts",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
-  ]
+    ".next/types/**/*.ts",
+  ],
 }
