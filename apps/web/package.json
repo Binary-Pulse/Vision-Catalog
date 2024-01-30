@@ -1,5 +1,5 @@
 {
-  "name": "@repo/web",
+  "name": "@repo-mainapp",
   "version": "0.0.0",
   "private": true,
   "scripts": {
