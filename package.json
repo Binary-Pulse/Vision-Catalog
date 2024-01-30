@@ -6,7 +6,7 @@
   },
   "packageManager": "pnpm@8.14.1",
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build && pnpm format",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo clean",
     "db:generate": "turbo db:generate",
@@ -16,7 +16,8 @@
     "format": "prettier --write \"**/*.{html,css,js,jsx,ts,tsx,md,json}\"",
     "lint": "turbo lint --continue -- --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg check",
     "lint:fix": "turbo lint --continue -- --fix --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg fix",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "postinstall": "pnpm format"
   },
   "dependencies": {
     "@repo/eslint-config": "workspace:*",
