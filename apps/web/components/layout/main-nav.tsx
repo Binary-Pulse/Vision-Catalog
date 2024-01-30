@@ -25,9 +25,15 @@ export function MainNav() {
         className="hidden items-center space-x-2 lg:flex"
       >
         <Icons.chevronsRight className="h-6 w-6" aria-hidden="true" />
-        <span className="hidden font-bold lg:inline-block text-orange-500 text-xl">Build </span>
-        <span className="hidden font-bold lg:inline-block text-white text-xl">For </span>
-        <span className="hidden font-bold lg:inline-block text-green-500 text-xl">Bharat </span>
+        <span className="hidden font-bold lg:inline-block text-orange-500 text-xl">
+          Build{" "}
+        </span>
+        <span className="hidden font-bold lg:inline-block text-white text-xl">
+          For{" "}
+        </span>
+        <span className="hidden font-bold lg:inline-block text-green-500 text-xl">
+          Bharat{" "}
+        </span>
       </a>
       <NavigationMenu>
         <NavigationMenuList>
@@ -35,7 +41,6 @@ export function MainNav() {
             <NavigationMenuTrigger>Languages</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-            
                 <ListItem href="/hindi" title="हिन्दी">
                   हिंदी के साथ जारी रखें
                 </ListItem>

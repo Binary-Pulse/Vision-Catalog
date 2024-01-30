@@ -22,7 +22,7 @@
   },
   "scripts": {
     "lint": "eslint . --cache --cache-location \"node_modules/.cache/.eslintcache\" --max-warnings 0",
-    "lint:fix": "eslint . --fix --cache --cache-location \"node_modules/.cache/.eslintcache\" --max-warnings 0",
+    "lint:fix": "eslint . --fix --cache --cache-location \"node_modules/.cache/.eslintcache\" --max-warnings 0"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
