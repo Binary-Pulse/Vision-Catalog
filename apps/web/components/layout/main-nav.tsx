@@ -25,39 +25,27 @@ export function MainNav() {
         className="hidden items-center space-x-2 lg:flex"
       >
         <Icons.chevronsRight className="h-6 w-6" aria-hidden="true" />
-        <span className="hidden font-bold lg:inline-block">Turbo Cell</span>
+        <span className="hidden font-bold lg:inline-block text-orange-500 text-xl">
+          Build{" "}
+        </span>
+        <span className="hidden font-bold lg:inline-block text-white text-xl">
+          For{" "}
+        </span>
+        <span className="hidden font-bold lg:inline-block text-green-500 text-xl">
+          Bharat{" "}
+        </span>
       </a>
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Lobby</NavigationMenuTrigger>
+            <NavigationMenuTrigger>Languages</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <li className="row-span-3">
-                  <NavigationMenuLink asChild>
-                    <a
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                      href="/"
-                    >
-                      <Icons.logo className="h-6 w-6" />
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        Turbo Cell
-                      </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Headache-Free Project Building: Embracing the Latest
-                        Tech with Ease.
-                      </p>
-                    </a>
-                  </NavigationMenuLink>
-                </li>
-                <ListItem href="/docs" title="Docs">
-                  Discover template insights.
+                <ListItem href="/hindi" title="हिन्दी">
+                  हिंदी के साथ जारी रखें
                 </ListItem>
-                <ListItem href="/computers" title="Trpc">
-                  See TRPC in action.
-                </ListItem>
-                <ListItem href="https://github.com/me-imfhd" title="Github">
-                  Contribute on GitHub."
+                <ListItem href="/English" title="English">
+                  Continue With English.
                 </ListItem>
               </ul>
             </NavigationMenuContent>
