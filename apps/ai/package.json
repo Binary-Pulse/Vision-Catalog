@@ -4,8 +4,6 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "build": "dotenv -e ../../.env tsc && tsc-alias ./index.ts",
-    "build:watch": "dotenv -e ../../.env concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
     "clean": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
     "dev": "nodemon --noEmit --exec \"node -r esbuild-register ./index.ts\" -e .ts",
     "lint": "tsc --noEmit && eslint \"src/**/*.ts*\"",

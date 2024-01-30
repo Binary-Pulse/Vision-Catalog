@@ -43,7 +43,7 @@ export type ProductMetadataType = {
   productName: string;
   description?: string;
   price: number;
-  image?: string;
+  images?: string[];
   inventory: number;
   colour?: string;
   size?: string;
@@ -82,7 +82,7 @@ const metadataArray: (keyof ProductMetadataType)[] = [
   "expeditedShipping",
   "fulfillmentByAmazon",
   "id",
-  "image",
+  "images",
   "inventory",
   "isbn",
   "itemType",

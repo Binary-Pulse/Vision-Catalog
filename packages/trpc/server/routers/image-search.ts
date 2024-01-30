@@ -69,7 +69,7 @@ export const imageSearchRouter = createTRPCRouter({
         className: z.string(),
         imageBase64: z.string().optional(),
         imageURL: z.string().url().optional(),
-        fields: z.object({}), // import metadataKeysArray
+        fields: z.array(z.string()), // import metadataKeysArray
         metadata: z.object({}), // import metadataType in the frontend to get the types
       }),
     )
