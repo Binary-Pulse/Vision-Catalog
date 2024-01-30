@@ -12,7 +12,7 @@ const HeroSection = () => {
             <div className="space-y-2">
               {/* todo: use taiwind variables instead fo hard coded colors */}
               <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl md:text-6xl/none bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-                Cutting-Edge. All-in-One. Modern Tech.
+                Digitization of Catalogs for Sellers
               </h1>
               <p className="max-w-[600px] text-muted-foreground mx-auto ">
                 Headache-Free Project Building: Embracing the Latest Tech with
