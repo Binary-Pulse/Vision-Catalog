@@ -1,16 +1,21 @@
+import { URLOrB64ToB64 } from "@repo/utils";
 import { client } from ".";
 import { MetadataKeysArray, metadataType } from "./schemaConfig";
+
 interface ImageMetaDataRetrieverProps {
   className: string;
-  image: string;
+  imageBase64?: string;
+  imageURL?: string;
   fields: MetadataKeysArray;
 }
 export async function ImageMetaDataRetriever({
   className,
-  image,
+  imageBase64,
+  imageURL,
   fields,
 }: ImageMetaDataRetrieverProps) {
   const fieldString = fields.join(" ");
+  const image = await URLOrB64ToB64({ imageBase64, imageURL });
   try {
     const res = await client.graphql
       .get()

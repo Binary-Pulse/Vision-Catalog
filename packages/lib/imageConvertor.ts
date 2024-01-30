@@ -45,3 +45,19 @@ export function imagePathToBase64(path: string) {
   return base64;
 }
 
+interface URLOrB64ToB64Props {
+  imageURL?: string;
+  imageBase64?: string;
+}
+export async function URLOrB64ToB64({
+  imageURL,
+  imageBase64,
+}: URLOrB64ToB64Props) {
+  if (imageBase64) {
+    return imageBase64;
+  } else if (imageURL) {
+    return await imageURLToBase64(imageURL);
+  } else {
+    throw new Error("Please provide either imageBase64 string or imageURL");
+  }
+}

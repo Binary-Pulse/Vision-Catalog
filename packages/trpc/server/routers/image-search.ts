@@ -40,7 +40,8 @@ export const imageSearchRouter = createTRPCRouter({
     .input(
       z.object({
         className: z.string(),
-        imageBase64: z.string().url(),
+        imageBase64: z.string().optional(),
+        imageURL: z.string().url().optional(),
         metadata: z.object({}), // import metadataType in the frontend to get the types
       }),
     )
@@ -48,7 +49,8 @@ export const imageSearchRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       const response = await addProperties({
         className: input.className,
-        image: input.imageBase64,
+        imageURL: input.imageURL,
+        imageBase64: input.imageBase64,
         metadata: input.metadata as metadataType,
       });
       return response;
@@ -65,7 +67,8 @@ export const imageSearchRouter = createTRPCRouter({
     .input(
       z.object({
         className: z.string(),
-        imageBase64: z.string().url(),
+        imageBase64: z.string().optional(),
+        imageURL: z.string().url().optional(),
         fields: z.object({}), // import metadataKeysArray
         metadata: z.object({}), // import metadataType in the frontend to get the types
       }),
@@ -75,7 +78,8 @@ export const imageSearchRouter = createTRPCRouter({
       const response = await ImageMetaDataRetriever({
         className: input.className,
         fields: input.fields as MetadataKeysArray,
-        image: input.imageBase64,
+        imageURL: input.imageURL,
+        imageBase64: input.imageBase64,
       });
       return response;
     }),

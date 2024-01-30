@@ -1,5 +1,6 @@
 import { genSchema, metadataType } from "./schemaConfig";
 import { client } from ".";
+import { URLOrB64ToB64 } from "@repo/utils";
 
 interface classCreatorProps {
   className: string;
@@ -18,15 +19,18 @@ export async function classCreator({ className }: classCreatorProps) {
 }
 
 interface AddPropertiesProps {
-  image: string;
+  imageURL?: string;
+  imageBase64?: string;
   metadata: metadataType;
   className: string;
 }
 export async function addProperties({
   className,
-  image,
+  imageURL,
+  imageBase64,
   metadata,
 }: AddPropertiesProps) {
+  const image = await URLOrB64ToB64({ imageBase64, imageURL });
   try {
     const properties = {
       image: image,
