@@ -38,10 +38,68 @@ const metadata = {
   // etc
 };
 
-export type metadataType = typeof metadata;
+export type ProductMetadataType = {
+  id: string;
+  productName: string;
+  description?: string;
+  price: number;
+  image?: string;
+  inventory: number;
+  colour?: string;
+  size?: string;
+  brand?: string;
+  category?: string;
+  weight?: number;
+  dimensions?: string;
+  sku?: string;
+  upc?: string;
+  ean?: string;
+  isbn?: string;
+  asin?: string;
+  bulletPoints?: string[];
+  productGroup?: string;
+  searchTerms?: string[];
+  condition?: string;
+  itemType?: string;
+  packageDimensions?: string;
+  packageWeight?: number;
+  shippingWeight?: number;
+  willShipInternationally?: boolean;
+  expeditedShipping?: boolean;
+  fulfillmentByAmazon?: boolean;
+};
 
-export type MetadataFields = keyof typeof metadata;
+const metadataArray = [
+  "asin",
+  "brand",
+  "bulletPoints",
+  "category",
+  "colour",
+  "condition",
+  "description",
+  "dimensions",
+  "ean",
+  "expeditedShipping",
+  "fulfillmentByAmazon",
+  "id",
+  "image",
+  "inventory",
+  "isbn",
+  "itemType",
+  "packageDimensions",
+  "packageWeight",
+  "price",
+  "productGroup",
+  "productName",
+  "searchTerms",
+  "shippingWeight",
+  "size",
+  "sku",
+  "upc",
+  "weight",
+  "willShipInternationally",
+] as const;
 
-export const metadataKeys = Object.keys(metadata) as MetadataFields[];
+export type metadataType = ProductMetadataType;
 
-export type MetadataKeysArray = typeof metadataKeys;
+export type MetadataKeysArray = typeof metadataArray;
