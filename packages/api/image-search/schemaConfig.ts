@@ -69,7 +69,7 @@ export type ProductMetadataType = {
   fulfillmentByAmazon?: boolean;
 };
 
-const metadataArray = [
+const metadataArray: (keyof ProductMetadataType)[] = [
   "asin",
   "brand",
   "bulletPoints",
