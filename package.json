@@ -9,15 +9,14 @@
     "build": "turbo run build && pnpm format",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo clean",
-    "db:generate": "turbo db:generate",
+    "db:generate": "turbo db:generate && pnpm format",
     "db:push": "turbo db:push",
     "db:studio": "turbo db:studio",
     "dev": "turbo dev --parallel",
     "format": "prettier --write \"**/*.{html,css,js,jsx,ts,tsx,md,json}\"",
     "lint": "turbo lint --continue -- --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg check",
     "lint:fix": "turbo lint --continue -- --fix --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg fix",
-    "typecheck": "turbo typecheck",
-    "postinstall": "pnpm format"
+    "typecheck": "turbo typecheck"
   },
   "dependencies": {
     "@repo/eslint-config": "workspace:*",

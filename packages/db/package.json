@@ -7,8 +7,7 @@
   "scripts": {
     "db:studio": "dotenv -e ../../.env prisma studio",
     "db:generate": "prisma generate",
-    "db:push": "dotenv -e ../../.env prisma db push --skip-generate",
-    "postinstall": "prisma generate"
+    "db:push": "dotenv -e ../../.env prisma db push --skip-generate"
   },
   "dependencies": {
     "@prisma/client": "^5.4.2",
