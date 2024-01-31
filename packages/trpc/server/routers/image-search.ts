@@ -9,6 +9,7 @@ import {
   MetadataKeysArray,
   metadataType,
 } from "@repo/api/image-search/schemaConfig";
+import { URLOrB64ToB64 } from "../../../lib";
 export const imageSearchRouter = createTRPCRouter({
   createClass: publicProcedure
     .meta({
@@ -74,11 +75,15 @@ export const imageSearchRouter = createTRPCRouter({
     )
     .output(z.object({}))
     .mutation(async ({ input }) => {
+      const image = await URLOrB64ToB64({
+        imageBase64: input.imageBase64,
+        imageURL: input.imageURL,
+      });
+
       const response = await ImageMetaDataRetriever({
         className: input.className,
         fields: input.fields as MetadataKeysArray,
-        imageURL: input.imageURL,
-        imageBase64: input.imageBase64,
+        image,
       });
       return response;
     }),
