@@ -30,19 +30,42 @@ export function genSchema(className: string) {
   return schemaConfig;
 }
 
-// dont use objects
-const metadata = {
-  productName: "Andhra Avakkai Pickle",
-  price: 200,
-  brand: "SRI GANESHRAM'S 777 BRAND",
-  // etc
+export const sampleProductMetadata = {
+  id: "123456",
+  productName: "Sample Product",
+  description: "This is a sample product description.",
+  price: 29.99,
+  images: ["image1.jpg", "image2.jpg"],
+  inventory: 100,
+  colour: "Blue",
+  size: "Medium",
+  brand: "SampleBrand",
+  category: "Electronics",
+  weight: 1.5,
+  dimensions: "10x5x2 inches",
+  sku: "SKU123",
+  upc: "012345678912",
+  ean: "9876543210987",
+  isbn: "978-0-1234-5678-9",
+  asin: "B07ABCDEF",
+  bulletPoints: ["High-quality material", "Advanced technology", "Easy to use"],
+  productGroup: "Electronics",
+  searchTerms: ["Sample", "Product", "Electronics"],
+  condition: "New",
+  itemType: "Single",
+  packageDimensions: "12x8x4 inches",
+  packageWeight: 2.0,
+  shippingWeight: 2.2,
+  willShipInternationally: true,
+  expeditedShipping: false,
+  fulfillmentByAmazon: true,
 };
 
 export type ProductMetadataType = {
-  id: string;
-  productName: string;
+  id?: string;
+  productName?: string;
   description?: string;
-  price: number;
+  price?: number;
   images?: string[];
   inventory: number;
   colour?: string;
