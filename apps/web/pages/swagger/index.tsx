@@ -10,10 +10,9 @@ const SwaggerUIDynamic: SwaggerUI & { url: string } = dynamic(
   },
 );
 
-const swaggerURI =
-  process.env.NEXT_PUBLIC_APP_URL === "https://repo-web.vercel.app"
-    ? "https://repo-web.vercel.app/api/openapi"
-    : "http://localhost:3000/api/openapi";
+const swaggerURI = process.env.NEXT_PUBLIC_APP_URL
+  ? `${process.env.NEXT_PUBLIC_APP_URL}/api/openapi`
+  : "http://localhost:3000/api/openapi";
 
 export default function APIDocs() {
   return <SwaggerUIDynamic url={swaggerURI} />;
