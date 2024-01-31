@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@next/eslint-plugin-next": "^13.5.4",
+    "graphql": "^16.8.1",
     "@trpc/server": "^10.38.5",
     "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",

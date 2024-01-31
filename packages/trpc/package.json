@@ -21,6 +21,7 @@
     "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",
     "react": "^18",
+    "graphql": "^16.8.1",
     "superjson": "1.13.3",
     "trpc-openapi": "^1.2.0",
     "zod": "^3.22.2"
