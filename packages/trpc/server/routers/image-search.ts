@@ -59,7 +59,7 @@ export const imageSearchRouter = createTRPCRouter({
   getSimilarImageMetaData: publicProcedure
     .meta({
       /* 👉 */ openapi: {
-        method: "GET",
+        method: "POST",
         path: "/get-similar-image-metadata",
         tags: ["ImageSearch"],
       },
@@ -69,11 +69,11 @@ export const imageSearchRouter = createTRPCRouter({
         className: z.string(),
         imageBase64: z.string().optional(),
         imageURL: z.string().url().optional(),
-        fields: z.preprocess((arg) => JSON.stringify(arg), z.array(z.string())), // import metadataKeysArray
+        fields: z.array(z.string()), // import metadataKeysArray
       }),
     )
     .output(z.object({}))
-    .query(async ({ input }) => {
+    .mutation(async ({ input }) => {
       const response = await ImageMetaDataRetriever({
         className: input.className,
         fields: input.fields as MetadataKeysArray,
