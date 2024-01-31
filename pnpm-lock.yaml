@@ -43,12 +43,18 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
     devDependencies:
+      '@repo/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
       '@repo/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../../packages/lib
       '@types/node':
         specifier: 20.8.0
         version: 20.8.0

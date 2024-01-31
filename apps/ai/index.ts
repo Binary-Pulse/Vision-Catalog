@@ -1,9 +1,7 @@
 import { readFileSync } from "fs";
 import weaviate from "weaviate-ts-client";
-import { ImageMetaDataRetriever } from "./ImageSearch";
-import { imageBufferToBase64 } from "./imageToBase64";
-import { classCreator } from "./createClass";
-import { addProperties } from "./fillProperties";
+import { ImageMetaDataRetriever, addProperties } from "@repo/api/image-search";
+import { imageBufferToBase64 } from "../../packages/lib";
 
 export const client = weaviate.client({
   scheme: "http",
@@ -34,16 +32,12 @@ const metadata = {
 const metadataKeys = Object.keys(metadata);
 export type metadataType = typeof metadata;
 
-(async () => {
-  await addProperties({ client, className, image: imgString, metadata });
-})();
+// (async () => {
+//   await addProperties({});
+// })();
 
 // retrieve the fields here metadata using the image as input
-(async () => {
-  const metadata = await ImageMetaDataRetriever({
-    className,
-    fields: metadataKeys,
-    image: imgString,
-  });
-  console.log(metadata);
-})();
+// (async () => {
+//   const metadata = await ImageMetaDataRetriever({});
+//   console.log(metadata);
+// })();
