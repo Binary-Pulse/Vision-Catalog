@@ -34,7 +34,7 @@ export function AuthLayoutImage({
         className="flex absolute left-8 top-6 z-20 items-center text-lg font-bold tracking-tighter"
       >
         <Icons.chevronsRight className="mr-2 h-6 w-6" aria-hidden="true" />
-        <span>Turbo Cell</span>
+        <span>Vision Catalog</span>
       </Link>
       <div className="absolute bottom-6 left-8 z-20 line-clamp-1 text-base">
         Photo by{" "}
