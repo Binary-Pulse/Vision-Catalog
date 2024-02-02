@@ -6,7 +6,6 @@ export * from "./user";
 export * from "./verificationtoken";
 export * from "./price";
 export * from "./variant";
-export * from "./variantproduct";
 export * from "./product";
 export * from "./moredetails";
 export * from "./brand";

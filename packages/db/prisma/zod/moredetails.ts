@@ -10,7 +10,6 @@ import {
 
 export const moreDetailsZodSchema = z.object({
   id: z.string(),
-  moreDetailId: z.string(),
   targetGender: z.string().nullish(),
   usage: z.string().array(),
   displayWeight: z.string().nullish(),

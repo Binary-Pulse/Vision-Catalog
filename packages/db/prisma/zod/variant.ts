@@ -1,8 +1,5 @@
 import * as z from "zod";
-import {
-  CompleteVariantProduct,
-  relatedVariantProductZodSchema,
-} from "./index";
+import { CompleteProduct, relatedProductZodSchema } from "./index";
 
 export const variantZodSchema = z.object({
   id: z.string(),
@@ -11,7 +8,7 @@ export const variantZodSchema = z.object({
 });
 
 export interface CompleteVariant extends z.infer<typeof variantZodSchema> {
-  variantProduct: CompleteVariantProduct[];
+  product: CompleteProduct;
 }
 
 /**
@@ -22,6 +19,6 @@ export interface CompleteVariant extends z.infer<typeof variantZodSchema> {
 export const relatedVariantZodSchema: z.ZodSchema<CompleteVariant> = z.lazy(
   () =>
     variantZodSchema.extend({
-      variantProduct: relatedVariantProductZodSchema.array(),
+      product: relatedProductZodSchema,
     }),
 );

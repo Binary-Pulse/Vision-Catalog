@@ -2,8 +2,8 @@ import * as z from "zod";
 import {
   CompleteBrand,
   relatedBrandZodSchema,
-  CompleteVariantProduct,
-  relatedVariantProductZodSchema,
+  CompleteVariant,
+  relatedVariantZodSchema,
   CompleteImage,
   relatedImageZodSchema,
   CompleteUser,
@@ -22,7 +22,6 @@ export const productZodSchema = z.object({
   EAN: z.string().nullish(),
   ISBN: z.string().nullish(),
   productName: z.string(),
-  variantIds: z.string().array(),
   description: z.string().nullish(),
   bulletPoints: z.string().array(),
   legalDisclaimer: z.string().nullish(),
@@ -44,7 +43,7 @@ export const productZodSchema = z.object({
 
 export interface CompleteProduct extends z.infer<typeof productZodSchema> {
   brand?: CompleteBrand | null;
-  variants: CompleteVariantProduct[];
+  variants: CompleteVariant[];
   images: CompleteImage[];
   user: CompleteUser;
   moreDetails?: CompleteMoreDetails | null;
@@ -60,7 +59,7 @@ export const relatedProductZodSchema: z.ZodSchema<CompleteProduct> = z.lazy(
   () =>
     productZodSchema.extend({
       brand: relatedBrandZodSchema.nullish(),
-      variants: relatedVariantProductZodSchema.array(),
+      variants: relatedVariantZodSchema.array(),
       images: relatedImageZodSchema.array(),
       user: relatedUserZodSchema,
       moreDetails: relatedMoreDetailsZodSchema.nullish(),
