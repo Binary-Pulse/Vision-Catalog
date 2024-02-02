@@ -3,11 +3,11 @@ import { CompleteMoreDetails, relatedMoreDetailsSchema } from "./index";
 
 export const packageDimensionSchema = z.object({
   id: z.string(),
+  packageId: z.string(),
   length: z.number(),
   width: z.number(),
   height: z.number(),
   parameter: z.string(),
-  productId: z.string(),
 });
 
 export interface CompletePackageDimension

@@ -146,11 +146,13 @@ model VariantProduct {
 
 model Product {
   id                           String           @id @default(cuid())
-  productId                    String           @unique
+  UPC                          String?
+  EAN                          String?
+  ISBN                         String?
   userId                       String
   productName                  String
   brandId                      String?
-  brand                        Brand?            @relation(fields: [brandId], references: [id])
+  brand                        Brand?           @relation(fields: [brandId], references: [id])
   variants                     VariantProduct[]
   variantIds                   String[]
   images                       Image[]
@@ -211,20 +213,20 @@ model Brand {
 
 model ProductDimension {
   id        String      @id @default(cuid())
+  productId String      @unique
   length    Float
   width     Float
   height    Float
   parameter String
   product   MoreDetails @relation(fields: [productId], references: [id])
-  productId String      @unique
 }
 
 model PackageDimension {
   id        String      @id @default(cuid())
+  packageId String      @unique
   length    Float
   width     Float
   height    Float
   parameter String
-  product   MoreDetails @relation(fields: [productId], references: [id])
-  productId String      @unique
+  product   MoreDetails @relation(fields: [packageId], references: [id])
 }
