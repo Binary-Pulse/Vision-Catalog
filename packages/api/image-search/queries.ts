@@ -1,25 +1,26 @@
-import { client } from ".";
-import { ProductMetadataType } from "./schemaConfig";
+import { ProductSearchVectorSchema, client } from ".";
 
-interface ImageMetaDataRetrieverProps {
+interface ImageProductVectorRetrieverProps {
   className: string;
   image: string;
 }
-export async function ImageMetaDataRetriever({
+export async function ImageProductVectorRetriever({
   className,
   image,
-}: ImageMetaDataRetrieverProps) {
+}: ImageProductVectorRetrieverProps) {
   try {
     const res = await client.graphql
       .get()
       .withClassName(className)
       .withFields("metadata")
       .withNearImage({ image })
-      .withLimit(1)
+      // .withLimit(1)
       .do();
-    const response = res.data.Get[className][0] as string;
-    const metadata = JSON.parse(response) as ProductMetadataType;
-    return metadata;
+    const responseArray = res.data.Get[className] as string[];
+    const metadataArray: ProductSearchVectorSchema[] = responseArray.map(
+      (response) => JSON.parse(response),
+    );
+    return metadataArray;
   } catch (error) {
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }
