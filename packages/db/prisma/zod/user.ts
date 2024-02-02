@@ -4,26 +4,27 @@ import {
   relatedAccountSchema,
   CompleteSession,
   relatedSessionSchema,
+  CompleteProduct,
+  relatedProductSchema,
+  CompleteAddress,
+  relatedAddressSchema,
 } from "./index";
 
 export const userSchema = z.object({
   id: z.string(),
   name: z.string().nullish(),
   email: z.string().nullish(),
-  hashedPassword: z.string().nullish(),
   emailVerified: z.date().nullish(),
   image: z.string().nullish(),
   createdAt: z.date(),
   updatedAt: z.date(),
-  stripeCustomerId: z.string().nullish(),
-  stripeSubscriptionId: z.string().nullish(),
-  stripePriceId: z.string().nullish(),
-  stripeCurrentPeriodEnd: z.date().nullish(),
 });
 
 export interface CompleteUser extends z.infer<typeof userSchema> {
   accounts: CompleteAccount[];
   sessions: CompleteSession[];
+  products: CompleteProduct[];
+  address: CompleteAddress[];
 }
 
 /**
@@ -35,5 +36,7 @@ export const relatedUserSchema: z.ZodSchema<CompleteUser> = z.lazy(() =>
   userSchema.extend({
     accounts: relatedAccountSchema.array(),
     sessions: relatedSessionSchema.array(),
+    products: relatedProductSchema.array(),
+    address: relatedAddressSchema.array(),
   }),
 );

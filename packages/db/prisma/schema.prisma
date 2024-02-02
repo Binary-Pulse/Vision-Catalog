@@ -1,9 +1,9 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 datasource db {
-  provider = "postgres"
+  provider     = "postgres"
   relationMode = "prisma"
-  url      = env("DATABASE_URL")
+  url          = env("DATABASE_URL")
 }
 
 generator client {
@@ -43,7 +43,17 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
   @@map(name: "accounts")
+}
+
+model Image {
+  id        String  @id @default(cuid())
+  productId String
+  url       String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([productId])
 }
 
 model Session {
@@ -53,14 +63,28 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map(name: "sessions")
+}
+
+model Address {
+  id        String  @id @default(cuid())
+  userId    String
+  street    String
+  city      String
+  state     String
+  zip       String
+  country   String
+  isDefault Boolean @default(false)
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
-  hashedPassword String?
   emailVerified DateTime?
   image         String?   @db.Text
   createdAt     DateTime  @default(now()) @map(name: "created_at")
@@ -68,11 +92,8 @@ model User {
 
   accounts Account[]
   sessions Session[]
-
-  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
-  stripePriceId          String?   @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+  products Product[]
+  address  Address[]
 
   @@map(name: "users")
 }
@@ -86,9 +107,124 @@ model VerificationToken {
   @@map(name: "verification_tokens")
 }
 
+model Price {
+  id                 String   @id @default(cuid())
+  productId          String   @unique
+  regularPrice       Float
+  discountedPrice    Float?
+  discountPercentage Float?
+  currency           CURRENCY
+  tax                Float?
+  shippingCost       Float?
+  handlingFee        Float?
+  ppuCount           Float?
+  product            Product  @relation(fields: [productId], references: [id])
+}
 
-model Computer {
-  id    String @id @default(cuid())
-  brand String
-  cores Int
+enum CURRENCY {
+  USD
+  INR
+}
+
+model Variant {
+  id             String           @id @default(cuid())
+  size           String
+  color          String
+  VariantProduct VariantProduct[]
+}
+
+model VariantProduct {
+  variantId String
+  productId String
+  variant   Variant @relation(fields: [variantId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@id([variantId, productId])
+  @@index([productId])
+  @@index([variantId])
+}
+
+model Product {
+  id                           String           @id @default(cuid())
+  productId                    String           @unique
+  userId                       String
+  productName                  String
+  brandId                      String?
+  brand                        Brand?            @relation(fields: [brandId], references: [id])
+  variants                     VariantProduct[]
+  variantIds                   String[]
+  images                       Image[]
+  description                  String?
+  bulletPoints                 String[]
+  legalDisclaimer              String?
+  createdAt                    DateTime         @default(now())
+  user                         User             @relation(fields: [userId], references: [id])
+  keywords                     String?
+  targetAudience               String?
+  searchTerms                  String[]
+  moreDetails                  MoreDetails?
+  modelNumber                  String?
+  catalogNumber                String?
+  targetAudienceDetails        String?
+  eachUnitCount                Int?
+  numberOfItems                Int?
+  launchDate                   DateTime?
+  releaseDate                  DateTime?
+  isDiscontinuedByManufacturer Boolean?
+  usage                        String?
+  safetyWarning                String?
+  Price                        Price?
+
+  @@index([userId])
+  @@index([brandId])
+}
+
+model MoreDetails {
+  id             String   @id @default(cuid())
+  moreDetailId   String   @unique
+  TargetGender   String?
+  Usage          String[]
+  DisplayWeight  String?
+  PackageWeight  String?
+  ShippingWeight String?
+  DisplayLenght  String?
+  ContainsLiquid Boolean?
+  IsFragile      Boolean?
+  ItemForm       String?
+  ItemType       String?
+  MaterialType   String?
+  HairType       String?
+  SkinType       String?
+
+  fabricType        String?
+  productDimensions ProductDimension?
+  packageDimensions PackageDimension?
+
+  product Product @relation(fields: [moreDetailId], references: [id])
+}
+
+model Brand {
+  id       String    @id @default(cuid())
+  name     String
+  products Product[]
+}
+
+model ProductDimension {
+  id        String      @id @default(cuid())
+  length    Float
+  width     Float
+  height    Float
+  parameter String
+  product   MoreDetails @relation(fields: [productId], references: [id])
+  productId String      @unique
+}
+
+model PackageDimension {
+  id        String      @id @default(cuid())
+  length    Float
+  width     Float
+  height    Float
+  parameter String
+  product   MoreDetails @relation(fields: [productId], references: [id])
+  productId String      @unique
 }
