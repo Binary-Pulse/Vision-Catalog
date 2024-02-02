@@ -18,7 +18,6 @@ generator zod {
   modelSuffix           = "ZodSchema" // (default) Suffix to apply to your prisma models when naming Zod schemas
   useDecimalJs          = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
   prismaJsonNullability = true // (default) uses prisma's scheme for JSON field nullability
-
 }
 
 model Account {
@@ -45,12 +44,11 @@ model Account {
 }
 
 model Image {
-  id        String  @id @default(uuid())
-  productId String
-  url       String
-  product   Product @relation(fields: [productId], references: [id])
+  id      String  @id @default(uuid())
+  url     String
+  product Product @relation(fields: [id], references: [id])
 
-  @@index([productId])
+  @@index([id])
 }
 
 model Session {
@@ -106,7 +104,6 @@ model VerificationToken {
 
 model Price {
   id                 String   @id @default(uuid())
-  productId          String   @unique
   regularPrice       Float?
   discountedPrice    Float?
   discountPercentage Float?
@@ -115,7 +112,9 @@ model Price {
   shippingCost       Float?
   handlingFee        Float?
   ppuCount           Float?
-  product            Product  @relation(fields: [productId], references: [id])
+  product            Product  @relation(fields: [id], references: [id])
+
+  @@index([id])
 }
 
 enum CURRENCY {
@@ -124,40 +123,31 @@ enum CURRENCY {
 }
 
 model Variant {
-  id             String           @id @default(uuid())
-  size           String?
-  color          String?
-  variantProduct VariantProduct[]
-}
+  id    String  @id @default(uuid())
+  size  String?
+  color String?
 
-model VariantProduct {
-  variantId String
-  productId String
-  variant   Variant @relation(fields: [variantId], references: [id])
-  product   Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [id], references: [id])
 
-  @@id([variantId, productId])
-  @@index([productId])
-  @@index([variantId])
+  @@index([id])
 }
 
 model Product {
-  id                           String           @id @default(uuid())
+  id                           String       @id @default(uuid())
   userId                       String
   brandId                      String
   UPC                          String?
   EAN                          String?
   ISBN                         String?
   productName                  String
-  brand                        Brand?           @relation(fields: [brandId], references: [id])
-  variants                     VariantProduct[]
-  variantIds                   String[]
+  brand                        Brand?       @relation(fields: [brandId], references: [id])
+  variants                     Variant[]
   images                       Image[]
   description                  String?
   bulletPoints                 String[]
   legalDisclaimer              String?
-  createdAt                    DateTime         @default(now())
-  user                         User             @relation(fields: [userId], references: [id])
+  createdAt                    DateTime     @default(now())
+  user                         User         @relation(fields: [userId], references: [id])
   keywords                     String?
   targetAudience               String?
   searchTerms                  String[]
@@ -180,7 +170,6 @@ model Product {
 
 model MoreDetails {
   id             String   @id @default(uuid())
-  moreDetailId   String   @unique
   targetGender   String?
   usage          String[]
   displayWeight  String?
@@ -199,7 +188,9 @@ model MoreDetails {
   productDimensions ProductDimension?
   packageDimensions PackageDimension?
 
-  product Product @relation(fields: [moreDetailId], references: [id])
+  product Product @relation(fields: [id], references: [id])
+
+  @@index([id])
 }
 
 model Brand {
