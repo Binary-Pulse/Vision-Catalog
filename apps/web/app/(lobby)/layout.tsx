@@ -7,12 +7,12 @@ import { VoiceInput } from "@/components/layout/VoiceInput";
 
 export default function LobbyLayout({ children }: PropsWithChildren) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="index min-h-screen flex flex-col justify-between items-center">
       <SiteHeader>
         <ProfileHeader />
         <VoiceInput />
       </SiteHeader>
-      <main className="flex-1">{children}</main>
+      <main className="">{children}</main>
       <SiteFooter></SiteFooter>
     </div>
   );
