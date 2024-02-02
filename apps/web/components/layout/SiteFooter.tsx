@@ -13,25 +13,24 @@ export const SiteFooter = () => {
           aria-labelledby="footer-bottom-heading"
           className="flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row items-center space-x-4"
         >
-          <div className="text-left text-sm leading-loose text-muted-foreground">
+          <div className="text-left text-lg leading-loose text-muted-foreground">
             Built by{" "}
             <a
-              aria-label="Kickflip tutorial on YouTube"
-              href="/twitter"
+              aria-label="Build for Bharat"
+              href="https://github.com/Build-for-Bharat"
               target="_blank"
               rel="noreferrer"
               className="font-semibold transition-colors hover:text-foreground"
             >
-              Fahad
+              Team 100xDevs
             </a>
-            .
           </div>
           <ul className="flex-1 flex flex-row space-x-3">
             {Company.map((link, index) => (
               <li key={index}>
                 <Link
                   href={link.href}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground hover:underline"
+                  className="text-md text-muted-foreground transition-colors hover:text-foreground hover:underline"
                 >
                   {link.title} <span className="sr-only">{link.title}</span>
                 </Link>
@@ -55,7 +54,7 @@ export const SiteFooter = () => {
                       buttonVariants({ variant: "ghost", size: "xs" }),
                     )}
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-5 w-5" />
                     <span className="sr-only">{social.title}</span>
                   </div>
                 </Link>

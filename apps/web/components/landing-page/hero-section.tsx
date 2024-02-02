@@ -15,18 +15,18 @@ const HeroSection = () => {
                 Digitization of Catalogs for Sellers
               </h1>
               <p className="max-w-[600px] text-muted-foreground mx-auto ">
-                Headache-Free Project Building: Embracing the Latest Tech with
-                Ease.
+                Headache-Free Application for Sellers: Embracing the Automated
+                Filled Details of Seller's Product.
               </p>
             </div>
             <div className="w-full max-w-full space-y-4 mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
                 <div className="flex flex-col items-center space-y-2 border-gray-800 p-4 rounded-lg">
                   <div className="p-2 bg-background  bg-opacity-50 rounded-full">
-                    <Icons.moon />
+                    <Icons.billing />
                   </div>
                   <h2 className="text-base md:text-xl font-bold text-white">
-                    Modern Setup
+                    Modern Catalogs
                   </h2>
                   <p className="text-sm md:text-base text-muted-foreground">
                     Seamless start with minimal setup for Turborepo powered with
