@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Button, Input, Label } from "@repo/ui/components"
+import { Button, Input, Label } from "@repo/ui/components";
 
 export default function SearchProduct() {
   return (
@@ -15,5 +15,5 @@ export default function SearchProduct() {
         <Button>Search</Button>
       </div>
     </section>
-  )
+  );
 }
