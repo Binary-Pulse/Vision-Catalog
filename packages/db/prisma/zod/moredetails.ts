@@ -1,14 +1,14 @@
 import * as z from "zod";
 import {
   CompleteProductDimension,
-  relatedProductDimensionSchema,
+  relatedProductDimensionZodSchema,
   CompletePackageDimension,
-  relatedPackageDimensionSchema,
+  relatedPackageDimensionZodSchema,
   CompleteProduct,
-  relatedProductSchema,
+  relatedProductZodSchema,
 } from "./index";
 
-export const moreDetailsSchema = z.object({
+export const moreDetailsZodSchema = z.object({
   id: z.string(),
   moreDetailId: z.string(),
   TargetGender: z.string().nullish(),
@@ -27,22 +27,23 @@ export const moreDetailsSchema = z.object({
   fabricType: z.string().nullish(),
 });
 
-export interface CompleteMoreDetails extends z.infer<typeof moreDetailsSchema> {
+export interface CompleteMoreDetails
+  extends z.infer<typeof moreDetailsZodSchema> {
   productDimensions?: CompleteProductDimension | null;
   packageDimensions?: CompletePackageDimension | null;
   product: CompleteProduct;
 }
 
 /**
- * relatedMoreDetailsSchema contains all relations on your model in addition to the scalars
+ * relatedMoreDetailsZodSchema contains all relations on your model in addition to the scalars
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const relatedMoreDetailsSchema: z.ZodSchema<CompleteMoreDetails> =
+export const relatedMoreDetailsZodSchema: z.ZodSchema<CompleteMoreDetails> =
   z.lazy(() =>
-    moreDetailsSchema.extend({
-      productDimensions: relatedProductDimensionSchema.nullish(),
-      packageDimensions: relatedPackageDimensionSchema.nullish(),
-      product: relatedProductSchema,
+    moreDetailsZodSchema.extend({
+      productDimensions: relatedProductDimensionZodSchema.nullish(),
+      packageDimensions: relatedPackageDimensionZodSchema.nullish(),
+      product: relatedProductZodSchema,
     }),
   );

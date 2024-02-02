@@ -1,31 +1,31 @@
 import * as z from "zod";
 import {
   CompleteVariant,
-  relatedVariantSchema,
+  relatedVariantZodSchema,
   CompleteProduct,
-  relatedProductSchema,
+  relatedProductZodSchema,
 } from "./index";
 
-export const variantProductSchema = z.object({
+export const variantProductZodSchema = z.object({
   variantId: z.string(),
   productId: z.string(),
 });
 
 export interface CompleteVariantProduct
-  extends z.infer<typeof variantProductSchema> {
+  extends z.infer<typeof variantProductZodSchema> {
   variant: CompleteVariant;
   product: CompleteProduct;
 }
 
 /**
- * relatedVariantProductSchema contains all relations on your model in addition to the scalars
+ * relatedVariantProductZodSchema contains all relations on your model in addition to the scalars
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const relatedVariantProductSchema: z.ZodSchema<CompleteVariantProduct> =
+export const relatedVariantProductZodSchema: z.ZodSchema<CompleteVariantProduct> =
   z.lazy(() =>
-    variantProductSchema.extend({
-      variant: relatedVariantSchema,
-      product: relatedProductSchema,
+    variantProductZodSchema.extend({
+      variant: relatedVariantZodSchema,
+      product: relatedProductZodSchema,
     }),
   );

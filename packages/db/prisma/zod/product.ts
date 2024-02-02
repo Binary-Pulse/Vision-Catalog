@@ -1,22 +1,24 @@
 import * as z from "zod";
 import {
   CompleteBrand,
-  relatedBrandSchema,
+  relatedBrandZodSchema,
   CompleteVariantProduct,
-  relatedVariantProductSchema,
+  relatedVariantProductZodSchema,
   CompleteImage,
-  relatedImageSchema,
+  relatedImageZodSchema,
   CompleteUser,
-  relatedUserSchema,
+  relatedUserZodSchema,
   CompleteMoreDetails,
-  relatedMoreDetailsSchema,
+  relatedMoreDetailsZodSchema,
   CompletePrice,
-  relatedPriceSchema,
+  relatedPriceZodSchema,
 } from "./index";
 
-export const productSchema = z.object({
+export const productZodSchema = z.object({
   id: z.string(),
-  productId: z.string(),
+  UPC: z.string().nullish(),
+  EAN: z.string().nullish(),
+  ISBN: z.string().nullish(),
   userId: z.string(),
   productName: z.string(),
   brandId: z.string().nullish(),
@@ -40,7 +42,7 @@ export const productSchema = z.object({
   safetyWarning: z.string().nullish(),
 });
 
-export interface CompleteProduct extends z.infer<typeof productSchema> {
+export interface CompleteProduct extends z.infer<typeof productZodSchema> {
   brand?: CompleteBrand | null;
   variants: CompleteVariantProduct[];
   images: CompleteImage[];
@@ -50,17 +52,18 @@ export interface CompleteProduct extends z.infer<typeof productSchema> {
 }
 
 /**
- * relatedProductSchema contains all relations on your model in addition to the scalars
+ * relatedProductZodSchema contains all relations on your model in addition to the scalars
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const relatedProductSchema: z.ZodSchema<CompleteProduct> = z.lazy(() =>
-  productSchema.extend({
-    brand: relatedBrandSchema.nullish(),
-    variants: relatedVariantProductSchema.array(),
-    images: relatedImageSchema.array(),
-    user: relatedUserSchema,
-    moreDetails: relatedMoreDetailsSchema.nullish(),
-    Price: relatedPriceSchema.nullish(),
-  }),
+export const relatedProductZodSchema: z.ZodSchema<CompleteProduct> = z.lazy(
+  () =>
+    productZodSchema.extend({
+      brand: relatedBrandZodSchema.nullish(),
+      variants: relatedVariantProductZodSchema.array(),
+      images: relatedImageZodSchema.array(),
+      user: relatedUserZodSchema,
+      moreDetails: relatedMoreDetailsZodSchema.nullish(),
+      Price: relatedPriceZodSchema.nullish(),
+    }),
 );

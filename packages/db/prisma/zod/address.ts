@@ -1,7 +1,7 @@
 import * as z from "zod";
-import { CompleteUser, relatedUserSchema } from "./index";
+import { CompleteUser, relatedUserZodSchema } from "./index";
 
-export const addressSchema = z.object({
+export const addressZodSchema = z.object({
   id: z.string(),
   userId: z.string(),
   street: z.string(),
@@ -12,17 +12,18 @@ export const addressSchema = z.object({
   isDefault: z.boolean(),
 });
 
-export interface CompleteAddress extends z.infer<typeof addressSchema> {
+export interface CompleteAddress extends z.infer<typeof addressZodSchema> {
   user: CompleteUser;
 }
 
 /**
- * relatedAddressSchema contains all relations on your model in addition to the scalars
+ * relatedAddressZodSchema contains all relations on your model in addition to the scalars
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const relatedAddressSchema: z.ZodSchema<CompleteAddress> = z.lazy(() =>
-  addressSchema.extend({
-    user: relatedUserSchema,
-  }),
+export const relatedAddressZodSchema: z.ZodSchema<CompleteAddress> = z.lazy(
+  () =>
+    addressZodSchema.extend({
+      user: relatedUserZodSchema,
+    }),
 );

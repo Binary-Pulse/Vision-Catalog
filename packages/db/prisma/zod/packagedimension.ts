@@ -1,7 +1,7 @@
 import * as z from "zod";
-import { CompleteMoreDetails, relatedMoreDetailsSchema } from "./index";
+import { CompleteMoreDetails, relatedMoreDetailsZodSchema } from "./index";
 
-export const packageDimensionSchema = z.object({
+export const packageDimensionZodSchema = z.object({
   id: z.string(),
   packageId: z.string(),
   length: z.number(),
@@ -11,18 +11,18 @@ export const packageDimensionSchema = z.object({
 });
 
 export interface CompletePackageDimension
-  extends z.infer<typeof packageDimensionSchema> {
+  extends z.infer<typeof packageDimensionZodSchema> {
   product: CompleteMoreDetails;
 }
 
 /**
- * relatedPackageDimensionSchema contains all relations on your model in addition to the scalars
+ * relatedPackageDimensionZodSchema contains all relations on your model in addition to the scalars
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const relatedPackageDimensionSchema: z.ZodSchema<CompletePackageDimension> =
+export const relatedPackageDimensionZodSchema: z.ZodSchema<CompletePackageDimension> =
   z.lazy(() =>
-    packageDimensionSchema.extend({
-      product: relatedMoreDetailsSchema,
+    packageDimensionZodSchema.extend({
+      product: relatedMoreDetailsZodSchema,
     }),
   );

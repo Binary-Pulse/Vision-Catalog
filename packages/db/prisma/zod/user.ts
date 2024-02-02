@@ -1,16 +1,16 @@
 import * as z from "zod";
 import {
   CompleteAccount,
-  relatedAccountSchema,
+  relatedAccountZodSchema,
   CompleteSession,
-  relatedSessionSchema,
+  relatedSessionZodSchema,
   CompleteProduct,
-  relatedProductSchema,
+  relatedProductZodSchema,
   CompleteAddress,
-  relatedAddressSchema,
+  relatedAddressZodSchema,
 } from "./index";
 
-export const userSchema = z.object({
+export const userZodSchema = z.object({
   id: z.string(),
   name: z.string().nullish(),
   email: z.string().nullish(),
@@ -20,7 +20,7 @@ export const userSchema = z.object({
   updatedAt: z.date(),
 });
 
-export interface CompleteUser extends z.infer<typeof userSchema> {
+export interface CompleteUser extends z.infer<typeof userZodSchema> {
   accounts: CompleteAccount[];
   sessions: CompleteSession[];
   products: CompleteProduct[];
@@ -28,15 +28,15 @@ export interface CompleteUser extends z.infer<typeof userSchema> {
 }
 
 /**
- * relatedUserSchema contains all relations on your model in addition to the scalars
+ * relatedUserZodSchema contains all relations on your model in addition to the scalars
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const relatedUserSchema: z.ZodSchema<CompleteUser> = z.lazy(() =>
-  userSchema.extend({
-    accounts: relatedAccountSchema.array(),
-    sessions: relatedSessionSchema.array(),
-    products: relatedProductSchema.array(),
-    address: relatedAddressSchema.array(),
+export const relatedUserZodSchema: z.ZodSchema<CompleteUser> = z.lazy(() =>
+  userZodSchema.extend({
+    accounts: relatedAccountZodSchema.array(),
+    sessions: relatedSessionZodSchema.array(),
+    products: relatedProductZodSchema.array(),
+    address: relatedAddressZodSchema.array(),
   }),
 );

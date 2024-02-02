@@ -15,17 +15,14 @@ generator zod {
   output                = "./zod" // (default) the directory where generated zod schemas will be saved
   relationModel         = true // (default) Create and export both plain and related models.
   modelCase             = "camelCase" // Output models using camel case (ex. userModel, postModel)
-  modelSuffix           = "Schema" // (default) Suffix to apply to your prisma models when naming Zod schemas
+  modelSuffix           = "ZodSchema" // (default) Suffix to apply to your prisma models when naming Zod schemas
   useDecimalJs          = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
   prismaJsonNullability = true // (default) uses prisma's scheme for JSON field nullability
+
 }
 
-// if you change this from cuid to uuid please make sure you using cuid everywhere while validating with zod
-// for example don't get z.string().uuid() wrong with z.string().cuid()
-// if using cuid use the same to validate
-// the boilerplate vailates it by cuid so its recommended that you don't change it
 model Account {
-  id                String   @id @default(cuid())
+  id                String   @id @default(uuid())
   userId            String
   type              String
   provider          String
@@ -48,7 +45,7 @@ model Account {
 }
 
 model Image {
-  id        String  @id @default(cuid())
+  id        String  @id @default(uuid())
   productId String
   url       String
   product   Product @relation(fields: [productId], references: [id])
@@ -57,7 +54,7 @@ model Image {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id @default(uuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
@@ -68,7 +65,7 @@ model Session {
 }
 
 model Address {
-  id        String  @id @default(cuid())
+  id        String  @id @default(uuid())
   userId    String
   street    String
   city      String
@@ -82,7 +79,7 @@ model Address {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String    @id @default(uuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
@@ -108,7 +105,7 @@ model VerificationToken {
 }
 
 model Price {
-  id                 String   @id @default(cuid())
+  id                 String   @id @default(uuid())
   productId          String   @unique
   regularPrice       Float
   discountedPrice    Float?
@@ -127,7 +124,7 @@ enum CURRENCY {
 }
 
 model Variant {
-  id             String           @id @default(cuid())
+  id             String           @id @default(uuid())
   size           String
   color          String
   VariantProduct VariantProduct[]
@@ -145,7 +142,7 @@ model VariantProduct {
 }
 
 model Product {
-  id                           String           @id @default(cuid())
+  id                           String           @id @default(uuid())
   UPC                          String?
   EAN                          String?
   ISBN                         String?
@@ -182,7 +179,7 @@ model Product {
 }
 
 model MoreDetails {
-  id             String   @id @default(cuid())
+  id             String   @id @default(uuid())
   moreDetailId   String   @unique
   TargetGender   String?
   Usage          String[]
@@ -206,13 +203,13 @@ model MoreDetails {
 }
 
 model Brand {
-  id       String    @id @default(cuid())
+  id       String    @id @default(uuid())
   name     String
   products Product[]
 }
 
 model ProductDimension {
-  id        String      @id @default(cuid())
+  id        String      @id @default(uuid())
   productId String      @unique
   length    Float
   width     Float
@@ -222,7 +219,7 @@ model ProductDimension {
 }
 
 model PackageDimension {
-  id        String      @id @default(cuid())
+  id        String      @id @default(uuid())
   packageId String      @unique
   length    Float
   width     Float
