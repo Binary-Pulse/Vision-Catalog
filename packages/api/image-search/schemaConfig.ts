@@ -25,7 +25,7 @@ export function genSchema(className: string) {
 export const sampleProductListedForm = {}; // the type of this will be exact type of form
 
 export type ProductMetadataType = {
-  id?: string;
+  productId?: string;
   productName?: string;
   description?: string;
   brand?: string;
