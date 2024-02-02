@@ -51,11 +51,11 @@ export function MainNav() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/computers" legacyBehavior passHref>
+            {/* <Link href="/computers" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Computers
               </NavigationMenuLink>
-            </Link>
+            </Link> */}
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

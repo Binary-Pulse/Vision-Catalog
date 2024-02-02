@@ -12,16 +12,16 @@ export const Company = [
     href: "/about",
     external: false,
   },
-  {
-    title: "Privacy policy",
-    href: "/privacy-policy",
-    external: false,
-  },
-  {
-    title: "Terms of service",
-    href: "/terms",
-    external: false,
-  },
+  // {
+  //   title: "Privacy policy",
+  //   href: "/privacy-policy",
+  //   external: false,
+  // },
+  // {
+  //   title: "Terms of service",
+  //   href: "/terms",
+  //   external: false,
+  // },
   {
     title: "Contact",
     href: "/contact",
@@ -31,19 +31,19 @@ export const Company = [
 export const mySocials: MySocialsProps[] = [
   {
     title: "Github",
-    href: "https://github.com/me-imfhd",
+    href: "https://github.com/Build-for-Bharat",
     external: true,
     icon: "gitHub",
   },
-  {
-    title: "Twitter",
-    href: "https://twitter.com/Mefhd2",
-    external: true,
-    icon: "twitter",
-  },
+  // {
+  //   title: "Twitter",
+  //   href: "https://twitter.com/Mefhd2",
+  //   external: true,
+  //   icon: "twitter",
+  // },
   {
     title: "Discord",
-    href: "https://discord.gg/U9GNWUnA",
+    href: "https://discord.gg/ZpfCUqGVub",
     external: true,
     icon: "discord",
   },
