@@ -5,10 +5,7 @@ import {
   addProperties,
   classCreator,
 } from "@repo/api/image-search";
-import {
-  MetadataKeysArray,
-  metadataType,
-} from "@repo/api/image-search/schemaConfig";
+import { metadataType } from "@repo/api/image-search/schemaConfig";
 import { URLOrB64ToB64 } from "../../../lib";
 export const imageSearchRouter = createTRPCRouter({
   createClass: publicProcedure
@@ -82,7 +79,6 @@ export const imageSearchRouter = createTRPCRouter({
 
       const response = await ImageMetaDataRetriever({
         className: input.className,
-        fields: input.fields as MetadataKeysArray,
         image,
       });
       return response;

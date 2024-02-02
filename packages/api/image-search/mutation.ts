@@ -32,44 +32,18 @@ export async function addProperties({
 }: AddPropertiesProps) {
   const image = await URLOrB64ToB64({ imageBase64, imageURL });
   try {
+    const mtd = JSON.stringify(metadata);
     const properties = {
       image: image,
-      productName: metadata.productName,
-      price: metadata.price,
-      brand: metadata.brand,
-      id: metadata.id,
-      inventory: metadata.inventory,
-      asin: metadata.asin,
-      bulletPoints: metadata.bulletPoints,
-      category: metadata.category,
-      colour: metadata.colour,
-      condition: metadata.condition,
-      description: metadata.description,
-      dimensions: metadata.dimensions,
-      ean: metadata.ean,
-      expeditedShipping: metadata.expeditedShipping,
-      fulfillmentByAmazon: metadata.fulfillmentByAmazon,
-      images: metadata.images,
-      isbn: metadata.isbn,
-      itemType: metadata.itemType,
-      packageDimensions: metadata.packageDimensions,
-      packageWeight: metadata.packageWeight,
-      productGroup: metadata.productGroup,
-      searchTerms: metadata.searchTerms,
-      shippingWeight: metadata.shippingWeight,
-      size: metadata.size,
-      sku: metadata.sku,
-      upc: metadata.upc,
-      weight: metadata.weight,
-      willShipInternationally: metadata.willShipInternationally,
-    } as metadataType;
+      metadata: mtd,
+    };
     const data = await client.data
       .creator()
       .withClassName(className)
       .withProperties(properties)
       .do();
     return {
-      msg: "Image and Metadata added to the vector database successfuly",
+      msg: "Image and Metadata JSON string added to the vector database successfuly",
       data,
     };
   } catch (error) {
