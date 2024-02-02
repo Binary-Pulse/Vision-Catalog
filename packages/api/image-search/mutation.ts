@@ -1,4 +1,4 @@
-import { genSchema, metadataType } from "./schemaConfig";
+import { genSchema, ProductSearchVectorSchema } from "./schemaConfig";
 import { client } from ".";
 import { URLOrB64ToB64 } from "@repo/utils";
 
@@ -21,7 +21,7 @@ export async function classCreator({ className }: classCreatorProps) {
 interface AddPropertiesProps {
   imageURL?: string;
   imageBase64?: string;
-  metadata: metadataType;
+  metadata: ProductSearchVectorSchema;
   className: string;
 }
 export async function addProperties({

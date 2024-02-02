@@ -3,8 +3,8 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 import { invokeLLM } from "@repo/api/llm";
 import { URLOrB64ToB64 } from "../../../lib";
 import {
-  ImageMetaDataRetriever,
-  ProductMetadataType,
+  ImageProductVectorRetriever,
+  ProductListFormSchema,
   sampleProductListForm,
 } from "@repo/api/image-search";
 export const visionProRouter = createTRPCRouter({
@@ -29,13 +29,13 @@ export const visionProRouter = createTRPCRouter({
         imageBase64: input.imageBase64,
         imageURL: input.imageURL,
       });
-      const metadata = await ImageMetaDataRetriever({
+      const metadata = await ImageProductVectorRetriever({
         className: input.className,
         image,
       });
       const stringifiedMetadata = JSON.stringify(metadata);
       const stringifiedSampleJsonOutput = JSON.stringify(sampleProductListForm);
-      const response = await invokeLLM<ProductMetadataType>({
+      const response = await invokeLLM<ProductListFormSchema>({
         stringifiedMetadata,
         imageBase64: image,
         stringifiedSampleJsonOutput,
