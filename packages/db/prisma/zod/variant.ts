@@ -6,12 +6,12 @@ import {
 
 export const variantZodSchema = z.object({
   id: z.string(),
-  size: z.string(),
-  color: z.string(),
+  size: z.string().nullish(),
+  color: z.string().nullish(),
 });
 
 export interface CompleteVariant extends z.infer<typeof variantZodSchema> {
-  VariantProduct: CompleteVariantProduct[];
+  variantProduct: CompleteVariantProduct[];
 }
 
 /**
@@ -22,6 +22,6 @@ export interface CompleteVariant extends z.infer<typeof variantZodSchema> {
 export const relatedVariantZodSchema: z.ZodSchema<CompleteVariant> = z.lazy(
   () =>
     variantZodSchema.extend({
-      VariantProduct: relatedVariantProductZodSchema.array(),
+      variantProduct: relatedVariantProductZodSchema.array(),
     }),
 );

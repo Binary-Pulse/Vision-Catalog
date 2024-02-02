@@ -4,10 +4,10 @@ import { CompleteMoreDetails, relatedMoreDetailsZodSchema } from "./index";
 export const productDimensionZodSchema = z.object({
   id: z.string(),
   productId: z.string(),
-  length: z.number(),
-  width: z.number(),
-  height: z.number(),
-  parameter: z.string(),
+  length: z.number().nullish(),
+  width: z.number().nullish(),
+  height: z.number().nullish(),
+  parameter: z.string().nullish(),
 });
 
 export interface CompleteProductDimension

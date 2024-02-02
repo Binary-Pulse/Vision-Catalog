@@ -67,11 +67,11 @@ model Session {
 model Address {
   id        String  @id @default(uuid())
   userId    String
-  street    String
-  city      String
-  state     String
-  zip       String
-  country   String
+  street    String?
+  city      String?
+  state     String?
+  zip       String?
+  country   String?
   isDefault Boolean @default(false)
   user      User    @relation(fields: [userId], references: [id])
 
@@ -107,7 +107,7 @@ model VerificationToken {
 model Price {
   id                 String   @id @default(uuid())
   productId          String   @unique
-  regularPrice       Float
+  regularPrice       Float?
   discountedPrice    Float?
   discountPercentage Float?
   currency           CURRENCY
@@ -125,9 +125,9 @@ enum CURRENCY {
 
 model Variant {
   id             String           @id @default(uuid())
-  size           String
-  color          String
-  VariantProduct VariantProduct[]
+  size           String?
+  color          String?
+  variantProduct VariantProduct[]
 }
 
 model VariantProduct {
@@ -143,12 +143,12 @@ model VariantProduct {
 
 model Product {
   id                           String           @id @default(uuid())
+  userId                       String
+  brandId                      String
   UPC                          String?
   EAN                          String?
   ISBN                         String?
-  userId                       String
   productName                  String
-  brandId                      String?
   brand                        Brand?           @relation(fields: [brandId], references: [id])
   variants                     VariantProduct[]
   variantIds                   String[]
@@ -172,7 +172,7 @@ model Product {
   isDiscontinuedByManufacturer Boolean?
   usage                        String?
   safetyWarning                String?
-  Price                        Price?
+  price                        Price?
 
   @@index([userId])
   @@index([brandId])
@@ -181,19 +181,19 @@ model Product {
 model MoreDetails {
   id             String   @id @default(uuid())
   moreDetailId   String   @unique
-  TargetGender   String?
-  Usage          String[]
-  DisplayWeight  String?
-  PackageWeight  String?
-  ShippingWeight String?
-  DisplayLenght  String?
-  ContainsLiquid Boolean?
-  IsFragile      Boolean?
-  ItemForm       String?
-  ItemType       String?
-  MaterialType   String?
-  HairType       String?
-  SkinType       String?
+  targetGender   String?
+  usage          String[]
+  displayWeight  String?
+  packageWeight  String?
+  shippingWeight String?
+  displayLenght  String?
+  containsLiquid Boolean?
+  isFragile      Boolean?
+  itemForm       String?
+  itemType       String?
+  materialType   String?
+  hairType       String?
+  skinType       String?
 
   fabricType        String?
   productDimensions ProductDimension?
@@ -211,19 +211,19 @@ model Brand {
 model ProductDimension {
   id        String      @id @default(uuid())
   productId String      @unique
-  length    Float
-  width     Float
-  height    Float
-  parameter String
+  length    Float?
+  width     Float?
+  height    Float?
+  parameter String?
   product   MoreDetails @relation(fields: [productId], references: [id])
 }
 
 model PackageDimension {
   id        String      @id @default(uuid())
   packageId String      @unique
-  length    Float
-  width     Float
-  height    Float
-  parameter String
+  length    Float?
+  width     Float?
+  height    Float?
+  parameter String?
   product   MoreDetails @relation(fields: [packageId], references: [id])
 }

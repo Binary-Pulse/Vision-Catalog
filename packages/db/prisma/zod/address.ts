@@ -4,11 +4,11 @@ import { CompleteUser, relatedUserZodSchema } from "./index";
 export const addressZodSchema = z.object({
   id: z.string(),
   userId: z.string(),
-  street: z.string(),
-  city: z.string(),
-  state: z.string(),
-  zip: z.string(),
-  country: z.string(),
+  street: z.string().nullish(),
+  city: z.string().nullish(),
+  state: z.string().nullish(),
+  zip: z.string().nullish(),
+  country: z.string().nullish(),
   isDefault: z.boolean(),
 });
 
