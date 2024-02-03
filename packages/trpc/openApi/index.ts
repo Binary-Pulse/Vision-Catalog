@@ -9,7 +9,7 @@ export const openApiDocument = generateOpenApiDocument(appRouter, {
     process.env.VERCEL_ENV === "production"
       ? (process.env.NEXT_PUBLIC_APP_URL as string)
       : "http://localhost:3000",
-  tags: ["auth", "computers"],
+  tags: ["auth"],
 });
 
 export * from "trpc-openapi";

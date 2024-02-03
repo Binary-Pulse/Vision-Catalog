@@ -1,9 +1,9 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 datasource db {
-  provider = "postgres"
+  provider     = "postgres"
   relationMode = "prisma"
-  url      = env("DATABASE_URL")
+  url          = env("DATABASE_URL")
 }
 
 generator client {
@@ -15,17 +15,13 @@ generator zod {
   output                = "./zod" // (default) the directory where generated zod schemas will be saved
   relationModel         = true // (default) Create and export both plain and related models.
   modelCase             = "camelCase" // Output models using camel case (ex. userModel, postModel)
-  modelSuffix           = "Schema" // (default) Suffix to apply to your prisma models when naming Zod schemas
+  modelSuffix           = "ZodSchema" // (default) Suffix to apply to your prisma models when naming Zod schemas
   useDecimalJs          = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
   prismaJsonNullability = true // (default) uses prisma's scheme for JSON field nullability
 }
 
-// if you change this from cuid to uuid please make sure you using cuid everywhere while validating with zod
-// for example don't get z.string().uuid() wrong with z.string().cuid()
-// if using cuid use the same to validate
-// the boilerplate vailates it by cuid so its recommended that you don't change it
 model Account {
-  id                String   @id @default(cuid())
+  id                String   @id @default(uuid())
   userId            String
   type              String
   provider          String
@@ -43,24 +39,48 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
   @@map(name: "accounts")
 }
 
+model Image {
+  id        String  @id @default(uuid())
+  productId String  @unique
+  url       String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([id])
+}
+
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id @default(uuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map(name: "sessions")
 }
 
+model Address {
+  id        String  @id @default(uuid())
+  userId    String
+  street    String?
+  city      String?
+  state     String?
+  zip       String?
+  country   String?
+  isDefault Boolean @default(false)
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
 model User {
-  id            String    @id @default(cuid())
+  id            String    @id @default(uuid())
   name          String?
   email         String?   @unique
-  hashedPassword String?
   emailVerified DateTime?
   image         String?   @db.Text
   createdAt     DateTime  @default(now()) @map(name: "created_at")
@@ -68,11 +88,8 @@ model User {
 
   accounts Account[]
   sessions Session[]
-
-  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
-  stripePriceId          String?   @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+  products Product[]
+  address  Address[]
 
   @@map(name: "users")
 }
@@ -86,9 +103,117 @@ model VerificationToken {
   @@map(name: "verification_tokens")
 }
 
+model Price {
+  id                 String   @id @default(uuid())
+  productId          String   @unique
+  regularPrice       Float?
+  discountedPrice    Float?
+  discountPercentage Float?
+  currency           CURRENCY
+  tax                Float?
+  shippingCost       Float?
+  handlingFee        Float?
+  ppuCount           Float?
+  product            Product  @relation(fields: [productId], references: [id])
 
-model Computer {
-  id    String @id @default(cuid())
-  brand String
-  cores Int
+  @@index([id])
+}
+
+enum CURRENCY {
+  USD
+  INR
+}
+
+model Category {
+  id      String    @id @default(uuid())
+  name    String
+  product Product[]
+}
+
+model Product {
+  id                           String       @id @default(uuid())
+  userId                       String       @unique
+  brandId                      String       @unique
+  variantId                    String?
+  variant                      Product?     @relation("ProductVariant", fields: [variantId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  variants                     Product[]    @relation("ProductVariant")
+  UPC                          String?
+  EAN                          String?
+  ISBN                         String?
+  productName                  String
+  brand                        Brand?       @relation(fields: [brandId], references: [id])
+  category                     Category[]
+  images                       Image[]
+  description                  String?
+  bulletPoints                 String[]
+  legalDisclaimer              String?
+  createdAt                    DateTime     @default(now()) @map(name: "created_at")
+  updatedAt                    DateTime     @default(now()) @map(name: "updated_at")
+  keywords                     String?
+  targetAudience               String?
+  searchTerms                  String[]
+  moreDetails                  MoreDetails?
+  size                         String?
+  color                        String?
+  modelNumber                  String?
+  catalogNumber                String?
+  targetAudienceDetails        String?
+  eachUnitCount                Int?
+  numberOfItems                Int?
+  launchDate                   DateTime?
+  releaseDate                  DateTime?
+  isDiscontinuedByManufacturer Boolean?
+  usage                        String?
+  safetyWarning                String?
+  price                        Price?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([variantId])
+}
+
+model MoreDetails {
+  id             String   @id @default(uuid())
+  productId      String   @unique
+  targetGender   String?
+  usage          String[]
+  displayWeight  String?
+  packageWeight  String?
+  shippingWeight String?
+  containsLiquid Boolean?
+  isFragile      Boolean?
+  itemForm       String?
+  itemType       String?
+  materialType   String?
+  hairType       String?
+  skinType       String?
+  fabricType     String?
+
+  dimensions Dimension?
+  product    Product    @relation(fields: [productId], references: [id])
+
+  @@index([id])
+}
+
+model Brand {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  products Product[]
+}
+
+model Dimension {
+  id            String @id @default(uuid())
+  moreDetailsId String @unique
+  productLength Float?
+  productWidth  Float?
+  productHeight Float?
+  packageLength Float?
+  packageWidth  Float?
+  packageHeight Float?
+  displayLenght Float?
+  displayWidth  Float?
+
+  parameter String?
+  package   MoreDetails @relation(fields: [moreDetailsId], references: [id])
 }

@@ -1,31 +1,26 @@
-import { URLOrB64ToB64 } from "@repo/utils";
-import { client } from ".";
-import { MetadataKeysArray, metadataType } from "./schemaConfig";
+import { ProductSearchVectorSchema, client } from ".";
 
-interface ImageMetaDataRetrieverProps {
+interface ImageProductVectorRetrieverProps {
   className: string;
-  imageBase64?: string;
-  imageURL?: string;
-  fields: MetadataKeysArray;
+  image: string;
 }
-export async function ImageMetaDataRetriever({
+export async function ImageProductVectorRetriever({
   className,
-  imageBase64,
-  imageURL,
-  fields,
-}: ImageMetaDataRetrieverProps) {
-  const fieldString = fields.join(" ");
-  const image = await URLOrB64ToB64({ imageBase64, imageURL });
+  image,
+}: ImageProductVectorRetrieverProps) {
   try {
     const res = await client.graphql
       .get()
       .withClassName(className)
-      .withFields(fieldString)
+      .withFields("metadata")
       .withNearImage({ image })
-      .withLimit(1)
+      // .withLimit(1)
       .do();
-    const response = res.data.Get[className][0] as metadataType;
-    return response;
+    const responseArray = res.data.Get[className] as string[];
+    const metadataArray: ProductSearchVectorSchema[] = responseArray.map(
+      (response) => JSON.parse(response),
+    );
+    return metadataArray;
   } catch (error) {
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }
