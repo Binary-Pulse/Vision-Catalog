@@ -5,14 +5,11 @@ import {
   productZodSchema,
 } from "../../prisma/zod";
 
-export const productIdZodSchema = productZodSchema.pick({
-  id: true,
-});
-
-export type ProductIdType = z.infer<typeof productIdZodSchema>["id"];
 export const productDetailsParams = productZodSchema.omit({
   id: true,
   userId: true,
+  variantId: true,
+  brandId: true,
 });
 export type AddProductVitalInfoParamsType = z.infer<
   typeof productDetailsParams
