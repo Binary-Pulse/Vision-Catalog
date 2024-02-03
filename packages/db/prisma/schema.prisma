@@ -124,26 +124,25 @@ enum CURRENCY {
   INR
 }
 
-model Variant {
-  id        String  @id @default(uuid())
-  productId String
-  size      String?
-  color     String?
-
-  product Product @relation(fields: [productId], references: [id])
-
-  @@index([productId])
+model Category {
+  id      String    @id @default(uuid())
+  name    String
+  product Product[]
 }
 
 model Product {
   id                           String       @id @default(uuid())
   userId                       String       @unique
+  brandId                      String       @unique
+  variantId                    String?
+  variant                      Product?     @relation("ProductVariant", fields: [variantId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  variants                     Product[]    @relation("ProductVariant")
   UPC                          String?
   EAN                          String?
   ISBN                         String?
   productName                  String
-  brand                        Brand?
-  variants                     Variant[]
+  brand                        Brand?       @relation(fields: [brandId], references: [id])
+  category                     Category[]
   images                       Image[]
   description                  String?
   bulletPoints                 String[]
@@ -154,6 +153,8 @@ model Product {
   targetAudience               String?
   searchTerms                  String[]
   moreDetails                  MoreDetails?
+  size                         String?
+  color                        String?
   modelNumber                  String?
   catalogNumber                String?
   targetAudienceDetails        String?
@@ -166,8 +167,10 @@ model Product {
   safetyWarning                String?
   price                        Price?
 
-  user                         User         @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
   @@index([userId])
+  @@index([variantId])
 }
 
 model MoreDetails {
@@ -194,15 +197,14 @@ model MoreDetails {
 }
 
 model Brand {
-  id        String  @id @default(uuid())
-  productId String  @unique
-  name      String
-  products  Product @relation(fields: [productId], references: [id])
+  id       String    @id @default(uuid())
+  name     String    @unique
+  products Product[]
 }
 
 model Dimension {
-  id            String  @id @default(uuid())
-  moreDetailsId String  @unique
+  id            String @id @default(uuid())
+  moreDetailsId String @unique
   productLength Float?
   productWidth  Float?
   productHeight Float?
@@ -212,6 +214,6 @@ model Dimension {
   displayLenght Float?
   displayWidth  Float?
 
-  parameter     String?
-  package MoreDetails @relation(fields: [moreDetailsId], references: [id])
+  parameter String?
+  package   MoreDetails @relation(fields: [moreDetailsId], references: [id])
 }
