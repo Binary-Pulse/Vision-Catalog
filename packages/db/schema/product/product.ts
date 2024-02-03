@@ -1,8 +1,7 @@
 import { z } from "zod";
 import {
+  dimensionZodSchema,
   moreDetailsZodSchema,
-  packageDimensionZodSchema,
-  productDimensionZodSchema,
   productZodSchema,
 } from "../../prisma/zod";
 
@@ -12,24 +11,20 @@ export const productIdZodSchema = productZodSchema.pick({
 
 export type ProductIdType = z.infer<typeof productIdZodSchema>["id"];
 export const productDetailsParams = productZodSchema.omit({
-  brandId: true,
   id: true,
   userId: true,
 });
 export type AddProductVitalInfoParamsType = z.infer<
   typeof productDetailsParams
 >;
-export const addMoreDetailsParams = moreDetailsZodSchema.omit({ id: true });
+export const addMoreDetailsParams = moreDetailsZodSchema.omit({
+  id: true,
+  productId: true,
+});
 export type AddMoreDetailsParamsType = z.infer<typeof addMoreDetailsParams>;
 
-export const packageDimensionParams = packageDimensionZodSchema.omit({
+export const dimensionsParam = dimensionZodSchema.omit({
   id: true,
-  packageId: true,
+  moreDetailsId: true,
 });
-export type PackageDimensionParamsType = z.infer<typeof packageDimensionParams>;
-
-export const productDimesionParams = productDimensionZodSchema.omit({
-  id: true,
-  packageId: true,
-});
-export type ProductDimensionParamsType = z.infer<typeof productDimesionParams>;
+export type DimensionsParamType = z.infer<typeof dimensionsParam>;
