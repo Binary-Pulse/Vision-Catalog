@@ -1,29 +1,21 @@
-import {
-  AddMoreDetailsParamsType,
-  Id,
-  PackageDimensionParamsType,
-  ProductDimensionParamsType,
-} from "@repo/db";
+import { AddMoreDetailsParamsType, DimensionsParamType, Id } from "@repo/db";
 
 interface AddMoreDetailsToProductProps {
   productVitalInfo: AddMoreDetailsParamsType;
   productId: Id;
-  packageDimension?: PackageDimensionParamsType;
-  productDimension?: ProductDimensionParamsType;
+  dimensions?: DimensionsParamType;
 }
 export async function AddMoreDetailsToProduct({
   productVitalInfo,
   productId,
-  packageDimension,
-  productDimension,
+  dimensions,
 }: AddMoreDetailsToProductProps) {
   try {
     await db?.moreDetails.create({
       data: {
         ...productVitalInfo,
         product: { connect: { id: productId } },
-        packageDimensions: { create: { ...packageDimension } },
-        productDimensions: { create: { ...productDimension } },
+        dimensions: { create: { ...dimensions } },
       },
     });
     return { msg: "More Details Added Successfully" };
