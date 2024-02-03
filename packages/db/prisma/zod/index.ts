@@ -5,7 +5,7 @@ export * from "./address";
 export * from "./user";
 export * from "./verificationtoken";
 export * from "./price";
-export * from "./variant";
+export * from "./category";
 export * from "./product";
 export * from "./moredetails";
 export * from "./brand";

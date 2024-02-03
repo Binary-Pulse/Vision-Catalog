@@ -2,8 +2,8 @@ import * as z from "zod";
 import {
   CompleteBrand,
   relatedBrandZodSchema,
-  CompleteVariant,
-  relatedVariantZodSchema,
+  CompleteCategory,
+  relatedCategoryZodSchema,
   CompleteImage,
   relatedImageZodSchema,
   CompleteMoreDetails,
@@ -17,6 +17,8 @@ import {
 export const productZodSchema = z.object({
   id: z.string(),
   userId: z.string(),
+  brandId: z.string(),
+  variantId: z.string().nullish(),
   UPC: z.string().nullish(),
   EAN: z.string().nullish(),
   ISBN: z.string().nullish(),
@@ -29,6 +31,8 @@ export const productZodSchema = z.object({
   keywords: z.string().nullish(),
   targetAudience: z.string().nullish(),
   searchTerms: z.string().array(),
+  size: z.string().nullish(),
+  color: z.string().nullish(),
   modelNumber: z.string().nullish(),
   catalogNumber: z.string().nullish(),
   targetAudienceDetails: z.string().nullish(),
@@ -42,8 +46,10 @@ export const productZodSchema = z.object({
 });
 
 export interface CompleteProduct extends z.infer<typeof productZodSchema> {
+  variant?: CompleteProduct | null;
+  variants: CompleteProduct[];
   brand?: CompleteBrand | null;
-  variants: CompleteVariant[];
+  category: CompleteCategory[];
   images: CompleteImage[];
   moreDetails?: CompleteMoreDetails | null;
   price?: CompletePrice | null;
@@ -58,8 +64,10 @@ export interface CompleteProduct extends z.infer<typeof productZodSchema> {
 export const relatedProductZodSchema: z.ZodSchema<CompleteProduct> = z.lazy(
   () =>
     productZodSchema.extend({
+      variant: relatedProductZodSchema.nullish(),
+      variants: relatedProductZodSchema.array(),
       brand: relatedBrandZodSchema.nullish(),
-      variants: relatedVariantZodSchema.array(),
+      category: relatedCategoryZodSchema.array(),
       images: relatedImageZodSchema.array(),
       moreDetails: relatedMoreDetailsZodSchema.nullish(),
       price: relatedPriceZodSchema.nullish(),
