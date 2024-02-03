@@ -3,6 +3,7 @@ import { CompleteProduct, relatedProductZodSchema } from "./index";
 
 export const variantZodSchema = z.object({
   id: z.string(),
+  variantId: z.string(),
   size: z.string().nullish(),
   color: z.string().nullish(),
 });

@@ -3,11 +3,12 @@ import { CompleteProduct, relatedProductZodSchema } from "./index";
 
 export const brandZodSchema = z.object({
   id: z.string(),
+  productId: z.string(),
   name: z.string(),
 });
 
 export interface CompleteBrand extends z.infer<typeof brandZodSchema> {
-  products: CompleteProduct[];
+  products: CompleteProduct;
 }
 
 /**
@@ -17,6 +18,6 @@ export interface CompleteBrand extends z.infer<typeof brandZodSchema> {
  */
 export const relatedBrandZodSchema: z.ZodSchema<CompleteBrand> = z.lazy(() =>
   brandZodSchema.extend({
-    products: relatedProductZodSchema.array(),
+    products: relatedProductZodSchema,
   }),
 );

@@ -6,18 +6,17 @@ import {
   relatedVariantZodSchema,
   CompleteImage,
   relatedImageZodSchema,
-  CompleteUser,
-  relatedUserZodSchema,
   CompleteMoreDetails,
   relatedMoreDetailsZodSchema,
   CompletePrice,
   relatedPriceZodSchema,
+  CompleteUser,
+  relatedUserZodSchema,
 } from "./index";
 
 export const productZodSchema = z.object({
   id: z.string(),
   userId: z.string(),
-  brandId: z.string(),
   UPC: z.string().nullish(),
   EAN: z.string().nullish(),
   ISBN: z.string().nullish(),
@@ -26,6 +25,7 @@ export const productZodSchema = z.object({
   bulletPoints: z.string().array(),
   legalDisclaimer: z.string().nullish(),
   createdAt: z.date(),
+  updatedAt: z.date(),
   keywords: z.string().nullish(),
   targetAudience: z.string().nullish(),
   searchTerms: z.string().array(),
@@ -45,9 +45,9 @@ export interface CompleteProduct extends z.infer<typeof productZodSchema> {
   brand?: CompleteBrand | null;
   variants: CompleteVariant[];
   images: CompleteImage[];
-  user: CompleteUser;
   moreDetails?: CompleteMoreDetails | null;
   price?: CompletePrice | null;
+  user: CompleteUser;
 }
 
 /**
@@ -61,8 +61,8 @@ export const relatedProductZodSchema: z.ZodSchema<CompleteProduct> = z.lazy(
       brand: relatedBrandZodSchema.nullish(),
       variants: relatedVariantZodSchema.array(),
       images: relatedImageZodSchema.array(),
-      user: relatedUserZodSchema,
       moreDetails: relatedMoreDetailsZodSchema.nullish(),
       price: relatedPriceZodSchema.nullish(),
+      user: relatedUserZodSchema,
     }),
 );

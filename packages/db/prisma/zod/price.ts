@@ -4,6 +4,7 @@ import { CompleteProduct, relatedProductZodSchema } from "./index";
 
 export const priceZodSchema = z.object({
   id: z.string(),
+  productId: z.string(),
   regularPrice: z.number().nullish(),
   discountedPrice: z.number().nullish(),
   discountPercentage: z.number().nullish(),

@@ -1,21 +1,19 @@
 import * as z from "zod";
 import {
-  CompleteProductDimension,
-  relatedProductDimensionZodSchema,
-  CompletePackageDimension,
-  relatedPackageDimensionZodSchema,
+  CompleteDimension,
+  relatedDimensionZodSchema,
   CompleteProduct,
   relatedProductZodSchema,
 } from "./index";
 
 export const moreDetailsZodSchema = z.object({
   id: z.string(),
+  productId: z.string(),
   targetGender: z.string().nullish(),
   usage: z.string().array(),
   displayWeight: z.string().nullish(),
   packageWeight: z.string().nullish(),
   shippingWeight: z.string().nullish(),
-  displayLenght: z.string().nullish(),
   containsLiquid: z.boolean().nullish(),
   isFragile: z.boolean().nullish(),
   itemForm: z.string().nullish(),
@@ -28,8 +26,7 @@ export const moreDetailsZodSchema = z.object({
 
 export interface CompleteMoreDetails
   extends z.infer<typeof moreDetailsZodSchema> {
-  productDimensions?: CompleteProductDimension | null;
-  packageDimensions?: CompletePackageDimension | null;
+  dimensions?: CompleteDimension | null;
   product: CompleteProduct;
 }
 
@@ -41,8 +38,7 @@ export interface CompleteMoreDetails
 export const relatedMoreDetailsZodSchema: z.ZodSchema<CompleteMoreDetails> =
   z.lazy(() =>
     moreDetailsZodSchema.extend({
-      productDimensions: relatedProductDimensionZodSchema.nullish(),
-      packageDimensions: relatedPackageDimensionZodSchema.nullish(),
+      dimensions: relatedDimensionZodSchema.nullish(),
       product: relatedProductZodSchema,
     }),
   );

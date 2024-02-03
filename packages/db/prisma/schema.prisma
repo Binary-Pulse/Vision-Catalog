@@ -44,9 +44,10 @@ model Account {
 }
 
 model Image {
-  id      String  @id @default(uuid())
-  url     String
-  product Product @relation(fields: [id], references: [id])
+  id        String  @id @default(uuid())
+  productId String  @unique
+  url       String
+  product   Product @relation(fields: [productId], references: [id])
 
   @@index([id])
 }
@@ -104,6 +105,7 @@ model VerificationToken {
 
 model Price {
   id                 String   @id @default(uuid())
+  productId          String   @unique
   regularPrice       Float?
   discountedPrice    Float?
   discountPercentage Float?
@@ -112,7 +114,7 @@ model Price {
   shippingCost       Float?
   handlingFee        Float?
   ppuCount           Float?
-  product            Product  @relation(fields: [id], references: [id])
+  product            Product  @relation(fields: [productId], references: [id])
 
   @@index([id])
 }
@@ -123,31 +125,31 @@ enum CURRENCY {
 }
 
 model Variant {
-  id    String  @id @default(uuid())
-  size  String?
-  color String?
+  id        String  @id @default(uuid())
+  variantId String
+  size      String?
+  color     String?
 
-  product Product @relation(fields: [id], references: [id])
+  product Product @relation(fields: [variantId], references: [id])
 
-  @@index([id])
+  @@index([variantId])
 }
 
 model Product {
   id                           String       @id @default(uuid())
-  userId                       String
-  brandId                      String
+  userId                       String       @unique
   UPC                          String?
   EAN                          String?
   ISBN                         String?
   productName                  String
-  brand                        Brand?       @relation(fields: [brandId], references: [id])
+  brand                        Brand?
   variants                     Variant[]
   images                       Image[]
   description                  String?
   bulletPoints                 String[]
   legalDisclaimer              String?
-  createdAt                    DateTime     @default(now())
-  user                         User         @relation(fields: [userId], references: [id])
+  createdAt                    DateTime     @default(now()) @map(name: "created_at")
+  updatedAt                    DateTime     @default(now()) @map(name: "updated_at")
   keywords                     String?
   targetAudience               String?
   searchTerms                  String[]
@@ -164,18 +166,18 @@ model Product {
   safetyWarning                String?
   price                        Price?
 
+  user                         User         @relation(fields: [userId], references: [id])
   @@index([userId])
-  @@index([brandId])
 }
 
 model MoreDetails {
   id             String   @id @default(uuid())
+  productId      String   @unique
   targetGender   String?
   usage          String[]
   displayWeight  String?
   packageWeight  String?
   shippingWeight String?
-  displayLenght  String?
   containsLiquid Boolean?
   isFragile      Boolean?
   itemForm       String?
@@ -183,38 +185,33 @@ model MoreDetails {
   materialType   String?
   hairType       String?
   skinType       String?
+  fabricType     String?
 
-  fabricType        String?
-  productDimensions ProductDimension?
-  packageDimensions PackageDimension?
-
-  product Product @relation(fields: [id], references: [id])
+  dimensions Dimension?
+  product    Product    @relation(fields: [productId], references: [id])
 
   @@index([id])
 }
 
 model Brand {
-  id       String    @id @default(uuid())
-  name     String
-  products Product[]
+  id        String  @id @default(uuid())
+  productId String  @unique
+  name      String
+  products  Product @relation(fields: [productId], references: [id])
 }
 
-model ProductDimension {
-  id        String      @id @default(uuid())
-  productId String      @unique
-  length    Float?
-  width     Float?
-  height    Float?
-  parameter String?
-  product   MoreDetails @relation(fields: [productId], references: [id])
-}
+model Dimension {
+  id            String  @id @default(uuid())
+  moreDetailsId String  @unique
+  productLength Float?
+  productWidth  Float?
+  productHeight Float?
+  packageLength Float?
+  packageWidth  Float?
+  packageHeight Float?
+  displayLenght Float?
+  displayWidth  Float?
 
-model PackageDimension {
-  id        String      @id @default(uuid())
-  packageId String      @unique
-  length    Float?
-  width     Float?
-  height    Float?
-  parameter String?
-  product   MoreDetails @relation(fields: [packageId], references: [id])
+  parameter     String?
+  package MoreDetails @relation(fields: [moreDetailsId], references: [id])
 }

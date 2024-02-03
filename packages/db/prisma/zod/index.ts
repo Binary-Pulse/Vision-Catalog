@@ -9,5 +9,4 @@ export * from "./variant";
 export * from "./product";
 export * from "./moredetails";
 export * from "./brand";
-export * from "./productdimension";
-export * from "./packagedimension";
+export * from "./dimension";
