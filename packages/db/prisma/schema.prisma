@@ -126,13 +126,13 @@ enum CURRENCY {
 
 model Variant {
   id        String  @id @default(uuid())
-  variantId String
+  productId String
   size      String?
   color     String?
 
-  product Product @relation(fields: [variantId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
 
-  @@index([variantId])
+  @@index([productId])
 }
 
 model Product {
