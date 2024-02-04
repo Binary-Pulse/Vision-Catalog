@@ -1,9 +1,24 @@
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "../../trpc";
-import { AddNewProductOrVariant } from "@repo/api/product";
+import { AddNewProductOrVariant, GetUserProductList } from "@repo/api/product";
 import { id, productDetailsParams } from "@repo/db";
 export const productRouter = createTRPCRouter({
+  getUserProductList: protectedProcedure
+    .meta({
+      /* 👉 */ openapi: {
+        method: "GET",
+        path: "/get-user-product-list",
+        tags: ["Products"],
+      },
+    })
+    .input(z.object({}))
+    .output(z.object({}))
+    .query(async ({ ctx: { userId } }) => {
+      const res = await GetUserProductList(userId);
+      return res;
+    }),
+
   addProductOrVariant: protectedProcedure
     .meta({
       /* 👉 */ openapi: {

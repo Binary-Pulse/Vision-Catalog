@@ -1,17 +1,39 @@
 import { Id } from "@repo/db";
 
-export async function GetProductDetailsForList(id: Id) {
+export async function GetProductDataForAutoFill(productId: Id) {
   try {
-    const prouctDetailsForListing = await db?.product.findFirst({
-      where: { id },
+    const res = await db?.product.findFirst({
+      where: { id: productId },
       include: {
         brand: true,
-        images: { take: 1 },
+        images: true,
         price: true,
         category: true,
+        moreDetails: true,
       },
     });
-    return prouctDetailsForListing;
+    return res;
+  } catch (error) {
+    throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
+  }
+}
+export async function GetUserProductList(userId: Id) {
+  try {
+    const res = await db?.user.findFirst({
+      where: { id: userId },
+      select: {
+        products: {
+          select: {
+            productName: true,
+            price: { select: { ppuCount: true } },
+            images: { take: 1 },
+            numberOfItems: true,
+            EAN: true,
+          },
+        },
+      },
+    });
+    return res;
   } catch (error) {
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }
@@ -19,7 +41,7 @@ export async function GetProductDetailsForList(id: Id) {
 
 export async function GetCompleteProductDataById(id: Id) {
   try {
-    const completeProductInfo = await db?.product.findFirst({
+    const res = await db?.product.findFirst({
       where: { id },
       include: {
         brand: true,
@@ -30,7 +52,7 @@ export async function GetCompleteProductDataById(id: Id) {
         variant: true,
       },
     });
-    return completeProductInfo;
+    return res;
   } catch (error) {
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }
