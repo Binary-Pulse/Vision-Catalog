@@ -4,7 +4,7 @@ import { createTRPCRouter, publicProcedure } from "../../trpc";
 import { AddBrand } from "@repo/api/product";
 import { addBrandParams } from "@repo/db";
 export const brandRouter = createTRPCRouter({
-  addCategory: publicProcedure
+  addBrand: publicProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
