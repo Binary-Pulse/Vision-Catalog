@@ -9,7 +9,10 @@ import {
 export const moreDetailsZodSchema = z.object({
   id: z.string(),
   productId: z.string(),
+  launchDate: z.date().nullish(),
+  releaseDate: z.date().nullish(),
   targetGender: z.string().nullish(),
+  targetAudienceDetails: z.string().nullish(),
   usage: z.string().array(),
   displayWeight: z.string().nullish(),
   packageWeight: z.string().nullish(),

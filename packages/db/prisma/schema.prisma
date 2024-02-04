@@ -131,37 +131,35 @@ model Category {
 }
 
 model Product {
-  id                           String       @id @default(uuid())
-  userId                       String       @unique
-  brandId                      String       @unique
+  id                           String         @id @default(uuid())
+  userId                       String         @unique
+  brandId                      String         @unique
   variantId                    String?
-  variant                      Product?     @relation("ProductVariant", fields: [variantId], references: [id], onDelete: Restrict, onUpdate: Restrict)
-  variants                     Product[]    @relation("ProductVariant")
+  variant                      Product?       @relation("ProductVariant", fields: [variantId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  variants                     Product[]      @relation("ProductVariant")
   UPC                          String?
   EAN                          String?
   ISBN                         String?
   productName                  String
-  brand                        Brand?       @relation(fields: [brandId], references: [id])
+  brand                        Brand?         @relation(fields: [brandId], references: [id])
   category                     Category[]
   images                       Image[]
   description                  String?
   bulletPoints                 String[]
   legalDisclaimer              String?
-  createdAt                    DateTime     @default(now()) @map(name: "created_at")
-  updatedAt                    DateTime     @default(now()) @map(name: "updated_at")
+  createdAt                    DateTime       @default(now()) @map(name: "created_at")
+  updatedAt                    DateTime       @default(now()) @map(name: "updated_at")
   keywords                     String?
   targetAudience               String?
   searchTerms                  String[]
   moreDetails                  MoreDetails?
-  size                         String?
-  color                        String?
   modelNumber                  String?
   catalogNumber                String?
-  targetAudienceDetails        String?
+  color                        String?
+  size                         String?
   eachUnitCount                Int?
   numberOfItems                Int?
-  launchDate                   DateTime?
-  releaseDate                  DateTime?
+  status                       ProductStatus? @default(Private)
   isDiscontinuedByManufacturer Boolean?
   usage                        String?
   safetyWarning                String?
@@ -173,22 +171,30 @@ model Product {
   @@index([variantId])
 }
 
+enum ProductStatus {
+  Published
+  Private
+}
+
 model MoreDetails {
-  id             String   @id @default(uuid())
-  productId      String   @unique
-  targetGender   String?
-  usage          String[]
-  displayWeight  String?
-  packageWeight  String?
-  shippingWeight String?
-  containsLiquid Boolean?
-  isFragile      Boolean?
-  itemForm       String?
-  itemType       String?
-  materialType   String?
-  hairType       String?
-  skinType       String?
-  fabricType     String?
+  id                    String    @id @default(uuid())
+  productId             String    @unique
+  launchDate            DateTime?
+  releaseDate           DateTime?
+  targetGender          String?
+  targetAudienceDetails String?
+  usage                 String[]
+  displayWeight         String?
+  packageWeight         String?
+  shippingWeight        String?
+  containsLiquid        Boolean?
+  isFragile             Boolean?
+  itemForm              String?
+  itemType              String?
+  materialType          String?
+  hairType              String?
+  skinType              String?
+  fabricType            String?
 
   dimensions Dimension?
   product    Product    @relation(fields: [productId], references: [id])

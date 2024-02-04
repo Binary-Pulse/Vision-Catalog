@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { ProductStatus } from "@prisma/client";
 import {
   CompleteBrand,
   relatedBrandZodSchema,
@@ -31,15 +32,13 @@ export const productZodSchema = z.object({
   keywords: z.string().nullish(),
   targetAudience: z.string().nullish(),
   searchTerms: z.string().array(),
-  size: z.string().nullish(),
-  color: z.string().nullish(),
   modelNumber: z.string().nullish(),
   catalogNumber: z.string().nullish(),
-  targetAudienceDetails: z.string().nullish(),
+  color: z.string().nullish(),
+  size: z.string().nullish(),
   eachUnitCount: z.number().int().nullish(),
   numberOfItems: z.number().int().nullish(),
-  launchDate: z.date().nullish(),
-  releaseDate: z.date().nullish(),
+  status: z.nativeEnum(ProductStatus).nullish(),
   isDiscontinuedByManufacturer: z.boolean().nullish(),
   usage: z.string().nullish(),
   safetyWarning: z.string().nullish(),
