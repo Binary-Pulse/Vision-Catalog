@@ -18,5 +18,5 @@ export interface CompleteBrand extends z.infer<typeof brandZodSchema> {
 export const relatedBrandZodSchema: z.ZodSchema<CompleteBrand> = z.lazy(() =>
   brandZodSchema.extend({
     products: relatedProductZodSchema.array(),
-  })
+  }),
 );

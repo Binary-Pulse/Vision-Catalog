@@ -18,7 +18,7 @@ export async function ImageProductVectorRetriever({
       .do();
     const responseArray = res.data.Get[className] as string[];
     const metadataArray: ProductSearchVectorSchema[] = responseArray.map(
-      (response) => JSON.parse(response)
+      (response) => JSON.parse(response),
     );
     return metadataArray;
   } catch (error) {

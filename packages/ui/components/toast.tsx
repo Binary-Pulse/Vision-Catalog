@@ -14,7 +14,7 @@ const ToastViewport = React.forwardRef<
   <ToastPrimitives.Viewport
     className={cn(
       "fixed top-10 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-14 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]",
-      className
+      className,
     )}
     ref={ref}
     {...props}
@@ -35,7 +35,7 @@ const toastVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
+  },
 );
 
 const bgToastVariants = cva("absolute -left-1 bottom-0 right-0 top-0", {
@@ -79,7 +79,7 @@ const ToastAction = React.forwardRef<
   <ToastPrimitives.Action
     className={cn(
       "ring-offset-background focus:ring-ring group-[.destructive]:border-destructive-foreground group-[.destructive]:dark:hover:text-destructive-foreground group-[.destructive]:hover:bg-destructive-foreground group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-black bg-transparent px-3 text-sm font-medium transition-colors hover:bg-transparent/10 focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:hover:bg-transparent/10 dark:border-white",
-      className
+      className,
     )}
     ref={ref}
     {...props}
@@ -94,7 +94,7 @@ const ToastClose = React.forwardRef<
   <ToastPrimitives.Close
     className={cn(
       "text-foreground/50 hover:text-foreground absolute right-2 top-2 rounded-md p-1 opacity-0 transition-opacity focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
-      className
+      className,
     )}
     ref={ref}
     toast-close=""
@@ -124,7 +124,7 @@ const ToastDescription = React.forwardRef<
   <ToastPrimitives.Description
     className={cn(
       "z-10 text-sm text-black/50 opacity-90 dark:text-white/50",
-      className
+      className,
     )}
     ref={ref}
     {...props}

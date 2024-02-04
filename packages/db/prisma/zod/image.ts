@@ -19,5 +19,5 @@ export interface CompleteImage extends z.infer<typeof imageZodSchema> {
 export const relatedImageZodSchema: z.ZodSchema<CompleteImage> = z.lazy(() =>
   imageZodSchema.extend({
     product: relatedProductZodSchema,
-  })
+  }),
 );

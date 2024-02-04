@@ -72,5 +72,5 @@ export const relatedProductZodSchema: z.ZodSchema<CompleteProduct> = z.lazy(
       moreDetails: relatedMoreDetailsZodSchema.nullish(),
       price: relatedPriceZodSchema.nullish(),
       user: relatedUserZodSchema,
-    })
+    }),
 );

@@ -38,5 +38,5 @@ export const relatedUserZodSchema: z.ZodSchema<CompleteUser> = z.lazy(() =>
     sessions: relatedSessionZodSchema.array(),
     products: relatedProductZodSchema.array(),
     address: relatedAddressZodSchema.array(),
-  })
+  }),
 );

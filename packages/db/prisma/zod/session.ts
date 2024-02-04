@@ -21,5 +21,5 @@ export const relatedSessionZodSchema: z.ZodSchema<CompleteSession> = z.lazy(
   () =>
     sessionZodSchema.extend({
       user: relatedUserZodSchema,
-    })
+    }),
 );

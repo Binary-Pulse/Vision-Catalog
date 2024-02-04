@@ -27,5 +27,5 @@ export interface CompletePrice extends z.infer<typeof priceZodSchema> {
 export const relatedPriceZodSchema: z.ZodSchema<CompletePrice> = z.lazy(() =>
   priceZodSchema.extend({
     product: relatedProductZodSchema,
-  })
+  }),
 );

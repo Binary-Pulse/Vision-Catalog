@@ -17,7 +17,7 @@ export default function TrpcProvider({ children }: PropsWithChildren) {
           url: getUrl(),
         }),
       ],
-    })
+    }),
   );
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
