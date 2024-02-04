@@ -1,5 +1,5 @@
 import { llm } from ".";
-import { ProductListFormSchema } from "../image-search";
+import { ProductListFormSchema } from "../vector-search";
 
 interface InvokeLLMProps<T> {
   stringifiedMetadata: string;
