@@ -1,4 +1,12 @@
 {
   "semi": true,
-  "singleQuote": false
+  "singleQuote": false,
+  "overrides": [
+    {
+      "files": "tsconfig.json",
+      "options": {
+        "parser": "json"
+      }
+    }
+  ]
 }
