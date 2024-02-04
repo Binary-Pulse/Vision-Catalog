@@ -14,6 +14,7 @@
     "db:studio": "turbo db:studio",
     "dev": "turbo dev --parallel",
     "format": "prettier --write \"**/*.{html,css,js,jsx,ts,tsx,md,json}\"",
+    "check-format": "prettier --check \"**/*.{html,css,js,jsx,ts,tsx,md,json}\"",
     "lint": "turbo lint --continue -- --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg check",
     "lint:fix": "turbo lint --continue -- --fix --cache --cache-location 'node_modules/.cache/.eslintcache' && manypkg fix",
     "typecheck": "turbo typecheck"
