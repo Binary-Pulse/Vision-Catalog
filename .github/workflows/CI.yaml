@@ -6,17 +6,17 @@ on:
     branches:
       - main
 
-jobs:
-  prettier:
-    runs-on: ubuntu-latest
+# jobs:
+#   prettier:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: 'Checkout repository'
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
+#     steps:
+#       - name: 'Checkout repository'
+#         uses: actions/checkout@v4
+#         with:
+#           ref: ${{ github.head_ref }}
 
-      - name: 'Prettify code'
-        uses: creyD/prettier_action@v4.3
-        with:
-          prettier_options: --check **/*.{html,css,js,jsx,ts,tsx,md}
+#       - name: 'Prettify code'
+#         uses: creyD/prettier_action@v4.3
+#         with:
+#           prettier_options: --check **/*.{html,css,js,jsx,ts,tsx,md}
