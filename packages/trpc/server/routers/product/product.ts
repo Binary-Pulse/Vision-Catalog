@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "../../trpc";
+import { createTRPCRouter, protectedProcedure } from "../../trpc";
 import { AddNewProductOrVariant } from "@repo/api/product";
 import { id, productDetailsParams } from "@repo/db";
 export const productRouter = createTRPCRouter({
-  addProductOrVariant: publicProcedure
+  addProductOrVariant: protectedProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
@@ -24,13 +24,8 @@ export const productRouter = createTRPCRouter({
     .output(z.object({}))
     .mutation(
       async ({
-        input: {
-          brandId,
-          categoryId,
-          productVitalInfo,
-          userId,
-          addVariantByParentId,
-        },
+        input: { brandId, categoryId, productVitalInfo, addVariantByParentId },
+        ctx: { userId },
       }) => {
         const res = await AddNewProductOrVariant({
           brandId,
