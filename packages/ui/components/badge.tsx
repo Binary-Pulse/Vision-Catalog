@@ -27,7 +27,7 @@ const badgeVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 export interface BadgeProps

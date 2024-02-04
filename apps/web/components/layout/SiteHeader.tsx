@@ -15,7 +15,7 @@ export const SiteHeader = async ({ children }: React.PropsWithChildren) => {
                 <Skeleton
                   className={cn(
                     buttonVariants({ size: "default" }),
-                    "w-full bg-muted text-muted-foreground",
+                    "w-full bg-muted text-muted-foreground"
                   )}
                 >
                   Loading...

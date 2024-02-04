@@ -21,7 +21,7 @@ export const visionProRouter = createTRPCRouter({
         className: z.string(),
         imageBase64: z.string().optional(),
         imageURL: z.string().url().optional(),
-      }),
+      })
     )
     .output(z.object({}))
     .mutation(async ({ input }) => {

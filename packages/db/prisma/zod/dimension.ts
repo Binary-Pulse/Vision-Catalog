@@ -28,5 +28,5 @@ export const relatedDimensionZodSchema: z.ZodSchema<CompleteDimension> = z.lazy(
   () =>
     dimensionZodSchema.extend({
       package: relatedMoreDetailsZodSchema,
-    }),
+    })
 );

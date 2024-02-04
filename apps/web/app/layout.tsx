@@ -23,7 +23,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
-          fontMono.variable,
+          fontMono.variable
         )}
       >
         <Provider>

@@ -34,7 +34,7 @@ export function getImageBufferByPath(path: string) {
   } catch (error) {
     throw new Error(
       (error as Error).message ??
-        "ERROR CONVERTING IMAGE TO BUFFER, please check path",
+        "ERROR CONVERTING IMAGE TO BUFFER, please check path"
     );
   }
 }
