@@ -19,7 +19,7 @@ export const imageSearchRouter = createTRPCRouter({
     .input(
       z.object({
         className: z.string(),
-      }),
+      })
     )
     .output(z.object({}))
     .mutation(async ({ input }) => {
@@ -41,7 +41,7 @@ export const imageSearchRouter = createTRPCRouter({
         imageBase64: z.string().optional(),
         imageURL: z.string().url().optional(),
         metadata: z.object({}), // import ProductSearchVectorSchema in the frontend to get the types
-      }),
+      })
     )
     .output(z.object({}))
     .mutation(async ({ input }) => {
@@ -68,7 +68,7 @@ export const imageSearchRouter = createTRPCRouter({
         imageBase64: z.string().optional(),
         imageURL: z.string().url().optional(),
         fields: z.array(z.string()), // import metadataKeysArray
-      }),
+      })
     )
     .output(z.object({}))
     .mutation(async ({ input }) => {

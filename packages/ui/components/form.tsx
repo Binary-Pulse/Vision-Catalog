@@ -24,7 +24,7 @@ interface FormFieldContextValue<
 }
 
 const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue,
+  {} as FormFieldContextValue
 );
 
 function FormField<
@@ -66,7 +66,7 @@ interface FormItemContextValue {
 }
 
 const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue,
+  {} as FormItemContextValue
 );
 
 const FormItem = React.forwardRef<
@@ -155,7 +155,7 @@ const FormMessage = React.forwardRef<
     <p
       className={cn(
         "text-destructive dark:text-error-label text-sm font-medium",
-        className,
+        className
       )}
       id={formMessageId}
       ref={ref}

@@ -16,7 +16,7 @@ export const imagesRouter = createTRPCRouter({
       z.object({
         productId: id,
         imagesData: addImagesParams,
-      }),
+      })
     )
     .output(z.object({}))
     .mutation(async ({ input: { productId, imagesData } }) => {

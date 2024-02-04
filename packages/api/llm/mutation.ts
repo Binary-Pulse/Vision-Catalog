@@ -27,7 +27,7 @@ export async function invokeLLM<T>({
       return parsedResponse;
     } catch (jsonParseError) {
       throw new Error(
-        `Error parsing JSON: ${(jsonParseError as Error).message}`,
+        `Error parsing JSON: ${(jsonParseError as Error).message}`
       );
     }
   } catch (error) {

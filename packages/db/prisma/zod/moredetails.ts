@@ -43,5 +43,5 @@ export const relatedMoreDetailsZodSchema: z.ZodSchema<CompleteMoreDetails> =
     moreDetailsZodSchema.extend({
       dimensions: relatedDimensionZodSchema.nullish(),
       product: relatedProductZodSchema,
-    }),
+    })
   );

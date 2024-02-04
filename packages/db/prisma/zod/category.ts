@@ -19,5 +19,5 @@ export const relatedCategoryZodSchema: z.ZodSchema<CompleteCategory> = z.lazy(
   () =>
     categoryZodSchema.extend({
       product: relatedProductZodSchema.array(),
-    }),
+    })
 );

@@ -38,5 +38,5 @@ export const promptTemplate = PromptTemplate.fromTemplate(
       Use this sample output JSON to understand in what way you need to give your output.
       Sample Output: 
       {sampleOutput}
-      `,
+      `
 );

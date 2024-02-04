@@ -34,7 +34,7 @@ export const productRouter = createTRPCRouter({
         productVitalInfo: productDetailsParams,
         userId: id,
         addVariantByParentId: id,
-      }),
+      })
     )
     .output(z.object({}))
     .mutation(
@@ -50,6 +50,6 @@ export const productRouter = createTRPCRouter({
           addVariantByParentId,
         });
         return res;
-      },
+      }
     ),
 });

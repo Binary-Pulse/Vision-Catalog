@@ -9,7 +9,7 @@ export interface Theme {
 }
 
 export async function CustomsendVerificationRequest(
-  params: SendVerificationRequestParams,
+  params: SendVerificationRequestParams
 ) {
   const { identifier, url, provider, theme } = params;
   const { host } = new URL(url);

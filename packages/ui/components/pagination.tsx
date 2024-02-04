@@ -45,7 +45,7 @@ export function Pagination({
                   page: currentPage - 1,
                   pageLoaded: true,
                 },
-              }),
+              })
             )
           }
         >
@@ -68,7 +68,7 @@ export function Pagination({
                   page: currentPage + 1,
                   pageLoaded: hasNextPage && currentPage !== totalPages,
                 },
-              }),
+              })
             )
           }
         >

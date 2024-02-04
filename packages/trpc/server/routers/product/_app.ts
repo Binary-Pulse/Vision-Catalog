@@ -10,5 +10,5 @@ export const productRouter = mergeRouters(
   brandRouter,
   priceRouter,
   imagesRouter,
-  moreDetailsRouter,
+  moreDetailsRouter
 );

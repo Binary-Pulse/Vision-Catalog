@@ -38,13 +38,13 @@ export const LogOutButtons = () => {
           <Skeleton
             className={cn(
               buttonVariants({ size: "default" }),
-              "w-full bg-muted text-muted-foreground",
+              "w-full bg-muted text-muted-foreground"
             )}
           ></Skeleton>
           <Skeleton
             className={cn(
               buttonVariants({ size: "default" }),
-              "w-full bg-muted text-muted-foreground",
+              "w-full bg-muted text-muted-foreground"
             )}
           ></Skeleton>
         </>
