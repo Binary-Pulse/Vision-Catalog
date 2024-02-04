@@ -1,11 +1,15 @@
-import { ProductIdType, productIdZodSchema } from "@repo/db/schema/product";
+import { Id } from "@repo/db";
 
-export async function GetProductDetailsForList(id: ProductIdType) {
+export async function GetProductDetailsForList(id: Id) {
   try {
-    productIdZodSchema.parse(id);
     const prouctDetailsForListing = await db?.product.findFirst({
       where: { id },
-      include: { brand: true, images: { take: 1 }, price: true },
+      include: {
+        brand: true,
+        images: { take: 1 },
+        price: true,
+        category: true,
+      },
     });
     return prouctDetailsForListing;
   } catch (error) {
@@ -13,9 +17,8 @@ export async function GetProductDetailsForList(id: ProductIdType) {
   }
 }
 
-export async function GetCompleteProductDataById(id: ProductIdType) {
+export async function GetCompleteProductDataById(id: Id) {
   try {
-    productIdZodSchema.parse(id);
     const completeProductInfo = await db?.product.findFirst({
       where: { id },
       include: {
@@ -23,8 +26,8 @@ export async function GetCompleteProductDataById(id: ProductIdType) {
         images: true,
         price: true,
         moreDetails: true,
-        user: true,
-        variants: true,
+        category: true,
+        variant: true,
       },
     });
     return completeProductInfo;
