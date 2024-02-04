@@ -51,7 +51,7 @@ export const SiteFooter = () => {
                 >
                   <div
                     className={cn(
-                      buttonVariants({ variant: "ghost", size: "xs" })
+                      buttonVariants({ variant: "ghost", size: "xs" }),
                     )}
                   >
                     <Icon className="h-5 w-5" />

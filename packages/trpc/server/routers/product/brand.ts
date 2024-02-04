@@ -15,7 +15,7 @@ export const brandRouter = createTRPCRouter({
     .input(
       z.object({
         brandData: addBrandParams,
-      })
+      }),
     )
     .output(z.object({}))
     .mutation(async ({ input: { brandData } }) => {

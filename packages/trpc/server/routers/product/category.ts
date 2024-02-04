@@ -15,7 +15,7 @@ export const categoryRouter = createTRPCRouter({
     .input(
       z.object({
         categoryData: addCategoryParams,
-      })
+      }),
     )
     .output(z.object({}))
     .mutation(async ({ input: { categoryData } }) => {

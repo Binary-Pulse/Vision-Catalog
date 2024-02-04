@@ -25,5 +25,5 @@ export const relatedAddressZodSchema: z.ZodSchema<CompleteAddress> = z.lazy(
   () =>
     addressZodSchema.extend({
       user: relatedUserZodSchema,
-    })
+    }),
 );

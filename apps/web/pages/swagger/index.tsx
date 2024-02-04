@@ -7,7 +7,7 @@ const SwaggerUIDynamic: SwaggerUI & { url: string } = dynamic(
   () => import("swagger-ui-react"),
   {
     ssr: false,
-  }
+  },
 );
 
 const swaggerURI = process.env.NEXT_PUBLIC_APP_URL

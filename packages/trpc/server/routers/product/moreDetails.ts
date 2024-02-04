@@ -17,7 +17,7 @@ export const moreDetailsRouter = createTRPCRouter({
         productId: id,
         moreDetails: addMoreDetailsParams,
         dimensions: dimensionsParam,
-      })
+      }),
     )
     .output(z.object({}))
     .mutation(async ({ input: { productId, dimensions, moreDetails } }) => {

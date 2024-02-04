@@ -31,5 +31,5 @@ export const relatedAccountZodSchema: z.ZodSchema<CompleteAccount> = z.lazy(
   () =>
     accountZodSchema.extend({
       user: relatedUserZodSchema,
-    })
+    }),
 );

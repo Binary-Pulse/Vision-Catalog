@@ -13,7 +13,7 @@ export async function classCreator({ className }: classCreatorProps) {
     return { msg: "Class created successfuly", data };
   } catch (error) {
     throw new Error(
-      (error as Error).message ?? "INTERNAL_SERVER_ERROR- Error creating Class"
+      (error as Error).message ?? "INTERNAL_SERVER_ERROR- Error creating Class",
     );
   }
 }
@@ -48,7 +48,8 @@ export async function addProperties({
     };
   } catch (error) {
     throw new Error(
-      (error as Error).message ?? "INTERNAL_SERVER_ERROR- Error adding property"
+      (error as Error).message ??
+        "INTERNAL_SERVER_ERROR- Error adding property",
     );
   }
 }

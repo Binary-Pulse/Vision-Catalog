@@ -16,7 +16,7 @@ export const priceRouter = createTRPCRouter({
       z.object({
         productId: id,
         priceData: addPriceParamsSchema,
-      })
+      }),
     )
     .output(z.object({}))
     .mutation(async ({ input: { productId, priceData } }) => {
