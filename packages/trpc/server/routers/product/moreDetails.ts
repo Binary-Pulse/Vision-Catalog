@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "../../trpc";
+import { createTRPCRouter, protectedProcedure } from "../../trpc";
 import { AddMoreDetailsToProduct } from "@repo/api/product";
 import { addMoreDetailsParams, dimensionsParam, id } from "@repo/db";
 export const moreDetailsRouter = createTRPCRouter({
-  addMoreDetailsToProduct: publicProcedure
+  addMoreDetailsToProduct: protectedProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",

@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "../../trpc";
+import { createTRPCRouter, protectedProcedure } from "../../trpc";
 import { AddPriceToProduct } from "@repo/api/product";
 import { addPriceParamsSchema, id } from "@repo/db";
 export const priceRouter = createTRPCRouter({
-  addPriceToProduct: publicProcedure
+  addPriceToProduct: protectedProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",

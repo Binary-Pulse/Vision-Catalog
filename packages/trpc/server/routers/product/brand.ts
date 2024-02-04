@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "../../trpc";
+import { createTRPCRouter, protectedProcedure } from "../../trpc";
 import { AddBrand } from "@repo/api/product";
 import { addBrandParams } from "@repo/db";
 export const brandRouter = createTRPCRouter({
-  addBrand: publicProcedure
+  addBrand: protectedProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",

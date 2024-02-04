@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "../../trpc";
+import { createTRPCRouter, protectedProcedure } from "../../trpc";
 import { AddImagesToProduct } from "@repo/api/product";
 import { addImagesParams, id } from "@repo/db";
 export const imagesRouter = createTRPCRouter({
-  addImageToProduct: publicProcedure
+  addImageToProduct: protectedProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
