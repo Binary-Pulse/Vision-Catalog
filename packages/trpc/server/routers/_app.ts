@@ -1,9 +1,9 @@
 import { createTRPCRouter } from "../trpc";
-import { imageSearchRouter } from "./image-search";
+import { productSearchRouter } from "./product-search";
 import { productRouter } from "./product/_app";
 
 export const appRouter = createTRPCRouter({
-  imageSearch: imageSearchRouter,
+  productSearchRouter: productSearchRouter,
   productRouter: productRouter,
 });
 
