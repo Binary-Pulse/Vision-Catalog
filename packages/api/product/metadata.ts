@@ -5,7 +5,7 @@ import {
   imageURLToBase64,
 } from "@repo/utils";
 import {
-  ProductSearchVectorSchema,
+  ProductSearchVectorType,
   addNewProductMetadata,
   updateProductMetadata,
 } from "../vector-search";
@@ -26,7 +26,7 @@ export async function addMetadataToVectorDB(productId: Id) {
   const primaryImageUrl = product?.images?.primaryImageUrl;
   const currency = product?.price?.currency as "INR" | "USD";
   const pricePerUnit = product?.price?.ppu as number;
-  const metadata: ProductSearchVectorSchema = {
+  const metadata: ProductSearchVectorType = {
     productId: productId,
 
     productName: product.productName,
@@ -80,7 +80,7 @@ export async function updateMetadataToVectorDB({
   const primaryImageUrl = product?.images?.primaryImageUrl;
   const currency = product?.price?.currency as "INR" | "USD";
   const pricePerUnit = product?.price?.ppu as number;
-  const metadata: ProductSearchVectorSchema = {
+  const metadata: ProductSearchVectorType = {
     productId: productId,
 
     productName: product.productName,

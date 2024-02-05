@@ -11,7 +11,10 @@ import {
   addNewProductMetadata,
   updateProductMetadata,
 } from "@repo/api/vector-search";
-import { ProductSearchVectorSchema } from "@repo/api/vector-search/schemaConfig";
+import {
+  ProductSearchVectorSchema,
+  ProductSearchVectorType,
+} from "@repo/api/vector-search/schemaConfig";
 export const productSearchRouter = createTRPCRouter({
   addProductMetadata: protectedProcedure
     .input(
@@ -26,7 +29,7 @@ export const productSearchRouter = createTRPCRouter({
       const response = await addNewProductMetadata({
         imageBase64,
         imageClassName: SEARCH_BY_IMAGE_CLASS,
-        metadata: metadata as ProductSearchVectorSchema,
+        metadata: metadata as ProductSearchVectorType,
         textClassName: SEARCH_BY_TEXT_CLASS,
       });
       return response;
@@ -51,7 +54,7 @@ export const productSearchRouter = createTRPCRouter({
           imageClassName: SEARCH_BY_IMAGE_CLASS,
           vectorImageObjId,
           vectorTextObjId,
-          metadata: metadata as ProductSearchVectorSchema,
+          metadata: metadata as ProductSearchVectorType,
           textClassName: SEARCH_BY_TEXT_CLASS,
         });
         return { msg: "Product's image metadata updated" };
@@ -79,7 +82,7 @@ export const productSearchRouter = createTRPCRouter({
         ]),
       }),
     )
-    .output(z.object({}))
+    .output(z.array(ProductSearchVectorSchema))
     .mutation(async ({ input }) => {
       if (input.union.searchWith === "Image") {
         const imageBase64 = await imageURLToBase64(input.union.imageURL);

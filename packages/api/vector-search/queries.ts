@@ -1,4 +1,4 @@
-import { ProductSearchVectorSchema, client } from ".";
+import { ProductSearchVectorType, client } from ".";
 
 interface ImageVectorMetadataRetrieverProps {
   className: string;
@@ -17,7 +17,7 @@ export async function ImageVectorMetadataRetriever({
       // .withLimit(1)
       .do();
     const responseArray = res.data.Get[className] as string[];
-    const metadataArray: ProductSearchVectorSchema[] = responseArray.map(
+    const metadataArray: ProductSearchVectorType[] = responseArray.map(
       (response) => JSON.parse(response),
     );
     return metadataArray;
@@ -42,7 +42,7 @@ export async function TextVectorMetadataRetriever({
       // .withLimit(1)
       .do();
     const responseArray = res.data.Get[className] as string[];
-    const metadataArray: ProductSearchVectorSchema[] = responseArray.map(
+    const metadataArray: ProductSearchVectorType[] = responseArray.map(
       (response) => JSON.parse(response),
     );
     return metadataArray;

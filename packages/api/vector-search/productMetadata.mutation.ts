@@ -1,9 +1,9 @@
-import { ProductSearchVectorSchema } from "./schemaConfig";
+import { ProductSearchVectorType } from "./schemaConfig";
 import { client } from ".";
 
 interface AddProductMetadataByImageProps {
   imageBase64: string;
-  metadata: ProductSearchVectorSchema;
+  metadata: ProductSearchVectorType;
   imageClassName: string;
 }
 export async function addProductMetadataByImage({
@@ -34,7 +34,7 @@ export async function addProductMetadataByImage({
   }
 }
 interface AddProductMetadataByTextProps {
-  metadata: ProductSearchVectorSchema;
+  metadata: ProductSearchVectorType;
   textClassName: string;
 }
 export async function addProductMetadataByText({
@@ -66,7 +66,7 @@ interface AddNewProductMetadataProps {
   imageClassName: string;
   textClassName: string;
   imageBase64: string;
-  metadata: ProductSearchVectorSchema;
+  metadata: ProductSearchVectorType;
 }
 export async function addNewProductMetadata({
   imageBase64,
@@ -147,7 +147,7 @@ interface UpdateProductMetadataProps {
   textClassName: string;
   vectorTextObjId: string;
   vectorImageObjId: string;
-  metadata: ProductSearchVectorSchema;
+  metadata: ProductSearchVectorType;
   imageBase64: string;
 }
 export async function updateProductMetadata({
