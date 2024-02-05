@@ -17,3 +17,27 @@ export async function AddPriceToProduct({
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }
 }
+
+export async function UpdatePriceToProduct({
+  productId,
+  priceData,
+}: AddPriceToProductProps) {
+  try {
+    const existingPrice = await db?.price.findUnique({
+      where: { productId: productId },
+    });
+
+    if (!existingPrice) {
+      throw new Error("PRODUCT_PRICE_NOT_FOUND");
+    }
+
+    await db?.price.update({
+      where: { productId: productId },
+      data: { ...priceData },
+    });
+
+    return { msg: "Price Updated Successfully" };
+  } catch (error) {
+    throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
+  }
+}
