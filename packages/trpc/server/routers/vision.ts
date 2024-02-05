@@ -1,14 +1,14 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { invokeLLM } from "@repo/api/llm";
-import { URLOrB64ToB64 } from "../../../lib";
+import { URLOrB64ToB64, imageURLToBase64 } from "../../../lib";
 import {
-  ImageProductVectorRetriever,
+  ImageVectorMetadataRetriever,
   ProductListFormSchema,
   sampleProductListForm,
-} from "@repo/api/image-search";
+} from "@repo/api/vector-search";
 export const visionProRouter = createTRPCRouter({
-  ProductDataExtractionService: publicProcedure
+  getProductMetadataByImage: publicProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
@@ -19,17 +19,13 @@ export const visionProRouter = createTRPCRouter({
     .input(
       z.object({
         className: z.string(),
-        imageBase64: z.string().optional(),
-        imageURL: z.string().url().optional(),
+        imageURL: z.string().url(),
       }),
     )
     .output(z.object({}))
     .mutation(async ({ input }) => {
-      const image = await URLOrB64ToB64({
-        imageBase64: input.imageBase64,
-        imageURL: input.imageURL,
-      });
-      const metadata = await ImageProductVectorRetriever({
+      const image = await imageURLToBase64(input.imageURL);
+      const metadata = await ImageVectorMetadataRetriever({
         className: input.className,
         image,
       });

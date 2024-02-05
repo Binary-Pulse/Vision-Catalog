@@ -347,6 +347,9 @@ importers:
       '@repo/db':
         specifier: workspace:*
         version: link:../db
+      '@repo/utils':
+        specifier: 'workspace: *'
+        version: link:../lib
       '@tanstack/react-query':
         specifier: ^4.35.7
         version: 4.36.1(react-dom@18.2.0)(react@18.2.0)

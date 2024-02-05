@@ -7,4 +7,4 @@ export const client = weaviate.client({
 
 export * from "./schemaConfig";
 export * from "./queries";
-export * from "./addProduct.mutation"
+export * from "./addProduct.mutation";

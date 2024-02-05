@@ -12,13 +12,12 @@ export const productRouter = createTRPCRouter({
         tags: ["Products"],
       },
     })
-    .input(z.object({}))
+    .input(z.undefined())
     .output(z.object({}))
     .query(async ({ ctx: { userId } }) => {
       const res = await GetUserProductList(userId);
       return res;
     }),
-
   addProductOrVariant: protectedProcedure
     .meta({
       /* 👉 */ openapi: {
