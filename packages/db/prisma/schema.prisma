@@ -43,40 +43,6 @@ model Account {
   @@map(name: "accounts")
 }
 
-model Image {
-  id        String  @id @default(uuid())
-  productId String  @unique
-  url       String[]
-  product   Product @relation(fields: [productId], references: [id])
-
-  @@index([id])
-}
-
-model Session {
-  id           String   @id @default(uuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@map(name: "sessions")
-}
-
-model Address {
-  id        String  @id @default(uuid())
-  userId    String
-  street    String?
-  city      String?
-  state     String?
-  zip       String?
-  country   String?
-  isDefault Boolean @default(false)
-  user      User    @relation(fields: [userId], references: [id])
-
-  @@index([userId])
-}
-
 model User {
   id            String    @id @default(uuid())
   name          String?
@@ -92,6 +58,40 @@ model User {
   address  Address[]
 
   @@map(name: "users")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map(name: "sessions")
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  productId String   @unique
+  url       String[]
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([id])
+}
+
+model Address {
+  id        String  @id @default(uuid())
+  userId    String
+  street    String?
+  city      String?
+  state     String?
+  zip       String?
+  country   String?
+  isDefault Boolean @default(false)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model VerificationToken {
@@ -114,7 +114,7 @@ model Price {
   shippingCost       Float?
   handlingFee        Float?
   ppuCount           Float?
-  product            Product  @relation(fields: [productId], references: [id])
+  product            Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@index([id])
 }
@@ -197,7 +197,7 @@ model MoreDetails {
   fabricType            String?
 
   dimensions Dimension?
-  product    Product    @relation(fields: [productId], references: [id])
+  product    Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@index([id])
 }
@@ -221,5 +221,5 @@ model Dimension {
   displayWidth  Float?
 
   parameter String?
-  package   MoreDetails @relation(fields: [moreDetailsId], references: [id])
+  package   MoreDetails @relation(fields: [moreDetailsId], references: [id], onDelete: Cascade)
 }
