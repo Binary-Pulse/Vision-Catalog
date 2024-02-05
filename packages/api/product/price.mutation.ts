@@ -1,35 +1,31 @@
 import { AddPriceParamsType, Id } from "@repo/db";
 
-interface AddPriceToProductProps {
+interface ProductPriceInfoProps {
   productId: Id;
   priceData: AddPriceParamsType;
 }
-export async function AddPriceToProduct({
-  productId,
-  priceData,
-}: AddPriceToProductProps) {
-  try {
-    await db?.price.create({
-      data: { ...priceData, product: { connect: { id: productId } } },
-    });
-    return { msg: "Price Added Successfully" };
-  } catch (error) {
-    throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
-  }
-}
+// export async function AddPriceToProduct({
+//   productId,
+//   priceData,
+// }: ProductPriceInfoProps) {
+//   try {
+//     await db?.price.create({
+//       data: { ...priceData, product: { connect: { id: productId } } },
+//     });
+//     return { msg: "Price Added Successfully" };
+//   } catch (error) {
+//     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
+//   }
+// }
 
-export async function UpdatePriceToProduct({
+export async function UpdateProductPriceInfo({
   productId,
   priceData,
-}: AddPriceToProductProps) {
+}: ProductPriceInfoProps) {
   try {
-    const existingPrice = await db?.price.findUnique({
+    await db?.price.findFirstOrThrow({
       where: { productId: productId },
     });
-
-    if (!existingPrice) {
-      throw new Error("PRODUCT_PRICE_NOT_FOUND");
-    }
 
     await db?.price.update({
       where: { productId: productId },
