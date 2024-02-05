@@ -145,29 +145,29 @@ export async function updateProductMetadataByText({
 interface UpdateProductMetadataProps {
   imageClassName: string;
   textClassName: string;
-  textClassPropertyId: string;
-  imageClassPropertyId: string;
+  vectorTextObjId: string;
+  vectorImageObjId: string;
   metadata: ProductSearchVectorSchema;
   imageBase64: string;
 }
 export async function updateProductMetadata({
   imageClassName,
   textClassName,
-  textClassPropertyId,
-  imageClassPropertyId,
+  vectorTextObjId,
+  vectorImageObjId,
   metadata,
   imageBase64,
 }: UpdateProductMetadataProps) {
   try {
     await updateProductMetadataByImage({
       imageClassName,
-      id: imageClassPropertyId,
+      id: vectorImageObjId,
       metadata,
       imageBase64,
     });
     await updateProductMetadataByText({
       textClassName,
-      id: textClassPropertyId,
+      id: vectorTextObjId,
       metadata,
     });
   } catch (error) {

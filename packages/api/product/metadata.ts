@@ -57,13 +57,13 @@ export async function addMetadataToVectorDB(productId: Id) {
 }
 interface updateMetadataToVectorDBProps {
   productId: Id;
-  imageClassPropertyId: string;
-  textClassPropertyId: string;
+  vectorImageObjId: string;
+  vectorTextObjId: string;
 }
 export async function updateMetadataToVectorDB({
   productId,
-  imageClassPropertyId,
-  textClassPropertyId,
+  vectorImageObjId,
+  vectorTextObjId,
 }: updateMetadataToVectorDBProps) {
   const product = await db?.product.findFirstOrThrow({
     where: { id: productId },
@@ -102,8 +102,8 @@ export async function updateMetadataToVectorDB({
     product.images?.primaryImageUrl as string,
   );
   const vectorProductMetadataResponse = await updateProductMetadata({
-    imageClassPropertyId,
-    textClassPropertyId,
+    vectorImageObjId,
+    vectorTextObjId,
     imageBase64,
     imageClassName: SEARCH_BY_IMAGE_CLASS,
     textClassName: SEARCH_BY_TEXT_CLASS,
