@@ -1,4 +1,5 @@
 import { SEARCH_BY_IMAGE_CLASS, SEARCH_BY_TEXT_CLASS } from "@repo/utils";
+import { z } from "zod";
 
 export const imageSchemaConfig = {
   class: SEARCH_BY_IMAGE_CLASS,
@@ -38,18 +39,21 @@ export const textSchemaConfig = {
 
 export const sampleProductListForm = {}; // the type of this will be exact type of form
 export type ProductListFormSchema = typeof sampleProductListForm;
-export type ProductSearchVectorSchema = {
-  productId?: string;
-  productName: string;
-  description?: string | null;
-  primaryImageUrl?: string | null;
-  brand?: string | null;
-  sku?: string | null;
-  upc?: string | null;
-  ean?: string | null;
-  isbn?: string | null;
-  searchTerms?: string[] | null;
-  category?: string | null;
-  pricePerUnit: number;
-  currency: "USD" | "INR";
-};
+
+export const ProductSearchVectorSchema = z.object({
+  productId: z.string().optional(),
+  productName: z.string(),
+  description: z.string().nullable().optional(),
+  primaryImageUrl: z.string().nullable().optional(),
+  brand: z.string().nullable().optional(),
+  sku: z.string().nullable().optional(),
+  upc: z.string().nullable().optional(),
+  ean: z.string().nullable().optional(),
+  isbn: z.string().nullable().optional(),
+  searchTerms: z.array(z.string()).nullable().optional(),
+  category: z.string().nullable().optional(),
+  pricePerUnit: z.number(),
+  currency: z.enum(["USD", "INR"]),
+});
+
+export type ProductSearchVectorType = z.infer<typeof ProductSearchVectorSchema>;
