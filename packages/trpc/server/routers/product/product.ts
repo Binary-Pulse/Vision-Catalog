@@ -1,7 +1,12 @@
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "../../trpc";
-import { AddNewProductOrVariant, GetUserProductList } from "@repo/api/product";
+import {
+  AddNewProduct,
+  GetUserProductList,
+  UpdateProductVitalInfo,
+  UseParentProductToAddVariant,
+} from "@repo/api/product";
 import { id, productDetailsParams } from "@repo/db";
 export const productRouter = createTRPCRouter({
   getUserProductList: protectedProcedure
@@ -18,7 +23,7 @@ export const productRouter = createTRPCRouter({
       const res = await GetUserProductList(userId);
       return res;
     }),
-  addProductOrVariant: protectedProcedure
+  addProduct: protectedProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
@@ -31,23 +36,84 @@ export const productRouter = createTRPCRouter({
         brandId: id,
         categoryId: id,
         productVitalInfo: productDetailsParams,
-        userId: id,
-        addVariantByParentId: id,
+        currency: z.union([z.literal("INR"), z.literal("USD")]),
+        pricePerUnit: z.number(),
+        primaryImageUrl: z.string().url(),
       }),
     )
     .output(z.object({}))
     .mutation(
       async ({
-        input: { brandId, categoryId, productVitalInfo, addVariantByParentId },
+        input: {
+          brandId,
+          categoryId,
+          productVitalInfo,
+          primaryImageUrl,
+          currency,
+          pricePerUnit,
+        },
         ctx: { userId },
       }) => {
-        const res = await AddNewProductOrVariant({
+        await db?.brand.findFirstOrThrow({
+          where: { id: brandId },
+        });
+        await db?.category.findFirstOrThrow({
+          where: { id: categoryId },
+        });
+        const res = await AddNewProduct({
+          currency,
+          pricePerUnit,
           brandId,
           categoryId,
           productVitalInfo,
           userId,
-          addVariantByParentId,
+          primaryImageUrl,
         });
+        return res;
+      },
+    ),
+  addVariantWithExistingProduct: protectedProcedure
+    .meta({
+      /* 👉 */ openapi: {
+        method: "POST",
+        path: "/add-variant-with-existing-product",
+        tags: ["Products"],
+      },
+    })
+    .input(
+      z.object({
+        parentProductId: id,
+      }),
+    )
+    .output(z.object({}))
+    .mutation(async ({ input: { parentProductId } }) => {
+      const response = await UseParentProductToAddVariant(parentProductId);
+      return response;
+    }),
+  updateProductOrVariant: protectedProcedure
+    .meta({
+      /* 👉 */ openapi: {
+        method: "POST",
+        path: "/add-product-or-variant",
+        tags: ["Products"],
+      },
+    })
+    .input(
+      z.object({
+        productId: id,
+        productVitalInfo: productDetailsParams,
+      }),
+    )
+    .output(z.object({}))
+    .mutation(
+      async ({
+        input: { productId, productVitalInfo: updatedProductVitalInfo },
+      }) => {
+        const res = await UpdateProductVitalInfo({
+          productId,
+          updatedProductVitalInfo,
+        });
+
         return res;
       },
     ),
