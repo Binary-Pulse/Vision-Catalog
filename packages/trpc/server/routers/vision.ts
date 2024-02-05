@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { invokeLLM } from "@repo/api/llm";
-import { URLOrB64ToB64, imageURLToBase64 } from "../../../lib";
 import {
   ImageVectorMetadataRetriever,
   ProductListFormSchema,
   sampleProductListForm,
 } from "@repo/api/vector-search";
+import { imageURLToBase64 } from "@repo/utils";
 export const visionProRouter = createTRPCRouter({
   getProductMetadataByImage: publicProcedure
     .meta({

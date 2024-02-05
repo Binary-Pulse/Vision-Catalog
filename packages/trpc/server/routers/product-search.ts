@@ -14,13 +14,6 @@ import {
 import { ProductSearchVectorSchema } from "@repo/api/vector-search/schemaConfig";
 export const productSearchRouter = createTRPCRouter({
   addProductMetadata: protectedProcedure
-    .meta({
-      /* 👉 */ openapi: {
-        method: "POST",
-        path: "/add-product-metadata",
-        tags: ["ProductSearch"],
-      },
-    })
     .input(
       z.object({
         imageURL: z.string().url(),
@@ -39,13 +32,6 @@ export const productSearchRouter = createTRPCRouter({
       return response;
     }),
   updateProductMetadata: protectedProcedure
-    .meta({
-      openapi: {
-        method: "PUT",
-        path: "/update-product-metadata",
-        tags: ["ProductSearch"],
-      },
-    })
     .input(
       z.object({
         imageClassPropertyId: z.string(),
