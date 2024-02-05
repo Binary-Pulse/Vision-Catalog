@@ -1,5 +1,5 @@
 import { AddProductVitalInfoParamsType, Id } from "@repo/db";
-import { addMetadataToVectorDB } from "./metadata";
+import { addMetadataToVectorDB, updateMetadataToVectorDB } from "./metadata";
 
 interface AddNewProductProps {
   productVitalInfo: AddProductVitalInfoParamsType;
@@ -74,13 +74,21 @@ export async function UpdateProductVitalInfo({
   try {
     const existingProduct = await db?.product.findUnique({
       where: { id: productId },
+      select: { vectorImageObjId: true, vectorTextObjId: true },
     });
 
     if (!existingProduct) {
       throw new Error("PRODUCT_NOT_FOUND");
     }
-
-    const a = await db?.product.update({
+    if (!existingProduct.vectorImageObjId || !existingProduct.vectorTextObjId) {
+      throw new Error("VECTOR_OBJECT_IDS_NOT_FOUND");
+    }
+    await updateMetadataToVectorDB({
+      vectorImageObjId: existingProduct.vectorImageObjId,
+      productId,
+      vectorTextObjId: existingProduct.vectorTextObjId,
+    });
+    await db?.product.update({
       where: { id: productId },
       data: { ...updatedProductVitalInfo },
       include: {
