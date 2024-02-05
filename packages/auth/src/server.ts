@@ -11,7 +11,7 @@ import {
   getServerSession,
 } from "next-auth";
 import { db } from "@repo/db";
-import type { sessionSchema, userSchema, z } from "@repo/db";
+import type { sessionZodSchema, userZodSchema, z } from "@repo/db";
 import NextAuth from "./next-auth";
 import { CustomsendVerificationRequest } from "./sendVerificationRequest";
 
@@ -26,8 +26,8 @@ export type OAuthProviders = (typeof providers)[number];
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
 declare module "next-auth" {
-  interface User extends z.infer<typeof userSchema> {}
-  interface Session extends z.infer<typeof sessionSchema>, DefaultSession {
+  interface User extends z.infer<typeof userZodSchema> {}
+  interface Session extends z.infer<typeof sessionZodSchema>, DefaultSession {
     user: DefaultSession["user"] & {
       id: string;
     };

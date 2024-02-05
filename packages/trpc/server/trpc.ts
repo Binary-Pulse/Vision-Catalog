@@ -113,3 +113,5 @@ export const apiProcedure = publicProcedure.use((opts) => {
 // Error Handling: Procedures that handle errors need to access the res object to send appropriate error responses to the client. For example, a procedure might catch an error, log it for debugging purposes, and then use the res object to send an error message to the client.
 // Routing: Procedures that handle routing need to access the req object to determine the current route. For example, a procedure might need to check the URL in the req object to conditionally perform some action.
 // Remember that these are general examples and the exact procedures that depend on req and res will vary based on the specifics of your application
+
+export const mergeRouters = t.mergeRouters;

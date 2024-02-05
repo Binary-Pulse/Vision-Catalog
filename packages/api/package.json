@@ -12,23 +12,26 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@langchain/google-genai": "^0.0.8",
     "@next/eslint-plugin-next": "^13.5.4",
-    "graphql": "^16.8.1",
-    "@trpc/server": "^10.38.5",
     "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/utils": "workspace:*",
+    "@trpc/server": "^10.38.5",
+    "dotenv": "^16.4.1",
+    "graphql": "^16.8.1",
+    "langchain": "^0.1.11",
     "react": "^18",
-    "weaviate-ts-client": "^2.0.0",
     "superjson": "1.13.3",
+    "weaviate-ts-client": "^2.0.0",
     "zod": "^3.22.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*",
+    "@types/node": "20.8.0",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/node": "20.8.0",
     "eslint": "^8.50.0",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2"
