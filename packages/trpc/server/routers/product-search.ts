@@ -34,8 +34,8 @@ export const productSearchRouter = createTRPCRouter({
   updateProductMetadata: protectedProcedure
     .input(
       z.object({
-        imageClassPropertyId: z.string(),
-        textClassPropertyId: z.string(),
+        vectorImageObjId: z.string(),
+        vectorTextObjId: z.string(),
         imageURL: z.string().url(),
         metadata: z.object({}),
       }),
@@ -43,21 +43,16 @@ export const productSearchRouter = createTRPCRouter({
     .output(z.object({}))
     .mutation(
       async ({
-        input: {
-          imageClassPropertyId,
-          textClassPropertyId,
-          imageURL,
-          metadata,
-        },
+        input: { vectorImageObjId, vectorTextObjId, imageURL, metadata },
       }) => {
         const imageBase64 = await imageURLToBase64(imageURL);
         updateProductMetadata({
           imageBase64,
           imageClassName: SEARCH_BY_IMAGE_CLASS,
-          imageClassPropertyId,
+          vectorImageObjId,
+          vectorTextObjId,
           metadata: metadata as ProductSearchVectorSchema,
           textClassName: SEARCH_BY_TEXT_CLASS,
-          textClassPropertyId,
         });
         return { msg: "Product's image metadata updated" };
       },
