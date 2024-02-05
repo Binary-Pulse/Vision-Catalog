@@ -1,39 +1,101 @@
 import { AddProductVitalInfoParamsType, Id } from "@repo/db";
+import {
+  ProductSearchVectorSchema,
+  addNewProductMetadata,
+} from "../vector-search";
+import {
+  SEARCH_BY_IMAGE_CLASS,
+  SEARCH_BY_TEXT_CLASS,
+  imageURLToBase64,
+} from "@repo/utils";
 
-interface AddNewProductOrVariantProps {
+interface AddNewProductProps {
   productVitalInfo: AddProductVitalInfoParamsType;
+  pricePerUnit: number;
+  primaryImageUrl: string;
+  currency: "INR" | "USD";
   userId: Id;
   brandId: Id;
   categoryId: Id;
-  addVariantByParentId?: Id;
 }
-export async function AddNewProductOrVariant({
+/**
+ * Add new product to db and adds metadata to text vector db and image search db
+ * returs objectId in response
+ */
+export async function AddNewProduct({
   productVitalInfo,
+  pricePerUnit,
+  primaryImageUrl,
+  currency,
   userId,
   brandId,
   categoryId,
-  addVariantByParentId,
-}: AddNewProductOrVariantProps) {
+}: AddNewProductProps) {
   try {
-    await db?.product.create({
+    //
+    const product = await db?.product.create({
       data: {
         ...productVitalInfo,
         brand: { connect: { id: brandId } },
         category: { connect: { id: categoryId } },
         user: { connect: { id: userId } },
-        variant: addVariantByParentId
-          ? { connect: { id: addVariantByParentId } }
-          : undefined,
+        price: { create: { ppu: pricePerUnit, currency: currency } },
+        images: { create: { primaryImageUrl } },
+        moreDetails: { create: { dimensions: { create: {} } } }, // create the table update and update it later
+      },
+      include: {
+        brand: { select: { name: true } },
+        category: { select: { name: true } },
       },
     });
-    return { msg: "New Product Added Successfully" };
+    const productId = product?.id;
+    const metadata: ProductSearchVectorSchema = {
+      productId: productId,
+
+      productName: productVitalInfo.productName,
+      description: productVitalInfo.description,
+      ean: productVitalInfo.EAN,
+      isbn: productVitalInfo.ISBN,
+      sku: productVitalInfo.SKU,
+      searchTerms: productVitalInfo.searchTerms,
+      upc: productVitalInfo.UPC,
+
+      brand: product?.brand?.name,
+      category: product?.category?.name,
+
+      primaryImageUrl,
+      currency,
+      pricePerUnit,
+    };
+    const imageBase64 = await imageURLToBase64(primaryImageUrl);
+    const vectorProductMetadataResponse = await addNewProductMetadata({
+      imageBase64,
+      imageClassName: SEARCH_BY_IMAGE_CLASS,
+      textClassName: SEARCH_BY_TEXT_CLASS,
+      metadata,
+    });
+    await db?.product.update({
+      where: { id: productId },
+      data: {
+        vectorTextObjId: vectorProductMetadataResponse.textObject.objectId,
+        vectorImageObjId: vectorProductMetadataResponse.imageObject.objectId,
+      },
+    });
+    const response = {
+      msg: "New Product Added Successfully.",
+      productId: productId,
+      vectorTextObjectId: vectorProductMetadataResponse.textObject.objectId,
+      vectorImageObjectId: vectorProductMetadataResponse.imageObject.objectId,
+    };
+    return { response };
   } catch (error) {
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }
 }
+
 interface UpdateProductVitalInfoProps {
   productId: Id;
-  updatedProductVitalInfo: AddNewProductOrVariantProps;
+  updatedProductVitalInfo: AddProductVitalInfoParamsType;
 }
 export async function UpdateProductVitalInfo({
   productId,
@@ -48,9 +110,14 @@ export async function UpdateProductVitalInfo({
       throw new Error("PRODUCT_NOT_FOUND");
     }
 
-    await db?.product.update({
+    const a = await db?.product.update({
       where: { id: productId },
       data: { ...updatedProductVitalInfo },
+      include: {
+        images: { select: { primaryImageUrl: true } },
+        brand: { select: { name: true } },
+        price: { select: { ppu: true, currency: true } },
+      },
     });
 
     return { msg: "Product Vital Information Updated Successfully" };
