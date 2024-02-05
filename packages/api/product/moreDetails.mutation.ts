@@ -24,17 +24,11 @@ interface AddMoreDetailsToProductProps {
 //   }
 // }
 
-interface UpdateMoreDetailsToProductProps {
-  moreDetails: AddMoreDetailsParamsType;
-  productId: Id;
-  updatedDimensions?: DimensionsParamType;
-}
-
-export async function UpdateMoreDetailsToProduct({
+export async function UpdateProductMoreDetails({
   moreDetails,
   productId,
-  updatedDimensions,
-}: UpdateMoreDetailsToProductProps) {
+  dimensions,
+}: AddMoreDetailsToProductProps) {
   try {
     await db?.moreDetails.findFirstOrThrow({
       where: { productId: productId },
@@ -44,7 +38,7 @@ export async function UpdateMoreDetailsToProduct({
       where: { productId: productId },
       data: {
         ...moreDetails,
-        dimensions: { update: { ...updatedDimensions } },
+        dimensions: { update: { ...dimensions } },
       },
     });
 
