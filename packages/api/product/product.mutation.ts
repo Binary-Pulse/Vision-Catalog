@@ -72,7 +72,7 @@ export async function UpdateProductVitalInfo({
   updatedProductVitalInfo,
 }: UpdateProductVitalInfoProps) {
   try {
-    const existingProduct = await db?.product.findUnique({
+    const existingProduct = await db?.product.findFirstOrThrow({
       where: { id: productId },
       select: { vectorImageObjId: true, vectorTextObjId: true },
     });
@@ -106,7 +106,7 @@ export async function UpdateProductVitalInfo({
 
 export async function DeleteProductAndReferences(productId: Id) {
   try {
-    const product = await db?.product.findUnique({
+    const product = await db?.product.findFirstOrThrow({
       where: { id: productId },
       include: { variants: true },
     });
@@ -134,13 +134,22 @@ export async function UpdateProductCategory({
   categoryId,
 }: UpdateProductCategoryProps) {
   try {
-    const existingProduct = await db?.product.findUnique({
+    const existingProduct = await db?.product.findFirstOrThrow({
       where: { id: productId },
+      select: { vectorImageObjId: true, vectorTextObjId: true },
     });
 
     if (!existingProduct) {
       throw new Error("PRODUCT_NOT_FOUND");
     }
+    if (!existingProduct.vectorImageObjId || !existingProduct.vectorTextObjId) {
+      throw new Error("VECTOR_OBJECT_IDS_NOT_FOUND");
+    }
+    await updateMetadataToVectorDB({
+      productId,
+      vectorImageObjId: existingProduct.vectorImageObjId,
+      vectorTextObjId: existingProduct.vectorImageObjId,
+    });
 
     await db?.product.update({
       where: { id: productId },
@@ -163,13 +172,22 @@ export async function UpdateProductBrand({
   brandId,
 }: UpdateProductBrandProps) {
   try {
-    const existingProduct = await db?.product.findUnique({
+    const existingProduct = await db?.product.findFirstOrThrow({
       where: { id: productId },
+      select: { vectorImageObjId: true, vectorTextObjId: true },
     });
 
     if (!existingProduct) {
       throw new Error("PRODUCT_NOT_FOUND");
     }
+    if (!existingProduct.vectorImageObjId || !existingProduct.vectorTextObjId) {
+      throw new Error("VECTOR_OBJECT_IDS_NOT_FOUND");
+    }
+    await updateMetadataToVectorDB({
+      productId,
+      vectorImageObjId: existingProduct.vectorImageObjId,
+      vectorTextObjId: existingProduct.vectorImageObjId,
+    });
 
     await db?.product.update({
       where: { id: productId },
