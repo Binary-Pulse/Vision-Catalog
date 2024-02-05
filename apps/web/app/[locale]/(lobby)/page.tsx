@@ -10,7 +10,7 @@ export default async function IndexPage({
 
   return (
     <div>
-      (<HeroSection />)
+      <HeroSection />
     </div>
   );
 }

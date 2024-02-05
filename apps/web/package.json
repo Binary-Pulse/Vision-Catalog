@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.507.0",
+    "@aws-sdk/s3-request-presigner": "^3.507.0",
+    "@hookform/resolvers": "^3.3.4",
     "@repo/api": "workspace:*",
     "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",
