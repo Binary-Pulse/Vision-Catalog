@@ -2,14 +2,14 @@ import { ProductSearchVectorSchema } from "./schemaConfig";
 import { client } from ".";
 
 interface AddProductMetadataByImageProps {
-  imageBase64?: string;
+  imageBase64: string;
   metadata: ProductSearchVectorSchema;
-  className: string;
+  imageClassName: string;
 }
 export async function addProductMetadataByImage({
   imageBase64,
   metadata,
-  className,
+  imageClassName,
 }: AddProductMetadataByImageProps) {
   try {
     const mtd = JSON.stringify(metadata);
@@ -19,12 +19,12 @@ export async function addProductMetadataByImage({
     };
     const data = await client.data
       .creator()
-      .withClassName(className)
+      .withClassName(imageClassName)
       .withProperties(properties)
       .do();
     return {
-      msg: "Image and Metadata JSON string added to the vector database successfuly",
-      data,
+      status: "Success",
+      objectId: data.id,
     };
   } catch (error) {
     throw new Error(
@@ -35,11 +35,11 @@ export async function addProductMetadataByImage({
 }
 interface AddProductMetadataByTextProps {
   metadata: ProductSearchVectorSchema;
-  className: string;
+  textClassName: string;
 }
 export async function addProductMetadataByText({
   metadata,
-  className,
+  textClassName,
 }: AddProductMetadataByTextProps) {
   try {
     const mtd = JSON.stringify(metadata);
@@ -48,12 +48,12 @@ export async function addProductMetadataByText({
     };
     const data = await client.data
       .creator()
-      .withClassName(className)
+      .withClassName(textClassName)
       .withProperties(properties)
       .do();
     return {
-      msg: "Image and Metadata JSON string added to the vector database successfuly",
-      data,
+      status: "Success",
+      objectId: data.id,
     };
   } catch (error) {
     throw new Error(
@@ -62,12 +62,36 @@ export async function addProductMetadataByText({
     );
   }
 }
-
+interface AddNewProductMetadataProps {
+  imageClassName: string;
+  textClassName: string;
+  imageBase64: string;
+  metadata: ProductSearchVectorSchema;
+}
+export async function addNewProductMetadata({
+  imageBase64,
+  imageClassName,
+  textClassName,
+  metadata,
+}: AddNewProductMetadataProps) {
+  const imageObject = await addProductMetadataByImage({
+    imageClassName,
+    imageBase64,
+    metadata,
+  });
+  const textObject = await addProductMetadataByText({
+    metadata,
+    textClassName,
+  });
+  return { imageObject, textObject };
+}
 // Update function for product metadata by image
-export async function updateProductMetadataByImage(
-  id: string,
-  { imageBase64, metadata, className }: AddProductMetadataByImageProps,
-) {
+export async function updateProductMetadataByImage({
+  id,
+  imageBase64,
+  metadata,
+  imageClassName,
+}: AddProductMetadataByImageProps & { id: string }) {
   try {
     const mtd = JSON.stringify(metadata);
     const properties = {
@@ -77,12 +101,11 @@ export async function updateProductMetadataByImage(
     const data = await client.data
       .merger()
       .withId(id)
-      .withClassName(className)
+      .withClassName(imageClassName)
       .withProperties(properties)
       .do();
     return {
-      msg: "Image and Metadata JSON string updated in the vector database successfully",
-      data,
+      status: "Success",
     };
   } catch (error) {
     throw new Error(
@@ -93,29 +116,64 @@ export async function updateProductMetadataByImage(
 }
 
 // Update function for product metadata by text
-export async function updateProductMetadataByText(
-  id: string,
-  { metadata, className }: AddProductMetadataByTextProps,
-) {
+export async function updateProductMetadataByText({
+  id,
+  metadata,
+  textClassName,
+}: AddProductMetadataByTextProps & { id: string }) {
   try {
     const mtd = JSON.stringify(metadata);
     const properties = {
       metadata: mtd,
     };
-    const data = await client.data
+    await client.data
       .merger()
       .withId(id)
-      .withClassName(className)
+      .withClassName(textClassName)
       .withProperties(properties)
       .do();
     return {
-      msg: "Metadata JSON string updated in the vector database successfully",
-      data,
+      status: "Success",
     };
   } catch (error) {
     throw new Error(
       (error as Error).message ??
         "INTERNAL_SERVER_ERROR- Error updating property",
+    );
+  }
+}
+interface UpdateProductMetadataProps {
+  imageClassName: string;
+  textClassName: string;
+  textClassPropertyId: string;
+  imageClassPropertyId: string;
+  metadata: ProductSearchVectorSchema;
+  imageBase64: string;
+}
+export async function updateProductMetadata({
+  imageClassName,
+  textClassName,
+  textClassPropertyId,
+  imageClassPropertyId,
+  metadata,
+  imageBase64,
+}: UpdateProductMetadataProps) {
+  try {
+    await updateProductMetadataByImage({
+      imageClassName,
+      id: imageClassPropertyId,
+      metadata,
+      imageBase64,
+    });
+    await updateProductMetadataByText({
+      textClassName,
+      id: textClassPropertyId,
+      metadata,
+    });
+  } catch (error) {
+    throw new Error(
+      (error as Error).message ??
+        "INTERNAL_SERVER_ERROR - error updating product Metadata",
     );
   }
 }
