@@ -1,17 +1,13 @@
 import HeroSection from "@/components/landing-page/hero-section";
-import { setStaticParamsLocale } from "next-international/server";
-import { getStaticParams } from "@/locales/server";
+import initTranslations from "@/i18n";
 
-export function generateStaticParams() {
-  return getStaticParams();
-}
-
-export default function IndexPage({
+export default async function IndexPage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
-  setStaticParamsLocale(locale);
+  const { t } = await initTranslations(locale, ["IndexPage"]);
+
   return (
     <div>
       <HeroSection />
