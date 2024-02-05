@@ -31,3 +31,48 @@ export async function AddNewProductOrVariant({
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }
 }
+interface UpdateProductVitalInfoProps {
+  productId: Id;
+  updatedProductVitalInfo: AddNewProductOrVariantProps;
+}
+export async function UpdateProductVitalInfo({
+  productId,
+  updatedProductVitalInfo,
+}: UpdateProductVitalInfoProps) {
+  try {
+    const existingProduct = await db?.product.findUnique({
+      where: { id: productId },
+    });
+
+    if (!existingProduct) {
+      throw new Error("PRODUCT_NOT_FOUND");
+    }
+
+    await db?.product.update({
+      where: { id: productId },
+      data: { ...updatedProductVitalInfo },
+    });
+
+    return { msg: "Product Vital Information Updated Successfully" };
+  } catch (error) {
+    throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
+  }
+}
+
+export async function DeleteProductAndReferences(productId: Id) {
+  try {
+    const product = await db?.product.findUnique({
+      where: { id: productId },
+      include: { variants: true },
+    });
+    if (product?.variants) {
+      for (const variant of product?.variants) {
+        await db?.product.delete({ where: { id: variant.id } });
+      }
+    }
+
+    return { msg: "Product and References Deleted Successfully" };
+  } catch (error) {
+    throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
+  }
+}
