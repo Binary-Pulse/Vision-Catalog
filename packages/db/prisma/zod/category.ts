@@ -3,6 +3,7 @@ import { CompleteProduct, relatedProductZodSchema } from "./index";
 
 export const categoryZodSchema = z.object({
   id: z.string(),
+  categoryId: z.string(),
   name: z.string(),
 });
 

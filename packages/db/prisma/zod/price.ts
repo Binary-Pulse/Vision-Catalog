@@ -12,7 +12,7 @@ export const priceZodSchema = z.object({
   tax: z.number().nullish(),
   shippingCost: z.number().nullish(),
   handlingFee: z.number().nullish(),
-  ppuCount: z.number().nullish(),
+  ppu: z.number().nullish(),
 });
 
 export interface CompletePrice extends z.infer<typeof priceZodSchema> {

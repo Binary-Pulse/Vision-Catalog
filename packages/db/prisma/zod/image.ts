@@ -4,6 +4,7 @@ import { CompleteProduct, relatedProductZodSchema } from "./index";
 export const imageZodSchema = z.object({
   id: z.string(),
   productId: z.string(),
+  primaryImageUrl: z.string(),
   url: z.string().array(),
 });
 

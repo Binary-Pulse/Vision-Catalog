@@ -20,9 +20,11 @@ export const productZodSchema = z.object({
   userId: z.string(),
   brandId: z.string(),
   variantId: z.string().nullish(),
+  categoryId: z.string(),
   UPC: z.string().nullish(),
   EAN: z.string().nullish(),
   ISBN: z.string().nullish(),
+  SKU: z.string().nullish(),
   productName: z.string(),
   description: z.string().nullish(),
   bulletPoints: z.string().array(),
@@ -42,13 +44,15 @@ export const productZodSchema = z.object({
   isDiscontinuedByManufacturer: z.boolean().nullish(),
   usage: z.string().nullish(),
   safetyWarning: z.string().nullish(),
+  vectorImageObjId: z.string().nullish(),
+  vectorTextObjId: z.string().nullish(),
 });
 
 export interface CompleteProduct extends z.infer<typeof productZodSchema> {
   variant?: CompleteProduct | null;
   variants: CompleteProduct[];
   brand?: CompleteBrand | null;
-  category: CompleteCategory[];
+  category?: CompleteCategory | null;
   images?: CompleteImage | null;
   moreDetails?: CompleteMoreDetails | null;
   price?: CompletePrice | null;
@@ -66,7 +70,7 @@ export const relatedProductZodSchema: z.ZodSchema<CompleteProduct> = z.lazy(
       variant: relatedProductZodSchema.nullish(),
       variants: relatedProductZodSchema.array(),
       brand: relatedBrandZodSchema.nullish(),
-      category: relatedCategoryZodSchema.array(),
+      category: relatedCategoryZodSchema.nullish(),
       images: relatedImageZodSchema.nullish(),
       moreDetails: relatedMoreDetailsZodSchema.nullish(),
       price: relatedPriceZodSchema.nullish(),
