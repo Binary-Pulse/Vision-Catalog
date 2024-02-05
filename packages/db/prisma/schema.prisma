@@ -46,7 +46,7 @@ model Account {
 model Image {
   id        String  @id @default(uuid())
   productId String  @unique
-  url       String
+  url       String[]
   product   Product @relation(fields: [productId], references: [id])
 
   @@index([id])
@@ -143,7 +143,7 @@ model Product {
   productName                  String
   brand                        Brand?         @relation(fields: [brandId], references: [id])
   category                     Category[]
-  images                       Image[]
+  images                       Image?
   description                  String?
   bulletPoints                 String[]
   legalDisclaimer              String?

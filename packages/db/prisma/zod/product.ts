@@ -49,7 +49,7 @@ export interface CompleteProduct extends z.infer<typeof productZodSchema> {
   variants: CompleteProduct[];
   brand?: CompleteBrand | null;
   category: CompleteCategory[];
-  images: CompleteImage[];
+  images?: CompleteImage | null;
   moreDetails?: CompleteMoreDetails | null;
   price?: CompletePrice | null;
   user: CompleteUser;
@@ -67,7 +67,7 @@ export const relatedProductZodSchema: z.ZodSchema<CompleteProduct> = z.lazy(
       variants: relatedProductZodSchema.array(),
       brand: relatedBrandZodSchema.nullish(),
       category: relatedCategoryZodSchema.array(),
-      images: relatedImageZodSchema.array(),
+      images: relatedImageZodSchema.nullish(),
       moreDetails: relatedMoreDetailsZodSchema.nullish(),
       price: relatedPriceZodSchema.nullish(),
       user: relatedUserZodSchema,
