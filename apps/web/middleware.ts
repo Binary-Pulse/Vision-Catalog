@@ -1,23 +1,11 @@
-import { createI18nMiddleware } from "next-international/middleware";
-import { type NextRequest } from "next/server";
+import { i18nRouter } from "next-i18n-router";
+import type { NextRequest } from "next/server";
+import {i18nConfig} from "../../i18nConfig"
 
-const I18nMiddleware = createI18nMiddleware({
-  locales: ["en", "hin"],
-  defaultLocale: "en",
-  urlMappingStrategy: "rewrite",
-});
-
-export function middleware(req: NextRequest) {
-  const { VERCEL_ENV: vercelEnv, STAGING: staging = false } = process.env;
-
-  // skip blocking the request if local or preview or staging
-  if (!vercelEnv || staging) {
-    return I18nMiddleware(req);
-  }
-
-  return I18nMiddleware(req);
+export function middleware(request: NextRequest) {
+  return i18nRouter(request, i18nConfig);
 }
 
 export const config = {
-  matcher: ["/((?!api|static|...|_next|favicon.ico|robots.txt).*)"],
-};
+  matcher: "/((?!api|static|.*\\..*|_next).*)"
+}
