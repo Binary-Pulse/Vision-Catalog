@@ -8,10 +8,8 @@ import {
 import {
   ImageVectorMetadataRetriever,
   TextVectorMetadataRetriever,
-  addProductMetadataByImage,
-  addProductMetadataByText,
-  updateProductMetadataByImage,
-  updateProductMetadataByText,
+  addNewProductMetadata,
+  updateProductMetadata,
 } from "@repo/api/vector-search";
 import { ProductSearchVectorSchema } from "@repo/api/vector-search/schemaConfig";
 export const productSearchRouter = createTRPCRouter({
@@ -26,22 +24,19 @@ export const productSearchRouter = createTRPCRouter({
     .input(
       z.object({
         imageURL: z.string().url(),
-        metadata: z.string(),
+        metadata: z.object({}),
       }),
     )
     .output(z.object({}))
     .mutation(async ({ input: { imageURL, metadata } }) => {
       const imageBase64 = await imageURLToBase64(imageURL);
-      await addProductMetadataByImage({
-        className: SEARCH_BY_IMAGE_CLASS,
+      const response = await addNewProductMetadata({
         imageBase64,
+        imageClassName: SEARCH_BY_IMAGE_CLASS,
         metadata: metadata as ProductSearchVectorSchema,
+        textClassName: SEARCH_BY_TEXT_CLASS,
       });
-      await addProductMetadataByText({
-        className: SEARCH_BY_TEXT_CLASS,
-        metadata: metadata as ProductSearchVectorSchema,
-      });
-      return { msg: "Product's metadata added" };
+      return response;
     }),
   updateProductMetadata: protectedProcedure
     .meta({
@@ -53,25 +48,34 @@ export const productSearchRouter = createTRPCRouter({
     })
     .input(
       z.object({
-        propertyId: z.string(),
+        imageClassPropertyId: z.string(),
+        textClassPropertyId: z.string(),
         imageURL: z.string().url(),
-        metadata: z.string(),
+        metadata: z.object({}),
       }),
     )
     .output(z.object({}))
-    .mutation(async ({ input: { propertyId, imageURL, metadata } }) => {
-      const imageBase64 = await imageURLToBase64(imageURL);
-      await updateProductMetadataByImage(propertyId, {
-        className: SEARCH_BY_IMAGE_CLASS,
-        imageBase64,
-        metadata: metadata as ProductSearchVectorSchema,
-      });
-      await updateProductMetadataByText(propertyId, {
-        className: SEARCH_BY_TEXT_CLASS,
-        metadata: metadata as ProductSearchVectorSchema,
-      });
-      return { msg: "Product's image metadata updated" };
-    }),
+    .mutation(
+      async ({
+        input: {
+          imageClassPropertyId,
+          textClassPropertyId,
+          imageURL,
+          metadata,
+        },
+      }) => {
+        const imageBase64 = await imageURLToBase64(imageURL);
+        updateProductMetadata({
+          imageBase64,
+          imageClassName: SEARCH_BY_IMAGE_CLASS,
+          imageClassPropertyId,
+          metadata: metadata as ProductSearchVectorSchema,
+          textClassName: SEARCH_BY_TEXT_CLASS,
+          textClassPropertyId,
+        });
+        return { msg: "Product's image metadata updated" };
+      },
+    ),
   getSimilarProductMetadata: publicProcedure
     .meta({
       /* 👉 */ openapi: {
