@@ -76,3 +76,63 @@ export async function DeleteProductAndReferences(productId: Id) {
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }
 }
+
+interface UpdateProductCategoryProps {
+  productId: Id;
+  categoryId: Id;
+}
+
+export async function UpdateProductCategory({
+  productId,
+  categoryId,
+}: UpdateProductCategoryProps) {
+  try {
+    const existingProduct = await db?.product.findUnique({
+      where: { id: productId },
+    });
+
+    if (!existingProduct) {
+      throw new Error("PRODUCT_NOT_FOUND");
+    }
+
+    await db?.product.update({
+      where: { id: productId },
+      data: { category: { connect: { id: categoryId } } },
+    });
+
+    return { msg: "Category Updated Successfully" };
+  } catch (error) {
+    throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
+  }
+}
+
+interface UpdateProductBrandProps {
+  productId: Id;
+  brandId: Id;
+}
+
+export async function UpdateProductBrand({
+  productId,
+  brandId,
+}: UpdateProductBrandProps) {
+  try {
+    const existingProduct = await db?.product.findUnique({
+      where: { id: productId },
+    });
+
+    if (!existingProduct) {
+      throw new Error("PRODUCT_NOT_FOUND");
+    }
+
+    await db?.product.update({
+      where: { id: productId },
+      data: {
+        brand: { connect: { id: brandId } },
+      },
+    });
+
+    return { msg: "Brand Updated Successfully" };
+  } catch (error) {
+    throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
+  }
+}
