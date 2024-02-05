@@ -65,12 +65,14 @@ export async function DeleteProductAndReferences(productId: Id) {
       where: { id: productId },
       include: { variants: true },
     });
+    if (!product) {
+      throw new Error("PRODUCT_NOT_FOUND");
+    }
     if (product?.variants) {
       for (const variant of product?.variants) {
         await db?.product.delete({ where: { id: variant.id } });
       }
     }
-
     return { msg: "Product and References Deleted Successfully" };
   } catch (error) {
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
