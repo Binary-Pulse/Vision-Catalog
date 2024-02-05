@@ -23,3 +23,37 @@ export async function AddMoreDetailsToProduct({
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }
 }
+
+interface UpdateMoreDetailsToProductProps {
+  moreDetails: AddMoreDetailsParamsType;
+  productId: Id;
+  updatedDimensions?: DimensionsParamType;
+}
+
+export async function UpdateMoreDetailsToProduct({
+  moreDetails,
+  productId,
+  updatedDimensions,
+}: UpdateMoreDetailsToProductProps) {
+  try {
+    const existingMoreDetails = await db?.moreDetails.findUnique({
+      where: { productId: productId },
+    });
+
+    if (!existingMoreDetails) {
+      throw new Error("PRODUCT_NOT_FOUND");
+    }
+
+    await db?.moreDetails.update({
+      where: { productId: productId },
+      data: {
+        ...moreDetails,
+        dimensions: { update: { ...updatedDimensions } },
+      },
+    });
+
+    return { msg: "More Details Updated Successfully" };
+  } catch (error) {
+    throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
+  }
+}
