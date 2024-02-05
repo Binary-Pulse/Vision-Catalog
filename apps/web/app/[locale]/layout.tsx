@@ -9,7 +9,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-        <main className="flex-1">{children}</main>
+      <main className="flex-1">{children}</main>
     </>
   );
 }
