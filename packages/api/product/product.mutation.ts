@@ -1,13 +1,5 @@
 import { AddProductVitalInfoParamsType, Id } from "@repo/db";
-import {
-  ProductSearchVectorSchema,
-  addNewProductMetadata,
-} from "../vector-search";
-import {
-  SEARCH_BY_IMAGE_CLASS,
-  SEARCH_BY_TEXT_CLASS,
-  imageURLToBase64,
-} from "@repo/utils";
+import { addMetadataToVectorDB } from "./metadata";
 
 interface AddNewProductProps {
   productVitalInfo: AddProductVitalInfoParamsType;
@@ -48,46 +40,24 @@ export async function AddNewProduct({
         category: { select: { name: true } },
       },
     });
-    const productId = product?.id;
-    const metadata: ProductSearchVectorSchema = {
-      productId: productId,
-
-      productName: productVitalInfo.productName,
-      description: productVitalInfo.description,
-      ean: productVitalInfo.EAN,
-      isbn: productVitalInfo.ISBN,
-      sku: productVitalInfo.SKU,
-      searchTerms: productVitalInfo.searchTerms,
-      upc: productVitalInfo.UPC,
-
-      brand: product?.brand?.name,
-      category: product?.category?.name,
-
-      primaryImageUrl,
-      currency,
-      pricePerUnit,
-    };
-    const imageBase64 = await imageURLToBase64(primaryImageUrl);
-    const vectorProductMetadataResponse = await addNewProductMetadata({
-      imageBase64,
-      imageClassName: SEARCH_BY_IMAGE_CLASS,
-      textClassName: SEARCH_BY_TEXT_CLASS,
-      metadata,
-    });
+    if (!product) {
+      throw new Error("PRODUCT_NOT_CREATED");
+    }
+    const vResponse = await addMetadataToVectorDB(product.id);
     await db?.product.update({
-      where: { id: productId },
+      where: { id: product.id },
       data: {
-        vectorTextObjId: vectorProductMetadataResponse.textObject.objectId,
-        vectorImageObjId: vectorProductMetadataResponse.imageObject.objectId,
+        vectorTextObjId: vResponse.textObject.objectId,
+        vectorImageObjId: vResponse.imageObject.objectId,
       },
     });
     const response = {
       msg: "New Product Added Successfully.",
-      productId: productId,
-      vectorTextObjectId: vectorProductMetadataResponse.textObject.objectId,
-      vectorImageObjectId: vectorProductMetadataResponse.imageObject.objectId,
+      productId: product.id,
+      vectorTextObjectId: vResponse.textObject.objectId,
+      vectorImageObjectId: vResponse.imageObject.objectId,
     };
-    return { response };
+    return response;
   } catch (error) {
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }

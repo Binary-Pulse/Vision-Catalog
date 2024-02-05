@@ -6,3 +6,4 @@ export * from "./product.mutation";
 export * from "./queries";
 export * from "./internal/brand.mutation";
 export * from "./internal/category.mutation";
+export * from "./metadata"
