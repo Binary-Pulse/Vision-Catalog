@@ -19,13 +19,13 @@ export async function GetProductDataForAutoFill(productId: Id) {
 }
 export async function GetUserProductList(userId: Id) {
   try {
-    const res = await db?.user.findFirst({
+    const res = await db?.user.findFirstOrThrow({
       where: { id: userId },
       select: {
         products: {
           select: {
             productName: true,
-            price: { select: { ppuCount: true } },
+            price: { select: { ppu: true } },
             images: true,
             numberOfItems: true,
             EAN: true,
