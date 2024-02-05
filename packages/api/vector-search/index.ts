@@ -5,6 +5,6 @@ export const client = weaviate.client({
   host: "localhost:8080",
 });
 
-export * from "./mutation";
 export * from "./schemaConfig";
 export * from "./queries";
+export * from "./addProduct.mutation"
