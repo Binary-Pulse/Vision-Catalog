@@ -40,13 +40,16 @@ export const sampleProductListForm = {}; // the type of this will be exact type 
 export type ProductListFormSchema = typeof sampleProductListForm;
 export type ProductSearchVectorSchema = {
   productId?: string;
-  productName?: string;
-  description?: string;
-  brand?: string;
-  sku?: string;
-  upc?: string;
-  ean?: string;
-  isbn?: string;
-  asin?: string;
-  searchTerms?: string[];
+  productName: string;
+  description?: string | null;
+  primaryImageUrl?: string | null;
+  brand?: string | null;
+  sku?: string | null;
+  upc?: string | null;
+  ean?: string | null;
+  isbn?: string | null;
+  searchTerms?: string[] | null;
+  category?: string | null;
+  pricePerUnit: number;
+  currency: "USD" | "INR";
 };
