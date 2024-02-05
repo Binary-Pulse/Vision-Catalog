@@ -1,14 +1,14 @@
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "../../trpc";
-import { AddImagesToProduct } from "@repo/api/product";
+import { UpdateImagesForProduct } from "@repo/api/product";
 import { addImagesParams, id } from "@repo/db";
 export const imagesRouter = createTRPCRouter({
-  addImageToProduct: protectedProcedure
+  updateImagesForProduct: protectedProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
-        path: "/add-images-to-product",
+        path: "/update-images-to-product",
         tags: ["Products"],
       },
     })
@@ -20,7 +20,7 @@ export const imagesRouter = createTRPCRouter({
     )
     .output(z.object({}))
     .mutation(async ({ input: { productId, imagesData } }) => {
-      const res = await AddImagesToProduct({
+      const res = await UpdateImagesForProduct({
         imagesData,
         productId,
       });
