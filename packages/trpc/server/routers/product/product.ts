@@ -8,6 +8,21 @@ import {
   UseParentProductToAddVariant,
 } from "@repo/api/product";
 import { id, productDetailsParams } from "@repo/db";
+export const addProductZI = z.object({
+  brandId: id,
+  categoryId: id,
+  productVitalInfo: productDetailsParams,
+  currency: z.union([z.literal("INR"), z.literal("USD")]),
+  pricePerUnit: z.number(),
+  primaryImageUrl: z.string().url(),
+});
+export const addVariantWithParentZI = z.object({
+  parentProductId: id,
+});
+export const updateProductZI = z.object({
+  productId: id,
+  productVitalInfo: productDetailsParams,
+});
 export const productRouter = createTRPCRouter({
   getUserProductList: protectedProcedure
     .meta({
@@ -31,16 +46,7 @@ export const productRouter = createTRPCRouter({
         tags: ["Products"],
       },
     })
-    .input(
-      z.object({
-        brandId: id,
-        categoryId: id,
-        productVitalInfo: productDetailsParams,
-        currency: z.union([z.literal("INR"), z.literal("USD")]),
-        pricePerUnit: z.number(),
-        primaryImageUrl: z.string().url(),
-      }),
-    )
+    .input(addProductZI)
     .output(z.object({}))
     .mutation(
       async ({
@@ -80,17 +86,13 @@ export const productRouter = createTRPCRouter({
         tags: ["Products"],
       },
     })
-    .input(
-      z.object({
-        parentProductId: id,
-      }),
-    )
+    .input(addVariantWithParentZI)
     .output(z.object({}))
     .mutation(async ({ input: { parentProductId } }) => {
       const response = await UseParentProductToAddVariant(parentProductId);
       return response;
     }),
-  updateProductOrVariant: protectedProcedure
+  updateProduct: protectedProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
@@ -98,12 +100,7 @@ export const productRouter = createTRPCRouter({
         tags: ["Products"],
       },
     })
-    .input(
-      z.object({
-        productId: id,
-        productVitalInfo: productDetailsParams,
-      }),
-    )
+    .input(updateProductZI)
     .output(z.object({}))
     .mutation(
       async ({
