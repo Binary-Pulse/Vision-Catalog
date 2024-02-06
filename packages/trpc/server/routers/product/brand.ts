@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../../trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../../trpc";
 import { AddBrand } from "@repo/api/product";
 import { addBrandParams } from "@repo/db";
 export const addBrandZI = z.object({
@@ -22,5 +26,19 @@ export const brandRouter = createTRPCRouter({
         brandData,
       });
       return res;
+    }),
+  getBrandList: publicProcedure
+    .meta({
+      /* 👉 */ openapi: {
+        method: "POST",
+        path: "/add-brand",
+        tags: ["Internal"],
+      },
+    })
+    .input(z.undefined())
+    .output(z.object({}))
+    .query(async () => {
+      const brandList = await db?.brand.findMany({ select: { name: true } });
+      return brandList;
     }),
 });

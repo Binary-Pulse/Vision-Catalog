@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../../trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../../trpc";
 import { AddCategory } from "@repo/api/product";
 import { addCategoryParams } from "@repo/db";
 export const addCategoryZI = z.object({
@@ -22,5 +26,21 @@ export const categoryRouter = createTRPCRouter({
         categoryData,
       });
       return res;
+    }),
+  getCategoryList: publicProcedure
+    .meta({
+      /* 👉 */ openapi: {
+        method: "POST",
+        path: "/add-category",
+        tags: ["Internal"],
+      },
+    })
+    .input(z.undefined())
+    .output(z.object({}))
+    .query(async () => {
+      const categoryList = await db?.category.findMany({
+        select: { name: true },
+      });
+      return categoryList;
     }),
 });
