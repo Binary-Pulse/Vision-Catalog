@@ -12,7 +12,7 @@ export const brandRouter = createTRPCRouter({
       /* 👉 */ openapi: {
         method: "POST",
         path: "/add-brand",
-        tags: ["Products"],
+        tags: ["Internal"],
       },
     })
     .input(addBrandZI)

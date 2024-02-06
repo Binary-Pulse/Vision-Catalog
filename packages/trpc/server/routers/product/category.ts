@@ -12,7 +12,7 @@ export const categoryRouter = createTRPCRouter({
       /* 👉 */ openapi: {
         method: "POST",
         path: "/add-category",
-        tags: ["Products"],
+        tags: ["Internal"],
       },
     })
     .input(addCategoryZI)
