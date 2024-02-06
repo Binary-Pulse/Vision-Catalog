@@ -10,7 +10,16 @@ export const ProfileHeader = async () => {
   const initials = `${user?.name?.charAt(0) ?? ""}`;
   return (
     <>
-      {user ? (
+      <Link href={"/dashboard"}>
+        <div
+          className={buttonVariants({
+            size: "sm",
+          })}
+        >
+          DashBoard
+        </div>
+      </Link>
+      {/* {user ? (
         <>
           <span>Go To Dashboard</span>
           <UserProfileDropdown
@@ -29,7 +38,8 @@ export const ProfileHeader = async () => {
             <span className="sr-only">Sign In</span>
           </div>
         </Link>
-      )}
+      )
+      } */}
     </>
   );
 };

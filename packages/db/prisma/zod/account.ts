@@ -15,7 +15,7 @@ export const accountZodSchema = z.object({
   id_token: z.string().nullish(),
   session_state: z.string().nullish(),
   createdAt: z.date(),
-  updatedAt: z.date(),
+  updatedAt: z.date().nullish(),
 });
 
 export interface CompleteAccount extends z.infer<typeof accountZodSchema> {
