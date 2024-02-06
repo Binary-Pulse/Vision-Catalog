@@ -3,8 +3,12 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../../trpc";
 import { UpdateProductPriceInfo } from "@repo/api/product";
 import { addPriceParamsSchema, id } from "@repo/db";
+export const updateProductPriceZI = z.object({
+  productId: id,
+  priceData: addPriceParamsSchema,
+});
 export const priceRouter = createTRPCRouter({
-  updateProductPriceInfo: protectedProcedure
+  updateProductPrice: protectedProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
@@ -12,12 +16,7 @@ export const priceRouter = createTRPCRouter({
         tags: ["Products"],
       },
     })
-    .input(
-      z.object({
-        productId: id,
-        priceData: addPriceParamsSchema,
-      }),
-    )
+    .input(updateProductPriceZI)
     .output(z.object({}))
     .mutation(async ({ input: { productId, priceData } }) => {
       const res = await UpdateProductPriceInfo({
