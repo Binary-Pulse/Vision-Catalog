@@ -1,5 +1,6 @@
 import { AddProductVitalInfoParamsType, Id } from "@repo/db";
 import { addMetadataToVectorDB, updateMetadataToVectorDB } from "./metadata";
+import { date, z } from "zod";
 
 interface AddNewProductProps {
   productVitalInfo: AddProductVitalInfoParamsType;
@@ -90,7 +91,7 @@ export async function UpdateProductVitalInfo({
     });
     await db?.product.update({
       where: { id: productId },
-      data: { ...updatedProductVitalInfo },
+      data: { ...updatedProductVitalInfo, updatedAt: Date() },
       include: {
         images: { select: { primaryImageUrl: true } },
         brand: { select: { name: true } },

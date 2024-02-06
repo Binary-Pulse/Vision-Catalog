@@ -41,10 +41,10 @@ export function MainNav() {
             <NavigationMenuTrigger>Languages</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <ListItem href="/hindi" title="हिन्दी">
+                <ListItem href="/hin" title="हिन्दी">
                   हिंदी के साथ जारी रखें
                 </ListItem>
-                <ListItem href="/English" title="English">
+                <ListItem href="/en" title="English">
                   Continue With English.
                 </ListItem>
               </ul>

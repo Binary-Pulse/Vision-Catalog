@@ -1,10 +1,5 @@
-import * as z from "zod";
-import {
-  CompleteDimension,
-  relatedDimensionZodSchema,
-  CompleteProduct,
-  relatedProductZodSchema,
-} from "./index";
+import * as z from "zod"
+import { CompleteDimension, relatedDimensionZodSchema, CompleteProduct, relatedProductZodSchema } from "./index"
 
 export const moreDetailsZodSchema = z.object({
   id: z.string(),
@@ -25,12 +20,11 @@ export const moreDetailsZodSchema = z.object({
   hairType: z.string().nullish(),
   skinType: z.string().nullish(),
   fabricType: z.string().nullish(),
-});
+})
 
-export interface CompleteMoreDetails
-  extends z.infer<typeof moreDetailsZodSchema> {
-  dimensions?: CompleteDimension | null;
-  product: CompleteProduct;
+export interface CompleteMoreDetails extends z.infer<typeof moreDetailsZodSchema> {
+  dimensions?: CompleteDimension | null
+  product: CompleteProduct
 }
 
 /**
@@ -38,10 +32,7 @@ export interface CompleteMoreDetails
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const relatedMoreDetailsZodSchema: z.ZodSchema<CompleteMoreDetails> =
-  z.lazy(() =>
-    moreDetailsZodSchema.extend({
-      dimensions: relatedDimensionZodSchema.nullish(),
-      product: relatedProductZodSchema,
-    }),
-  );
+export const relatedMoreDetailsZodSchema: z.ZodSchema<CompleteMoreDetails> = z.lazy(() => moreDetailsZodSchema.extend({
+  dimensions: relatedDimensionZodSchema.nullish(),
+  product: relatedProductZodSchema,
+}))

@@ -13,6 +13,8 @@ export const productDetailsParams = productZodSchema.omit({
   vectorTextObjId: true,
   vectorImageObjId: true,
   categoryId: true,
+  createdAt: true,
+  updatedAt: true,
 });
 export type AddProductVitalInfoParamsType = z.infer<
   typeof productDetailsParams
