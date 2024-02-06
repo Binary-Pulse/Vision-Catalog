@@ -1,19 +1,6 @@
-import * as z from "zod";
-import { ProductStatus } from "@prisma/client";
-import {
-  CompleteBrand,
-  relatedBrandZodSchema,
-  CompleteCategory,
-  relatedCategoryZodSchema,
-  CompleteImage,
-  relatedImageZodSchema,
-  CompleteMoreDetails,
-  relatedMoreDetailsZodSchema,
-  CompletePrice,
-  relatedPriceZodSchema,
-  CompleteUser,
-  relatedUserZodSchema,
-} from "./index";
+import * as z from "zod"
+import { ProductStatus } from "@prisma/client"
+import { CompleteBrand, relatedBrandZodSchema, CompleteCategory, relatedCategoryZodSchema, CompleteImage, relatedImageZodSchema, CompleteMoreDetails, relatedMoreDetailsZodSchema, CompletePrice, relatedPriceZodSchema, CompleteUser, relatedUserZodSchema } from "./index"
 
 export const productZodSchema = z.object({
   id: z.string(),
@@ -46,17 +33,17 @@ export const productZodSchema = z.object({
   safetyWarning: z.string().nullish(),
   vectorImageObjId: z.string().nullish(),
   vectorTextObjId: z.string().nullish(),
-});
+})
 
 export interface CompleteProduct extends z.infer<typeof productZodSchema> {
-  variant?: CompleteProduct | null;
-  variants: CompleteProduct[];
-  brand?: CompleteBrand | null;
-  category?: CompleteCategory | null;
-  images?: CompleteImage | null;
-  moreDetails?: CompleteMoreDetails | null;
-  price?: CompletePrice | null;
-  user: CompleteUser;
+  variant?: CompleteProduct | null
+  variants: CompleteProduct[]
+  brand?: CompleteBrand | null
+  category?: CompleteCategory | null
+  images?: CompleteImage | null
+  moreDetails?: CompleteMoreDetails | null
+  price?: CompletePrice | null
+  user: CompleteUser
 }
 
 /**
@@ -64,16 +51,13 @@ export interface CompleteProduct extends z.infer<typeof productZodSchema> {
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const relatedProductZodSchema: z.ZodSchema<CompleteProduct> = z.lazy(
-  () =>
-    productZodSchema.extend({
-      variant: relatedProductZodSchema.nullish(),
-      variants: relatedProductZodSchema.array(),
-      brand: relatedBrandZodSchema.nullish(),
-      category: relatedCategoryZodSchema.nullish(),
-      images: relatedImageZodSchema.nullish(),
-      moreDetails: relatedMoreDetailsZodSchema.nullish(),
-      price: relatedPriceZodSchema.nullish(),
-      user: relatedUserZodSchema,
-    }),
-);
+export const relatedProductZodSchema: z.ZodSchema<CompleteProduct> = z.lazy(() => productZodSchema.extend({
+  variant: relatedProductZodSchema.nullish(),
+  variants: relatedProductZodSchema.array(),
+  brand: relatedBrandZodSchema.nullish(),
+  category: relatedCategoryZodSchema.nullish(),
+  images: relatedImageZodSchema.nullish(),
+  moreDetails: relatedMoreDetailsZodSchema.nullish(),
+  price: relatedPriceZodSchema.nullish(),
+  user: relatedUserZodSchema,
+}))

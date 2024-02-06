@@ -31,7 +31,7 @@ export const categoryRouter = createTRPCRouter({
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
-        path: "/add-category",
+        path: "/add-category-list",
         tags: ["Internal"],
       },
     })

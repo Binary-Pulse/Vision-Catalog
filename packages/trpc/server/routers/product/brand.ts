@@ -31,7 +31,7 @@ export const brandRouter = createTRPCRouter({
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
-        path: "/add-brand",
+        path: "/add-brand-list",
         tags: ["Internal"],
       },
     })
