@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 import {
   SEARCH_BY_IMAGE_CLASS,
   SEARCH_BY_TEXT_CLASS,
@@ -8,94 +8,93 @@ import {
 import {
   ImageVectorMetadataRetriever,
   TextVectorMetadataRetriever,
-  addNewProductMetadata,
-  updateProductMetadata,
 } from "@repo/api/vector-search";
-import {
-  ProductSearchVectorSchema,
-  ProductSearchVectorType,
-} from "@repo/api/vector-search/schemaConfig";
+import { ProductSearchVectorSchema } from "@repo/api/vector-search/schemaConfig";
+
+export const searchByImageZI = z.object({
+  imageURL: z.string().url(),
+});
+export const searchByTextZI = z.object({
+  text: z.string(),
+});
 export const productSearchRouter = createTRPCRouter({
-  addProductMetadata: protectedProcedure
-    .input(
-      z.object({
-        imageURL: z.string().url(),
-        metadata: z.object({}),
-      }),
-    )
-    .output(z.object({}))
-    .mutation(async ({ input: { imageURL, metadata } }) => {
-      const imageBase64 = await imageURLToBase64(imageURL);
-      const response = await addNewProductMetadata({
-        imageBase64,
-        imageClassName: SEARCH_BY_IMAGE_CLASS,
-        metadata: metadata as ProductSearchVectorType,
-        textClassName: SEARCH_BY_TEXT_CLASS,
-      });
-      return response;
-    }),
-  updateProductMetadata: protectedProcedure
-    .input(
-      z.object({
-        vectorImageObjId: z.string(),
-        vectorTextObjId: z.string(),
-        imageURL: z.string().url(),
-        metadata: z.object({}),
-      }),
-    )
-    .output(z.object({}))
-    .mutation(
-      async ({
-        input: { vectorImageObjId, vectorTextObjId, imageURL, metadata },
-      }) => {
-        const imageBase64 = await imageURLToBase64(imageURL);
-        updateProductMetadata({
-          imageBase64,
-          imageClassName: SEARCH_BY_IMAGE_CLASS,
-          vectorImageObjId,
-          vectorTextObjId,
-          metadata: metadata as ProductSearchVectorType,
-          textClassName: SEARCH_BY_TEXT_CLASS,
-        });
-        return { msg: "Product's image metadata updated" };
-      },
-    ),
-  getSimilarProductMetadata: publicProcedure
+  searchByImage: publicProcedure
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
-        path: "/get-similar-product-metadata",
+        path: "/search-by-image",
         tags: ["ProductSearch"],
       },
     })
-    .input(
-      z.object({
-        union: z.discriminatedUnion("searchWith", [
-          z.object({
-            searchWith: z.literal("Text"),
-            text: z.string(),
-          }),
-          z.object({
-            searchWith: z.literal("Image"),
-            imageURL: z.string().url(),
-          }),
-        ]),
-      }),
-    )
+    .input(searchByImageZI)
     .output(z.array(ProductSearchVectorSchema))
     .mutation(async ({ input }) => {
-      if (input.union.searchWith === "Image") {
-        const imageBase64 = await imageURLToBase64(input.union.imageURL);
-        const response = await ImageVectorMetadataRetriever({
-          className: SEARCH_BY_IMAGE_CLASS,
-          image: imageBase64,
-        });
-        return response;
-      }
-      const response = await TextVectorMetadataRetriever({
-        className: SEARCH_BY_TEXT_CLASS,
-        text: input.union.text,
+      const imageBase64 = await imageURLToBase64(input.imageURL);
+      const response = await ImageVectorMetadataRetriever({
+        className: SEARCH_BY_IMAGE_CLASS,
+        image: imageBase64,
       });
       return response;
     }),
+  searchByText: publicProcedure
+    .meta({
+      /* 👉 */ openapi: {
+        method: "POST",
+        path: "/search-by-text",
+        tags: ["ProductSearch"],
+      },
+    })
+    .input(searchByTextZI)
+    .output(z.array(ProductSearchVectorSchema))
+    .mutation(async ({ input }) => {
+      const response = await TextVectorMetadataRetriever({
+        className: SEARCH_BY_TEXT_CLASS,
+        text: input.text,
+      });
+      return response;
+    }),
+  // addProductMetadata: protectedProcedure
+  //   .input(
+  //     z.object({
+  //       imageURL: z.string().url(),
+  //       metadata: z.object({}),
+  //     }),
+  //   )
+  //   .output(z.object({}))
+  //   .mutation(async ({ input: { imageURL, metadata } }) => {
+  //     const imageBase64 = await imageURLToBase64(imageURL);
+  //     const response = await addNewProductMetadata({
+  //       imageBase64,
+  //       imageClassName: SEARCH_BY_IMAGE_CLASS,
+  //       metadata: metadata as ProductSearchVectorType,
+  //       textClassName: SEARCH_BY_TEXT_CLASS,
+  //     });
+  //     return response;
+  //   }),
+  // updateProductMetadata: protectedProcedure
+  //   .input(
+  //     z.object({
+  //       vectorImageObjId: z.string(),
+  //       vectorTextObjId: z.string(),
+  //       imageURL: z.string().url(),
+  //       metadata: z.object({}),
+  //     }),
+  //   )
+  //   .output(z.object({}))
+  //   .mutation(
+  //     async ({
+  //       input: { vectorImageObjId, vectorTextObjId, imageURL, metadata },
+  //     }) => {
+  //       const imageBase64 = await imageURLToBase64(imageURL);
+  //       updateProductMetadata({
+  //         imageBase64,
+  //         imageClassName: SEARCH_BY_IMAGE_CLASS,
+  //         vectorImageObjId,
+  //         vectorTextObjId,
+  //         metadata: metadata as ProductSearchVectorType,
+  //         textClassName: SEARCH_BY_TEXT_CLASS,
+  //       });
+  //       return { msg: "Product's image metadata updated" };
+  //     },
+  //   ),
 });
