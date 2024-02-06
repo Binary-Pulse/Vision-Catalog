@@ -9,8 +9,8 @@ import {
 } from "@repo/api/product";
 import { id, productDetailsParams } from "@repo/db";
 export const addProductZI = z.object({
-  brandId: id,
-  categoryId: id,
+  brandName: z.string(),
+  categoryName: z.string(),
   productVitalInfo: productDetailsParams,
   currency: z.union([z.literal("INR"), z.literal("USD")]),
   pricePerUnit: z.number(),
@@ -51,8 +51,8 @@ export const productRouter = createTRPCRouter({
     .mutation(
       async ({
         input: {
-          brandId,
-          categoryId,
+          brandName,
+          categoryName,
           productVitalInfo,
           primaryImageUrl,
           currency,
@@ -61,16 +61,16 @@ export const productRouter = createTRPCRouter({
         ctx: { userId },
       }) => {
         await db?.brand.findFirstOrThrow({
-          where: { id: brandId },
+          where: { name: brandName },
         });
         await db?.category.findFirstOrThrow({
-          where: { id: categoryId },
+          where: { id: categoryName },
         });
         const res = await AddNewProduct({
           currency,
           pricePerUnit,
-          brandId,
-          categoryId,
+          brandName,
+          categoryName,
           productVitalInfo,
           userId,
           primaryImageUrl,

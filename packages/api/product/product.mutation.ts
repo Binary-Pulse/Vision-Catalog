@@ -7,8 +7,8 @@ interface AddNewProductProps {
   primaryImageUrl: string;
   currency: "INR" | "USD";
   userId: Id;
-  brandId: Id;
-  categoryId: Id;
+  brandName: string;
+  categoryName: string;
 }
 /**
  * Add new product to db and adds metadata to text vector db and image search db
@@ -20,16 +20,16 @@ export async function AddNewProduct({
   primaryImageUrl,
   currency,
   userId,
-  brandId,
-  categoryId,
+  brandName,
+  categoryName,
 }: AddNewProductProps) {
   try {
     //
     const product = await db?.product.create({
       data: {
         ...productVitalInfo,
-        brand: { connect: { id: brandId } },
-        category: { connect: { id: categoryId } },
+        brand: { connect: { name: brandName } },
+        category: { connect: { name: categoryName } },
         user: { connect: { id: userId } },
         price: { create: { ppu: pricePerUnit, currency: currency } },
         images: { create: { primaryImageUrl } },
@@ -126,12 +126,12 @@ export async function DeleteProductAndReferences(productId: Id) {
 
 interface UpdateProductCategoryProps {
   productId: Id;
-  categoryId: Id;
+  categoryName: string;
 }
 
 export async function UpdateProductCategory({
   productId,
-  categoryId,
+  categoryName,
 }: UpdateProductCategoryProps) {
   try {
     const existingProduct = await db?.product.findFirstOrThrow({
@@ -153,7 +153,7 @@ export async function UpdateProductCategory({
 
     await db?.product.update({
       where: { id: productId },
-      data: { category: { connect: { id: categoryId } } },
+      data: { category: { connect: { name: categoryName } } },
     });
 
     return { msg: "Category Updated Successfully" };
@@ -164,12 +164,12 @@ export async function UpdateProductCategory({
 
 interface UpdateProductBrandProps {
   productId: Id;
-  brandId: Id;
+  brandName: string;
 }
 
 export async function UpdateProductBrand({
   productId,
-  brandId,
+  brandName,
 }: UpdateProductBrandProps) {
   try {
     const existingProduct = await db?.product.findFirstOrThrow({
@@ -192,7 +192,7 @@ export async function UpdateProductBrand({
     await db?.product.update({
       where: { id: productId },
       data: {
-        brand: { connect: { id: brandId } },
+        brand: { connect: { name: brandName } },
       },
     });
 
