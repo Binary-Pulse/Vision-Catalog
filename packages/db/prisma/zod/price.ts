@@ -1,6 +1,6 @@
-import * as z from "zod"
-import { CURRENCY } from "@prisma/client"
-import { CompleteProduct, relatedProductZodSchema } from "./index"
+import * as z from "zod";
+import { CURRENCY } from "@prisma/client";
+import { CompleteProduct, relatedProductZodSchema } from "./index";
 
 export const priceZodSchema = z.object({
   id: z.string(),
@@ -13,10 +13,10 @@ export const priceZodSchema = z.object({
   shippingCost: z.number().nullish(),
   handlingFee: z.number().nullish(),
   ppu: z.number().nullish(),
-})
+});
 
 export interface CompletePrice extends z.infer<typeof priceZodSchema> {
-  product: CompleteProduct
+  product: CompleteProduct;
 }
 
 /**
@@ -24,6 +24,8 @@ export interface CompletePrice extends z.infer<typeof priceZodSchema> {
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const relatedPriceZodSchema: z.ZodSchema<CompletePrice> = z.lazy(() => priceZodSchema.extend({
-  product: relatedProductZodSchema,
-}))
+export const relatedPriceZodSchema: z.ZodSchema<CompletePrice> = z.lazy(() =>
+  priceZodSchema.extend({
+    product: relatedProductZodSchema,
+  }),
+);

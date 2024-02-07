@@ -1,7 +1,11 @@
-import { UserProfileDropdown } from "@/components/layout/user-profile-dropdown";
-import { authOptions, getServerSession } from "@repo/auth/server";
 import {
   Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
   Input,
   Table,
   TableBody,
@@ -10,21 +14,29 @@ import {
   TableHeader,
   TableRow,
 } from "@repo/ui/components";
+import Form from "@/components/landing-page/form";
 import Link from "next/link";
+import { UserProfileDropdown } from "@/components/layout/user-profile-dropdown";
+import { authOptions, getServerSession } from "@repo/auth/server";
 
 export default async function Component() {
   const data = await getServerSession(authOptions);
   const user = data?.user;
   const initials = `${user?.name?.charAt(0) ?? ""}`;
+
   return (
     <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r  lg:block  backdrop-blur-md rounded-r-lg">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold" href="/">
+            <Link className="flex items-center gap-2 font-semibold" href="#">
               <HomeIcon className="h-6 w-6" />
-              <span className="">Vision Catalog</span>
+              <span className="">Product Listings</span>
             </Link>
+            <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
+              <BellIcon className="h-4 w-4" />
+              <span className="sr-only">Toggle notifications</span>
+            </Button>
           </div>
           <div className="flex-1 overflow-auto py-2">
             <nav className="grid items-start px-4 text-sm font-medium">
@@ -37,14 +49,14 @@ export default async function Component() {
               </Link>
               <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="/product-management"
+                href="#"
               >
                 <UsersIcon className="h-4 w-4" />
-                Product Management
+                User Management
               </Link>
               <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="/settings"
+                href="#"
               >
                 <SettingsIcon className="h-4 w-4" />
                 Settings
@@ -55,12 +67,12 @@ export default async function Component() {
       </div>
       <div className="flex flex-col">
         <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b  px-6">
-          <Link className="lg:hidden" href="/">
+          <Link className="lg:hidden" href="#">
             <HomeIcon className="h-6 w-6" />
             <span className="sr-only">Home</span>
           </Link>
           <div className="w-full flex-1">
-            {/* <form>
+            <form>
               <div className="relative">
                 <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 " />
                 <Input
@@ -69,21 +81,21 @@ export default async function Component() {
                   type="search"
                 />
               </div>
-            </form> */}
+            </form>
           </div>
-          {user ? (
+          {user && (
             <UserProfileDropdown
               data={data}
               initials={initials}
             ></UserProfileDropdown>
-          ) : null}
+          )}
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
           <div className="flex items-center">
-            <h1 className="font-semibold text-lg md:text-2xl">Rent Listings</h1>
-            <Button className="ml-auto" size="sm">
-              Add Product
-            </Button>
+            <h1 className="font-semibold text-lg md:text-2xl">
+              Product Listings
+            </h1>
+            <Form />
           </div>
           {/* <div className="border shadow-sm rounded-lg">
             <Table>
