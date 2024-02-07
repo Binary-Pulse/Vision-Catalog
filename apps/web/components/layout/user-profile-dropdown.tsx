@@ -56,7 +56,7 @@ export const UserProfileDropdown = ({
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href={"/dashboard/stores"}>
+            <Link href={"/dashboard"}>
               <Icons.terminal className="h-4 w-4 mr-2" />
               Dashboard
             </Link>

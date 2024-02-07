@@ -1,4 +1,3 @@
-"use client";
 import { UserProfileDropdown } from "@/components/layout/user-profile-dropdown";
 import { authOptions, getServerSession } from "@repo/auth/server";
 import {
@@ -22,14 +21,10 @@ export default async function Component() {
       <div className="hidden border-r  lg:block  backdrop-blur-md rounded-r-lg">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold" href="#">
+            <Link className="flex items-center gap-2 font-semibold" href="/">
               <HomeIcon className="h-6 w-6" />
-              <span className="">Rent Listings</span>
+              <span className="">Vision Catalog</span>
             </Link>
-            <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
-              <BellIcon className="h-4 w-4" />
-              <span className="sr-only">Toggle notifications</span>
-            </Button>
           </div>
           <div className="flex-1 overflow-auto py-2">
             <nav className="grid items-start px-4 text-sm font-medium">
@@ -42,14 +37,14 @@ export default async function Component() {
               </Link>
               <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
+                href="/product-management"
               >
                 <UsersIcon className="h-4 w-4" />
-                User Management
+                Product Management
               </Link>
               <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
+                href="/settings"
               >
                 <SettingsIcon className="h-4 w-4" />
                 Settings
@@ -60,12 +55,12 @@ export default async function Component() {
       </div>
       <div className="flex flex-col">
         <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b  px-6">
-          <Link className="lg:hidden" href="#">
+          <Link className="lg:hidden" href="/">
             <HomeIcon className="h-6 w-6" />
             <span className="sr-only">Home</span>
           </Link>
           <div className="w-full flex-1">
-            <form>
+            {/* <form>
               <div className="relative">
                 <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 " />
                 <Input
@@ -74,7 +69,7 @@ export default async function Component() {
                   type="search"
                 />
               </div>
-            </form>
+            </form> */}
           </div>
           {user ? (
             <UserProfileDropdown
@@ -87,10 +82,10 @@ export default async function Component() {
           <div className="flex items-center">
             <h1 className="font-semibold text-lg md:text-2xl">Rent Listings</h1>
             <Button className="ml-auto" size="sm">
-              Add Listing
+              Add Product
             </Button>
           </div>
-          <div className="border shadow-sm rounded-lg">
+          {/* <div className="border shadow-sm rounded-lg">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -174,7 +169,7 @@ export default async function Component() {
                 </TableRow>
               </TableBody>
             </Table>
-          </div>
+          </div> */}
         </main>
       </div>
     </div>

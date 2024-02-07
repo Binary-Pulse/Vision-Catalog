@@ -10,7 +10,6 @@ export default function LobbyLayout({ children }: PropsWithChildren) {
     <div className="flex flex-col min-h-screen">
       <SiteHeader>
         <ProfileHeader />
-        <VoiceInput />
       </SiteHeader>
       <main className="flex-1">{children}</main>
       <SiteFooter></SiteFooter>
