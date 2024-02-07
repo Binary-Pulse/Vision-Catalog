@@ -103,7 +103,7 @@ importers:
         specifier: ^7.49.2
         version: 7.49.2(react@18.2.0)
       react-i18next:
-        specifier: ^14.0.1
+        specifier: ^14.0.3
         version: 14.0.3(i18next@23.8.2)(react-dom@18.2.0)(react@18.2.0)
       react-query:
         specifier: ^3.39.3
