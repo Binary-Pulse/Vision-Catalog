@@ -7,7 +7,12 @@ import type { PropsWithChildren } from "react";
 
 const Provider = ({ children }: PropsWithChildren) => {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="dark"
+      forcedTheme="dark"
+      disableTransitionOnChange
+    >
       <TrpcProvider>
         <SessionProvider>{children}</SessionProvider>
       </TrpcProvider>
