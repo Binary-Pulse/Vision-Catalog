@@ -126,10 +126,9 @@ enum CURRENCY {
 }
 
 model Category {
-  id         String    @id @default(uuid())
-  categoryId String
-  name       String    @unique
-  product    Product[]
+  id      String    @id @default(uuid())
+  name    String    @unique
+  product Product[]
 }
 
 model Product {
