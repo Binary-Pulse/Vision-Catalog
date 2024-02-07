@@ -45,7 +45,7 @@ export default function SellerForm() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[600px]">
           {/*  */}
-          <Tabs defaultValue="account" className="w-[400px]">
+          <Tabs defaultValue="account" className="w-[500px]">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="account">Search With Text</TabsTrigger>
               <TabsTrigger value="password">Search With Image</TabsTrigger>
@@ -60,12 +60,8 @@ export default function SellerForm() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="space-y-1">
-                    <Label htmlFor="name">Name</Label>
-                    <Input id="name" defaultValue="Pedro Duarte" />
-                  </div>
-                  <div className="space-y-1">
-                    <Label htmlFor="username">Username</Label>
-                    <Input id="username" defaultValue="@peduarte" />
+                    <Label htmlFor="product name"></Label>
+                    <Input id="product-name" defaultValue="ToothPaste" />
                   </div>
                 </CardContent>
                 <CardFooter>
@@ -96,7 +92,7 @@ export default function SellerForm() {
                   </Form>
                 </CardContent>
                 <CardFooter>
-                  <Button>Save password</Button>
+                  <Button>Save changes</Button>
                 </CardFooter>
               </Card>
             </TabsContent>
