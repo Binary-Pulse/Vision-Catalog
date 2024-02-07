@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@repo/ui/components";
 import { Icons } from "@repo/ui/icons";
+import { LogOutButton } from "./logout-button";
 
 export const UserProfileDropdown = ({
   data,
@@ -68,10 +69,7 @@ export const UserProfileDropdown = ({
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href={"/sign-out"}>
-              <Icons.logout className="h-4 w-4 mr-2" />
-              Logout
-            </Link>
+            <LogOutButton></LogOutButton>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
