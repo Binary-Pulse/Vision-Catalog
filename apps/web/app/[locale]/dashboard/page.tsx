@@ -29,14 +29,14 @@ export default async function Component() {
       <div className="hidden border-r  lg:block  backdrop-blur-md rounded-r-lg">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold" href="#">
+            <Link className="flex items-center gap-2 font-semibold" href="/">
               <HomeIcon className="h-6 w-6" />
-              <span className="">Product Listings</span>
+              <span className="">Vision Catalog</span>
             </Link>
-            <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
+            {/* <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
               <BellIcon className="h-4 w-4" />
               <span className="sr-only">Toggle notifications</span>
-            </Button>
+            </Button> */}
           </div>
           <div className="flex-1 overflow-auto py-2">
             <nav className="grid items-start px-4 text-sm font-medium">
@@ -92,9 +92,7 @@ export default async function Component() {
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
           <div className="flex items-center">
-            <h1 className="font-semibold text-lg md:text-2xl">
-              Product Listings
-            </h1>
+            <h1 className="font-semibold text-lg md:text-2xl">Product List</h1>
             <Form />
           </div>
           {/* <div className="border shadow-sm rounded-lg">
