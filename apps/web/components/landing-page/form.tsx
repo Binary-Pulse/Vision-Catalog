@@ -16,11 +16,9 @@ import {
   TabsTrigger,
   Form,
   FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-  FormMessage,
+  DialogTrigger,
+  DialogContent,
+  Dialog,
 } from "@repo/ui/components";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,81 +36,73 @@ export default function SellerForm() {
     resolver: zodResolver(dummy),
   });
   return (
-    <Tabs defaultValue="account" className="w-[400px]">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
-      </TabsList>
-      <TabsContent value="account">
-        <Card>
-          <CardHeader>
-            <CardTitle>Account</CardTitle>
-            <CardDescription>
-              Make changes to your account here. Click save when you're done.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" defaultValue="Pedro Duarte" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" defaultValue="@peduarte" />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button>Save changes</Button>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-      <TabsContent value="password">
-        <Card>
-          <CardHeader>
-            <CardTitle>Password</CardTitle>
-            <CardDescription>
-              Change your password here. After saving, you'll be logged out.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <Form {...sellerForm}>
-              <form
-                onSubmit={sellerForm.handleSubmit((data) => {})}
-                className="w-full space-y-3"
-              >
-                <FormField
-                  control={sellerForm.control}
-                  name="product"
-                  render={({ field }) => (
-                    <FormItem>
-                      <Label htmlFor="current">Current password</Label>
-
-                      <FormControl>
-                        <Input
-                          placeholder="secret_gibberish"
-                          required
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </Form>
-            <div className="space-y-1">
-              <Input id="current" type="password" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="new">New password</Label>
-              <Input id="new" type="password" />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button>Save password</Button>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-    </Tabs>
+    <>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="ml-auto" size="sm">
+            Add Product
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[600px]">
+          {/*  */}
+          <Tabs defaultValue="account" className="w-[400px]">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="account">Search With Text</TabsTrigger>
+              <TabsTrigger value="password">Search With Image</TabsTrigger>
+            </TabsList>
+            <TabsContent value="account">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Search With Text</CardTitle>
+                  <CardDescription>
+                    Search Product with Product Name, UPC, SKU, EAN, ISBN.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <div className="space-y-1">
+                    <Label htmlFor="name">Name</Label>
+                    <Input id="name" defaultValue="Pedro Duarte" />
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="username">Username</Label>
+                    <Input id="username" defaultValue="@peduarte" />
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button>Save changes</Button>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+            <TabsContent value="password">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Search With Image</CardTitle>
+                  <CardDescription>
+                    Upload Product Image for Searching the Product.
+                  </CardDescription>{" "}
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <Form {...sellerForm}>
+                    <form
+                      onSubmit={sellerForm.handleSubmit((data) => {})}
+                      className="w-full space-y-3"
+                    >
+                      <FormField
+                        control={sellerForm.control}
+                        name="product"
+                        render={({ field }) => <Input {...field} type="file" />}
+                      />
+                    </form>
+                  </Form>
+                </CardContent>
+                <CardFooter>
+                  <Button>Save password</Button>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
