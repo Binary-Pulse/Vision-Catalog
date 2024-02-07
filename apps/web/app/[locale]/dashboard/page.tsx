@@ -1,12 +1,8 @@
 "use client";
+import { UserProfileDropdown } from "@/components/layout/user-profile-dropdown";
+import { authOptions, getServerSession } from "@repo/auth/server";
 import {
   Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
   Input,
   Table,
   TableBody,
@@ -17,7 +13,10 @@ import {
 } from "@repo/ui/components";
 import Link from "next/link";
 
-export default function Component() {
+export default async function Component() {
+  const data = await getServerSession(authOptions);
+  const user = data?.user;
+  const initials = `${user?.name?.charAt(0) ?? ""}`;
   return (
     <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r  lg:block  backdrop-blur-md rounded-r-lg">
@@ -77,36 +76,12 @@ export default function Component() {
               </div>
             </form>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800"
-                size="icon"
-                variant="ghost"
-              >
-                <img
-                  alt="Avatar"
-                  className="rounded-full"
-                  height="32"
-                  src="/placeholder.svg"
-                  style={{
-                    aspectRatio: "32/32",
-                    objectFit: "cover",
-                  }}
-                  width="32"
-                />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {user ? (
+            <UserProfileDropdown
+              data={data}
+              initials={initials}
+            ></UserProfileDropdown>
+          ) : null}
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
           <div className="flex items-center">
