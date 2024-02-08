@@ -4,7 +4,7 @@ import { Button } from "@repo/ui/components";
 import { Icons } from "@repo/ui/icons";
 import { cn } from "@repo/ui/cn";
 import Script from "next/script";
-import { HeroParallax } from "./hero-parallax";
+import { HeroParallax } from "@/components/landing-page/hero-parallax";
 
 export const HeroSection = () => {
   return (
