@@ -112,16 +112,18 @@ export default async function Component() {
               <TableBody>
                 <TableRow className="hover:bg-transparent">
                   <TableCell>{/* image */}</TableCell>
-                  <TableCell className="font-medium w-[450px]">
+                  <TableCell className="font-medium md:w-[450px]">
                     Product Name
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
                     Available
                   </TableCell>
-                  <TableCell>$500/unit</TableCell>
-                  <TableCell>10</TableCell>
                   <TableCell className="hidden md:table-cell">
-                    <Button className="mr-2" variant="outline">
+                    $500/unit
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">10</TableCell>
+                  <TableCell className="md:flex-row flex flex-col gap-2">
+                    <Button className="" variant="outline">
                       Edit
                     </Button>
                     <Button variant="outline">Delete</Button>
