@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
   Input,
-  Label,
   Tabs,
   TabsContent,
   TabsList,
@@ -19,9 +18,8 @@ import {
   DialogTrigger,
   DialogContent,
   Dialog,
-  TypographyH1,
-  TypographyH2,
   TypographyH3,
+  FormDescription,
 } from "@repo/ui/components";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -75,12 +73,20 @@ export default function SellerForm() {
                     </CardContent>
                     <CardFooter className="flex justify-between">
                       <Button>Find Similar Products</Button>
-                      <Button
-                        variant="outline"
-                        className="text-blue-500 text-base font-light"
-                      >
-                        Add Unlisted Product{" "}
-                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="text-blue-500 text-base font-light"
+                          >
+                            Add Unlisted Product{" "}
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[600px]">
+                          {/*  */}
+                          <AutoPopuByImg></AutoPopuByImg>
+                        </DialogContent>
+                      </Dialog>
                     </CardFooter>
                   </form>
                 </Form>
@@ -108,12 +114,20 @@ export default function SellerForm() {
                     </CardContent>
                     <CardFooter className="flex justify-between">
                       <Button>Find Similar Products</Button>
-                      <Button
-                        variant="outline"
-                        className="text-blue-500 text-base font-light"
-                      >
-                        Add Unlisted Product{" "}
-                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="text-blue-500 text-base font-light"
+                          >
+                            Add Unlisted Product{" "}
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[600px]">
+                          {/*  */}
+                          <AutoPopuByImg></AutoPopuByImg>
+                        </DialogContent>
+                      </Dialog>
                     </CardFooter>
                   </form>
                 </Form>
@@ -126,40 +140,49 @@ export default function SellerForm() {
   );
 }
 
-// function AutoPopuByImg() {
-//   return (
-//     <>
-//       <TypographyH3>Auto Populate with Image</TypographyH3>
-//       <Form {...sellerForm}>
-//         <form
-//           onSubmit={sellerForm.handleSubmit((data) => {})}
-//           className="w-full space-y-5 px-6"
-//         >
-//           <FormField
-//             control={sellerForm.control}
-//             name="product"
-//             render={({ field }) => <Input {...field} type="file" />}
-//           />
-//           <div className="relative">
-//             <div className="absolute inset-0 flex items-center">
-//               <span className="w-full border-t" />
-//             </div>
-//             <div className="relative flex justify-center text-xs uppercase">
-//               <span className="bg-background px-2 text-muted-foreground">
-//                 Or
-//               </span>
-//             </div>
-//           </div>
-//           <FormField
-//             control={sellerForm.control}
-//             name="product"
-//             render={({ field }) => (
-//               <Input {...field} type="text" placeholder="Paste Image URL" />
-//             )}
-//           />
-//           <Button>Auto Populate Form</Button>
-//         </form>
-//       </Form>
-//     </>
-//   );
-// }
+function AutoPopuByImg() {
+  const sellerForm = useForm<dummyType>({
+    resolver: zodResolver(dummy),
+  });
+  return (
+    <div className="mt-4 space-y-8">
+      <div className="space-y-2">
+        <TypographyH3>Auto Populate with Image</TypographyH3>
+        <FormDescription>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo,
+          tenetur.
+        </FormDescription>
+      </div>
+      <Form {...sellerForm}>
+        <form
+          onSubmit={sellerForm.handleSubmit((data) => {})}
+          className="w-full space-y-5 "
+        >
+          <FormField
+            control={sellerForm.control}
+            name="product"
+            render={({ field }) => <Input {...field} type="file" />}
+          />
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or
+              </span>
+            </div>
+          </div>
+          <FormField
+            control={sellerForm.control}
+            name="product"
+            render={({ field }) => (
+              <Input {...field} type="text" placeholder="Paste Image URL" />
+            )}
+          />
+          <Button className="w-full ">Auto Populate Form</Button>
+        </form>
+      </Form>
+    </div>
+  );
+}
