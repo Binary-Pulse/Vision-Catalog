@@ -19,11 +19,13 @@ import {
   DialogTrigger,
   DialogContent,
   Dialog,
+  TypographyH1,
+  TypographyH2,
+  TypographyH3,
 } from "@repo/ui/components";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import Link from "next/link";
 
 const dummy = z.object({
   product: z.string(),
@@ -45,55 +47,76 @@ export default function SellerForm() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[600px]">
           {/*  */}
-          <Tabs defaultValue="account" className="w-[500px]">
+          <TypographyH3>Search in Vision Catalogue</TypographyH3>
+          <Tabs defaultValue="text" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="account">Search With Text</TabsTrigger>
-              <TabsTrigger value="password">Search With Image</TabsTrigger>
+              <TabsTrigger value="text">Search With Text</TabsTrigger>
+              <TabsTrigger value="image">Search With Image</TabsTrigger>
             </TabsList>
-            <TabsContent value="account">
-              <Card>
+            <TabsContent value="text">
+              <Card className="border-none">
                 <CardHeader>
                   <CardTitle>Search With Text</CardTitle>
                   <CardDescription>
                     Search Product with Product Name, UPC, SKU, EAN, ISBN.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="space-y-1">
-                    <Label htmlFor="product name"></Label>
-                    <Input id="product-name" defaultValue="ToothPaste" />
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button>Save changes</Button>
-                </CardFooter>
+                <Form {...sellerForm}>
+                  <form
+                    onSubmit={sellerForm.handleSubmit((data) => {})}
+                    className="w-full space-y-1"
+                  >
+                    <CardContent className="space-y-2">
+                      <FormField
+                        control={sellerForm.control}
+                        name="product"
+                        render={({ field }) => <Input {...field} type="text" />}
+                      />
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                      <Button>Find Similar Products</Button>
+                      <Button
+                        variant="outline"
+                        className="text-blue-500 text-base font-light"
+                      >
+                        Add Unlisted Product{" "}
+                      </Button>
+                    </CardFooter>
+                  </form>
+                </Form>
               </Card>
             </TabsContent>
-            <TabsContent value="password">
-              <Card>
+            <TabsContent value="image">
+              <Card className="border-none">
                 <CardHeader>
                   <CardTitle>Search With Image</CardTitle>
                   <CardDescription>
                     Upload Product Image for Searching the Product.
-                  </CardDescription>{" "}
+                  </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-2">
-                  <Form {...sellerForm}>
-                    <form
-                      onSubmit={sellerForm.handleSubmit((data) => {})}
-                      className="w-full space-y-3"
-                    >
+                <Form {...sellerForm}>
+                  <form
+                    onSubmit={sellerForm.handleSubmit((data) => {})}
+                    className="w-full space-y-1"
+                  >
+                    <CardContent className="space-y-2 ">
                       <FormField
                         control={sellerForm.control}
                         name="product"
                         render={({ field }) => <Input {...field} type="file" />}
                       />
-                    </form>
-                  </Form>
-                </CardContent>
-                <CardFooter>
-                  <Button>Save changes</Button>
-                </CardFooter>
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                      <Button>Find Similar Products</Button>
+                      <Button
+                        variant="outline"
+                        className="text-blue-500 text-base font-light"
+                      >
+                        Add Unlisted Product{" "}
+                      </Button>
+                    </CardFooter>
+                  </form>
+                </Form>
               </Card>
             </TabsContent>
           </Tabs>
@@ -102,3 +125,41 @@ export default function SellerForm() {
     </>
   );
 }
+
+// function AutoPopuByImg() {
+//   return (
+//     <>
+//       <TypographyH3>Auto Populate with Image</TypographyH3>
+//       <Form {...sellerForm}>
+//         <form
+//           onSubmit={sellerForm.handleSubmit((data) => {})}
+//           className="w-full space-y-5 px-6"
+//         >
+//           <FormField
+//             control={sellerForm.control}
+//             name="product"
+//             render={({ field }) => <Input {...field} type="file" />}
+//           />
+//           <div className="relative">
+//             <div className="absolute inset-0 flex items-center">
+//               <span className="w-full border-t" />
+//             </div>
+//             <div className="relative flex justify-center text-xs uppercase">
+//               <span className="bg-background px-2 text-muted-foreground">
+//                 Or
+//               </span>
+//             </div>
+//           </div>
+//           <FormField
+//             control={sellerForm.control}
+//             name="product"
+//             render={({ field }) => (
+//               <Input {...field} type="text" placeholder="Paste Image URL" />
+//             )}
+//           />
+//           <Button>Auto Populate Form</Button>
+//         </form>
+//       </Form>
+//     </>
+//   );
+// }
