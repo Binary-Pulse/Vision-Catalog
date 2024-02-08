@@ -1,4 +1,4 @@
-import HeroSection from "@/components/landing-page/hero-section";
+import { HeroSection } from "./_components/hero-section";
 import initTranslations from "@/i18n";
 
 export default async function IndexPage({

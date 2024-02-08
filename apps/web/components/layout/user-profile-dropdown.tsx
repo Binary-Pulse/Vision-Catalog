@@ -29,10 +29,6 @@ export const UserProfileDropdown = ({
             className="relative h-8 w-8 rounded-full"
           >
             <Avatar className="h-8 w-8">
-              <AvatarImage
-                src={data.user?.image as string}
-                alt={data.user?.name ?? ""}
-              />
               <AvatarFallback>{initials}</AvatarFallback>
             </Avatar>
           </Button>

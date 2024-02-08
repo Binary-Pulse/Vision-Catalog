@@ -6,7 +6,7 @@ import { cn } from "@repo/ui/cn";
 import Script from "next/script";
 import { HeroParallax } from "./hero-parallax";
 
-const HeroSection = () => {
+export const HeroSection = () => {
   return (
     <section className="flex items-center justify-center">
       <HeroParallax products={products} />
@@ -108,8 +108,6 @@ export const products = [
       "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
   },
 ];
-
-export default HeroSection;
 
 // <div className="grid gap-6 items-center">
 //   <div className="flex flex-col justify-center space-y-8 text-center">

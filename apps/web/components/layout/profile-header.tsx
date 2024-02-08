@@ -19,7 +19,7 @@ export const ProfileHeader = async () => {
                 variant: "outline",
               })}
             >
-              Dashboard
+              Go to Dashboard
             </div>
           </Link>
           <UserProfileDropdown

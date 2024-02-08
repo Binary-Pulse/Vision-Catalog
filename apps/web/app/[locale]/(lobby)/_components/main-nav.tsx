@@ -19,22 +19,10 @@ import { Icons } from "@repo/ui/icons";
 export function MainNav() {
   return (
     <div className="hidden gap-6 lg:flex">
-      <a
-        aria-label="Home"
-        href="/"
-        className="hidden items-center space-x-2 lg:flex"
-      >
-        <Icons.chevronsRight className="h-6 w-6" aria-hidden="true" />
-        <span className="hidden font-bold lg:inline-block text-orange-500 text-xl">
-          Build{" "}
-        </span>
-        <span className="hidden font-bold lg:inline-block text-white text-xl">
-          For{" "}
-        </span>
-        <span className="hidden font-bold lg:inline-block text-green-500 text-xl">
-          Bharat{" "}
-        </span>
-      </a>
+      <Link className="flex items-center gap-2 font-semibold" href="/">
+        <HomeIcon className="h-6 w-6" />
+        <span className="">Vision Catalog</span>
+      </Link>
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -88,3 +76,22 @@ const ListItem = React.forwardRef<
   );
 });
 ListItem.displayName = "ListItem";
+function HomeIcon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
+    </svg>
+  );
+}

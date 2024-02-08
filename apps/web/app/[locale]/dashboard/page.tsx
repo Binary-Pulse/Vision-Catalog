@@ -29,17 +29,17 @@ export default async function Component() {
       <div className="hidden border-r  lg:block  backdrop-blur-md rounded-r-lg">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold" href="#">
+            <Link className="flex items-center gap-2 font-semibold" href="/">
               <HomeIcon className="h-6 w-6" />
-              <span className="">Product Listings</span>
+              <span className="">Vision Catalog</span>
             </Link>
-            <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
+            {/* <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
               <BellIcon className="h-4 w-4" />
               <span className="sr-only">Toggle notifications</span>
-            </Button>
+            </Button> */}
           </div>
           <div className="flex-1 overflow-auto py-2">
-            <nav className="grid items-start px-4 text-sm font-medium">
+            <nav className="grid items-start px-4 text-md font-medium">
               <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                 href="#"
@@ -72,7 +72,7 @@ export default async function Component() {
             <span className="sr-only">Home</span>
           </Link>
           <div className="w-full flex-1">
-            <form>
+            {/* <form>
               <div className="relative">
                 <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 " />
                 <Input
@@ -81,7 +81,7 @@ export default async function Component() {
                   type="search"
                 />
               </div>
-            </form>
+            </form> */}
           </div>
           {user && (
             <UserProfileDropdown
@@ -92,96 +92,44 @@ export default async function Component() {
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
           <div className="flex items-center">
-            <h1 className="font-semibold text-lg md:text-2xl">
-              Product Listings
-            </h1>
+            <h1 className="font-semibold text-lg md:text-2xl">Product List</h1>
             <Form />
           </div>
-          {/* <div className="border shadow-sm rounded-lg">
+          <div className="border shadow-sm rounded-lg">
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[80px]">Image</TableHead>
                   <TableHead className="max-w-[150px]">Name</TableHead>
                   <TableHead className="hidden md:table-cell">Status</TableHead>
-                  <TableHead className="hidden md:table-cell">Rent</TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Selling Price
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">Stock</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <img
-                      alt="Listing image"
-                      className="aspect-square rounded-md object-cover"
-                      height="64"
-                      src="/placeholder.svg"
-                      width="64"
-                    />
+                <TableRow className="hover:bg-transparent">
+                  <TableCell>{/* image */}</TableCell>
+                  <TableCell className="font-medium w-[450px]">
+                    Product Name
                   </TableCell>
-                  <TableCell className="font-medium">Cozy Apartment</TableCell>
                   <TableCell className="hidden md:table-cell">
                     Available
                   </TableCell>
-                  <TableCell>$500/month</TableCell>
+                  <TableCell>$500/unit</TableCell>
+                  <TableCell>10</TableCell>
                   <TableCell className="hidden md:table-cell">
-                    <Button className="mr-2" size="sm" variant="outline">
+                    <Button className="mr-2" variant="outline">
                       Edit
                     </Button>
-                    <Button size="sm" variant="outline">
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <img
-                      alt="Listing image"
-                      className="aspect-square rounded-md object-cover"
-                      height="64"
-                      src="/placeholder.svg"
-                      width="64"
-                    />
-                  </TableCell>
-                  <TableCell className="font-medium">Modern Loft</TableCell>
-                  <TableCell className="hidden md:table-cell">Rented</TableCell>
-                  <TableCell>$800/month</TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    <Button className="mr-2" size="sm" variant="outline">
-                      Edit
-                    </Button>
-                    <Button size="sm" variant="outline">
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <img
-                      alt="Listing image"
-                      className="aspect-square rounded-md object-cover"
-                      height="64"
-                      src="/placeholder.svg"
-                      width="64"
-                    />
-                  </TableCell>
-                  <TableCell className="font-medium">Beach House</TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    Available
-                  </TableCell>
-                  <TableCell>$1200/month</TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    <Button className="mr-2" size="sm" variant="outline">
-                      Edit
-                    </Button>
-                    <Button size="sm" variant="outline">
-                      Delete
-                    </Button>
+                    <Button variant="outline">Delete</Button>
                   </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
-          </div> */}
+          </div>
         </main>
       </div>
     </div>
