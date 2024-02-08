@@ -5,7 +5,7 @@ import { Icons } from "@repo/ui/icons";
 import { cn } from "@repo/ui/cn";
 import Script from "next/script";
 
-const HeroSection = () => {
+export const HeroSection = () => {
   return (
     <section className="flex items-center justify-center">
       <div className="flex max-w-[64rem] flex-col items-center gap-5 pt-20 text-center">
@@ -14,8 +14,6 @@ const HeroSection = () => {
     </section>
   );
 };
-
-export default HeroSection;
 
 // <div className="grid gap-6 items-center">
 //   <div className="flex flex-col justify-center space-y-8 text-center">
