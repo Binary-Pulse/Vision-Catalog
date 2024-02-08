@@ -44,7 +44,7 @@ declare module "next-auth" {
 const useSecureCookies = process.env.VERCEL_ENV === "production";
 const cookiePrefix = useSecureCookies ? "__Secure-" : "";
 const cookieDomain = useSecureCookies
-  ? (process.env.NEXT_PUBLIC_APP_URL as string)
+  ? "https://main-repo-web.vercel.app"
   : "localhost";
 
 export const authOptions: NextAuthOptions = {
