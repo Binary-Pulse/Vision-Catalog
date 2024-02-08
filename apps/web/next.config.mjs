@@ -14,6 +14,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  images: {
+    domains: ['aceternity.com'],
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
