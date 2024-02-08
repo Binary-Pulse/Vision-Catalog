@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "@repo/ui/components";
-import { fontSans, fontMono } from "@/lib/fonts";
+import { fontSans, fontUrban, fontCustom, fontHeading } from "@/lib/fonts";
 import TailwindResposivenessIndicator from "@repo/ui/components/TailwindResposivenessIndicator";
 import type { PropsWithChildren } from "react";
 import Provider from "./_provider";
@@ -23,7 +23,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
-          fontMono.variable,
+          fontUrban.variable,
+          fontHeading.variable,
+          fontCustom.variable,
         )}
       >
         <Provider>
