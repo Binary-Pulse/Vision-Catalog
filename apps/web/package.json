@@ -24,6 +24,7 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.16",
     "clsx": "^2.0.0",
+    "framer-motion": "^11.0.3",
     "graphql": "^16.8.1",
     "i18next": "^23.8.2",
     "i18next-resources-to-backend": "^1.2.0",
@@ -37,6 +38,7 @@
     "react-query": "^3.39.3",
     "sonner": "^1.0.3",
     "swagger-ui-react": "4.11.1",
+    "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.6",
     "zod": "^3.22.3"
   },
