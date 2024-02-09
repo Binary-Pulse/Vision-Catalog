@@ -96,7 +96,7 @@ export const productRouter = createTRPCRouter({
     .meta({
       /* 👉 */ openapi: {
         method: "POST",
-        path: "/add-product-or-variant",
+        path: "/update-product",
         tags: ["Products"],
       },
     })
