@@ -11,42 +11,20 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from "@repo/ui/components";
 import { cn } from "@repo/ui/cn";
+import { Icons } from "@repo/ui/icons";
 import Image from "next/image";
 import Logo from "@/public/images/logo.png";
 
 export function MainNav() {
   return (
-    <div className="hidden gap-6 lg:flex">
+    <div className="gap-6 lg:flex">
       <Link className="flex items-center gap-2 font-semibold" href="/">
         <Image src={Logo} width={90} height={100} alt="logo" />
         <span className="-ml-4">Vision Catalog</span>
       </Link>
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Languages</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <ListItem href="/hin" title="हिन्दी">
-                  हिंदी के साथ जारी रखें
-                </ListItem>
-                <ListItem href="/en" title="English">
-                  Continue With English.
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            {/* <Link href="/computers" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Computers
-              </NavigationMenuLink>
-            </Link> */}
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
     </div>
   );
 }
