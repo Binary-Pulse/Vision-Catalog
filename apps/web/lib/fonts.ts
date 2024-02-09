@@ -1,14 +1,22 @@
-import {
-  JetBrains_Mono as FontMono,
-  Inter as FontSans,
-} from "next/font/google";
+import { Inter as FontSans, Urbanist } from "next/font/google";
+import localFont from "next/font/local";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-export const fontMono = FontMono({
+export const fontUrban = Urbanist({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-urban",
+});
+
+export const fontHeading = localFont({
+  src: "./CalSans-SemiBold.woff2",
+  variable: "--font-heading",
+});
+
+export const fontCustom = localFont({
+  src: "./custom.woff2",
+  variable: "--font-custom",
 });
