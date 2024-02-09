@@ -1,23 +1,10 @@
-import {
-  Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  Input,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@repo/ui/components";
-import Form from "@/components/landing-page/form";
+import { CardDescription } from "@repo/ui/components";
+import Form from "@/app/dashboard/_components/form";
 import Link from "next/link";
 import { UserProfileDropdown } from "@/components/layout/user-profile-dropdown";
 import { authOptions, getServerSession } from "@repo/auth/server";
+import { ProductTable } from "./_components/product-table";
+import Image from "next/image";
 
 export default async function Component() {
   const data = await getServerSession(authOptions);
@@ -29,8 +16,13 @@ export default async function Component() {
       <div className="hidden border-r  lg:block  backdrop-blur-md rounded-r-lg">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold" href="/">
-              <HomeIcon className="h-6 w-6" />
+            <Link className="flex items-center font-semibold" href="/">
+              <Image
+                src={"/images/logo.png"}
+                alt="logo"
+                width={90}
+                height={100}
+              ></Image>
               <span className="">Vision Catalog</span>
             </Link>
             {/* <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
@@ -91,46 +83,19 @@ export default async function Component() {
           )}
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
-          <div className="flex items-center">
-            <h1 className="font-semibold text-lg md:text-2xl">Product List</h1>
+          <div className=" flex justify-between items-center">
+            <div className="flex flex-col items-start gap-2">
+              <h1 className="font-semibold text-lg md:text-3xl">
+                Product List
+              </h1>
+              <CardDescription className="md:text-xl">
+                List new Products and Manage them.
+              </CardDescription>
+            </div>
             <Form />
           </div>
           <div className="border shadow-sm rounded-lg">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[80px]">Image</TableHead>
-                  <TableHead className="max-w-[150px]">Name</TableHead>
-                  <TableHead className="hidden md:table-cell">Status</TableHead>
-                  <TableHead className="hidden md:table-cell">
-                    Selling Price
-                  </TableHead>
-                  <TableHead className="hidden md:table-cell">Stock</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow className="hover:bg-transparent">
-                  <TableCell>{/* image */}</TableCell>
-                  <TableCell className="font-medium md:w-[450px]">
-                    Product Name
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    Available
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    $500/unit
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">10</TableCell>
-                  <TableCell className="md:flex-row flex flex-col gap-2">
-                    <Button className="" variant="outline">
-                      Edit
-                    </Button>
-                    <Button variant="outline">Delete</Button>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+            <ProductTable />
           </div>
         </main>
       </div>
