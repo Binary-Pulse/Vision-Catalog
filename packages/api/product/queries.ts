@@ -24,6 +24,7 @@ export async function GetUserProductList(userId: Id) {
       select: {
         products: {
           select: {
+            id: true,
             productName: true,
             price: { select: { ppu: true, currency: true } },
             images: { select: { primaryImageUrl: true } },
