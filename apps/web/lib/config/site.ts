@@ -31,16 +31,16 @@ export const Company = [
 export const mySocials: MySocialsProps[] = [
   {
     title: "Github",
-    href: "https://github.com/Build-for-Bharat",
+    href: "https://github.com/Binary-Pulse/Vision-Catalog",
     external: true,
     icon: "gitHub",
   },
-  // {
-  //   title: "Twitter",
-  //   href: "https://twitter.com/Mefhd2",
-  //   external: true,
-  //   icon: "twitter",
-  // },
+  {
+    title: "Twitter",
+    href: "https://linktr.ee/praashh",
+    external: true,
+    icon: "twitter",
+  },
   {
     title: "Discord",
     href: "https://discord.gg/ZpfCUqGVub",
