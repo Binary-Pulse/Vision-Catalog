@@ -2,18 +2,17 @@ import type { Url } from "next/dist/shared/lib/router/router";
 import Image from "next/image";
 import Link from "next/link";
 import { AspectRatio } from "../../components";
-import { Icons } from "../../icons";
 
 interface AuthLayoutImageProps {
+  logosrc: string;
   imagesrc: string;
-  alt?: string;
   linkToImage?: Url;
   photographer?: string;
   photographerId?: Url;
 }
 export function AuthLayoutImage({
+  logosrc,
   imagesrc,
-  alt,
   photographer,
   photographerId,
   linkToImage,
@@ -22,7 +21,7 @@ export function AuthLayoutImage({
     <AspectRatio ratio={16 / 9}>
       <Image
         src={imagesrc}
-        alt={alt ?? "Image"}
+        alt={"Image"}
         fill
         className="absolute inset-0 object-cover"
         priority
@@ -33,7 +32,7 @@ export function AuthLayoutImage({
         href="/"
         className="flex absolute left-8 top-6 z-20 items-center text-lg font-bold tracking-tighter"
       >
-        <Icons.chevronsRight className="mr-2 h-6 w-6" aria-hidden="true" />
+        <Image src={logosrc} alt="logo" width={90} height={100} />
         <span>Vision Catalog</span>
       </Link>
       <div className="absolute bottom-6 left-8 z-20 line-clamp-1 text-base">
