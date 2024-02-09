@@ -9,8 +9,8 @@ import { redirect } from "next/navigation";
 
 export default async function Component() {
   const data = await getServerSession(authOptions);
-  if(!data){
-    redirect("/sign-in")
+  if (!data) {
+    redirect("/sign-in");
   }
   const user = data?.user;
   const initials = `${user?.name?.charAt(0) ?? ""}`;
