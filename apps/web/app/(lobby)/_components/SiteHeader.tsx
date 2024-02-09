@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { Skeleton, buttonVariants } from "@repo/ui/components";
 import { cn } from "@repo/ui/cn";
 import { MainNav } from "./main-nav";
-import { ProfileHeader } from "../../../../components/layout/profile-header";
+import { ProfileHeader } from "@/components/layout/profile-header";
 
 export const SiteHeader = async () => {
   return (
