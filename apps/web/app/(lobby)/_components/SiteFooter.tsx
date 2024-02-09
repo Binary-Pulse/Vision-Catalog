@@ -11,21 +11,31 @@ export const SiteFooter = () => {
         <section
           id="footer-bottom"
           aria-labelledby="footer-bottom-heading"
-          className="flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row items-center space-x-4"
+          className="flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row items-center sm:justify-between md:justify-between lg:justify-between space-x-4"
         >
           <div className="text-left text-lg leading-loose text-muted-foreground">
             Built by{" "}
             <a
-              aria-label="Build for Bharat"
-              href="https://github.com/Build-for-Bharat"
+              aria-label="Vision Catalog"
+              href="https://github.com/me-imfhd"
               target="_blank"
               rel="noreferrer"
               className="font-semibold transition-colors hover:text-foreground"
             >
-              Team 100xDevs
+              Fahad 
+            </a>
+            {" "}and{" "}
+            <a
+              aria-label="Vision Catalog"
+              href="https://github.com/Praashh"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold transition-colors hover:text-foreground"
+            >
+              {" "}Praash 
             </a>
           </div>
-          <ul className="flex-1 flex flex-row space-x-3">
+          {/* <ul className="flex-1 flex flex-row space-x-3">
             {Company.map((link, index) => (
               <li key={index}>
                 <Link
@@ -36,7 +46,7 @@ export const SiteFooter = () => {
                 </Link>
               </li>
             ))}
-          </ul>
+          </ul> */}
           <div className="flex items-center space-x-1">
             {mySocials.map((social, index) => {
               const Icon = Icons[social.icon] as ({
