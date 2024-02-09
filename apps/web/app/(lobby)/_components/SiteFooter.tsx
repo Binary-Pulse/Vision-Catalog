@@ -22,9 +22,9 @@ export const SiteFooter = () => {
               rel="noreferrer"
               className="font-semibold transition-colors hover:text-foreground"
             >
-              Fahad 
-            </a>
-            {" "}and{" "}
+              Fahad
+            </a>{" "}
+            and{" "}
             <a
               aria-label="Vision Catalog"
               href="https://github.com/Praashh"
@@ -32,7 +32,8 @@ export const SiteFooter = () => {
               rel="noreferrer"
               className="font-semibold transition-colors hover:text-foreground"
             >
-              {" "}Praash 
+              {" "}
+              Praash
             </a>
           </div>
           {/* <ul className="flex-1 flex flex-row space-x-3">
