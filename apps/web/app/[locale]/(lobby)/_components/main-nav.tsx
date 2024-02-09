@@ -15,13 +15,15 @@ import {
 } from "@repo/ui/components";
 import { cn } from "@repo/ui/cn";
 import { Icons } from "@repo/ui/icons";
+import Image from "next/image";
+import Logo from "@/public/images/logo.png";
 
 export function MainNav() {
   return (
     <div className="hidden gap-6 lg:flex">
       <Link className="flex items-center gap-2 font-semibold" href="/">
-        <HomeIcon className="h-6 w-6" />
-        <span className="">Vision Catalog</span>
+        <Image src={Logo} width={90} height={100} alt="logo" />
+        <span className="-ml-4">Vision Catalog</span>
       </Link>
       <NavigationMenu>
         <NavigationMenuList>
