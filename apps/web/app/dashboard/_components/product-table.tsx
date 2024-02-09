@@ -19,54 +19,6 @@ export function ProductTable() {
   if (!isMounted) {
     return;
   }
-  if (isLoading) {
-    return (
-      <>
-        <TableRow className="hover:bg-transparent">
-          <TableCell>
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-          <TableCell className="font-medium md:w-[450px]">
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-          <TableCell className="hidden md:table-cell">
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-          <TableCell className="hidden md:table-cell">
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-          <TableCell className="hidden md:table-cell">
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-          <TableCell className="md:flex-row flex flex-col gap-2">
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-        </TableRow>
-        <TableRow className="hover:bg-transparent">
-          <TableCell>
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-          <TableCell className="font-medium md:w-[450px]">
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-          <TableCell className="hidden md:table-cell">
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-          <TableCell className="hidden md:table-cell">
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-          <TableCell className="hidden md:table-cell">
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-          <TableCell className="md:flex-row flex flex-col gap-2">
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
-          </TableCell>
-        </TableRow>
-      </>
-    );
-  }
   const productsArray = data?.products;
 
   return (
@@ -81,7 +33,8 @@ export function ProductTable() {
           <TableHead>Actions</TableHead>
         </TableRow>
       </TableHeader>
-      {Boolean(!productsArray || productsArray.length < 0) && (
+      {Boolean(isLoading) && <TableLoader />}
+      {Boolean(!isLoading && (!productsArray || productsArray.length < 0)) && (
         <TableRow className="hover:bg-transparent items-center w-full text-lg text-muted-foreground justify-between">
           <TableCell colSpan={6}>No products have been created yet</TableCell>
         </TableRow>
@@ -117,5 +70,54 @@ export function ProductTable() {
           })}
       </TableBody>
     </Table>
+  );
+}
+
+export function TableLoader() {
+  return (
+    <>
+      <TableRow className="hover:bg-transparent">
+        <TableCell>
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+        <TableCell className="font-medium md:w-[450px]">
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+        <TableCell className="hidden md:table-cell">
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+        <TableCell className="hidden md:table-cell">
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+        <TableCell className="hidden md:table-cell">
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+        <TableCell className="md:flex-row flex flex-col gap-2">
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+      </TableRow>
+      <TableRow className="hover:bg-transparent">
+        <TableCell>
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+        <TableCell className="font-medium md:w-[450px]">
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+        <TableCell className="hidden md:table-cell">
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+        <TableCell className="hidden md:table-cell">
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+        <TableCell className="hidden md:table-cell">
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+        <TableCell className="md:flex-row flex flex-col gap-2">
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+        </TableCell>
+      </TableRow>
+    </>
   );
 }

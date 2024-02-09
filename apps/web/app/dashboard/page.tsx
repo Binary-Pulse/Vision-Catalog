@@ -5,9 +5,13 @@ import { UserProfileDropdown } from "@/components/layout/user-profile-dropdown";
 import { authOptions, getServerSession } from "@repo/auth/server";
 import { ProductTable } from "./_components/product-table";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export default async function Component() {
   const data = await getServerSession(authOptions);
+  if(!data){
+    redirect("/sign-in")
+  }
   const user = data?.user;
   const initials = `${user?.name?.charAt(0) ?? ""}`;
 
