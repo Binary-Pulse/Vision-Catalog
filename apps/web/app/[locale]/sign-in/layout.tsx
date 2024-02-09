@@ -4,8 +4,8 @@ export default function AuthLayout({ children }: React.PropsWithChildren) {
   return (
     <div className="grid min-h-screen grid-cols-1 overflow-hidden md:grid-cols-3 lg:grid-cols-2">
       <AuthLayoutImage
+        logosrc="/images/logo.png"
         imagesrc="/images/THX.jpg"
-        alt="stars"
         photographer="Casey Horner"
         photographerId="https://unsplash.com/@mischievous_penguins"
         linkToImage="https://unsplash.com/photos/OS2WODdxy1A?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
