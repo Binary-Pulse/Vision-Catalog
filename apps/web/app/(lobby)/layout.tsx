@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
 import React from "react";
-import { SiteHeader } from "./_components/SiteHeader";
-import { SiteFooter } from "./_components/SiteFooter";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 
 export default function LobbyLayout({ children }: PropsWithChildren) {
   return (
