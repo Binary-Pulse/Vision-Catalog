@@ -1,26 +1,22 @@
 import { llm } from ".";
-import { ProductListFormSchema } from "../vector-search";
 
-interface InvokeLLMProps<T> {
-  stringifiedMetadata: string;
+interface InvokeLLMProps {
   imageBase64: string;
   stringifiedSampleJsonOutput: string;
 }
 
-export async function invokeLLM<T>({
-  stringifiedMetadata: metadata,
+export async function invokeLLM({
   imageBase64: image,
   stringifiedSampleJsonOutput: sampleOutput,
-}: InvokeLLMProps<ProductListFormSchema>) {
+}: InvokeLLMProps) {
   try {
     const responseString = await llm.invoke({
-      metadata,
       image,
       sampleJsonOutput: sampleOutput,
     });
 
     try {
-      const parsedResponse: T = JSON.parse(responseString);
+      const parsedResponse = JSON.parse(responseString);
       if (typeof parsedResponse !== "object" || parsedResponse === null) {
         throw new Error("Invalid JSON format in the response.");
       }

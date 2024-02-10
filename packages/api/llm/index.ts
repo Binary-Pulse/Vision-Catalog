@@ -20,7 +20,6 @@ export const model = new ChatGoogleGenerativeAI({
 
 export const llm = RunnableSequence.from([
   {
-    metadata: (input) => input.metadata,
     image: (input) => input.image,
     sampleOutput: (input) => input.sampleOutput,
   },
