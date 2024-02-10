@@ -9,7 +9,7 @@
     "db:generate": "prisma generate",
     "db:push": "dotenv -e ../../.env prisma db push --skip-generate",
     "db:migrate": "dotenv -e ../../.env prisma migrate dev --name init",
-    "db:migrate:deploy": "dotenv -e ../../.env prisma migrate deploy"
+    "db:migrate:deploy": "dotenv -e ../../.env prisma migrate deploy --name init"
   },
   "dependencies": {
     "@prisma/client": "^5.4.2",

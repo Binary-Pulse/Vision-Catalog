@@ -74,7 +74,7 @@ model Session {
 model Image {
   id              String   @id @default(uuid())
   productId       String   @unique
-  primaryImageUrl String
+  primaryImageUrl String?
   url             String[]
   product         Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
@@ -110,7 +110,7 @@ model Price {
   regularPrice       Float?
   discountedPrice    Float?
   discountPercentage Float?
-  currency           CURRENCY
+  currency           CURRENCY?
   tax                Float?
   shippingCost       Float?
   handlingFee        Float?
@@ -143,7 +143,7 @@ model Product {
   EAN                          String?
   ISBN                         String?
   SKU                          String?
-  productName                  String
+  productName                  String?
   brand                        Brand?         @relation(fields: [brandId], references: [id])
   category                     Category?      @relation(fields: [categoryId], references: [id])
   images                       Image?

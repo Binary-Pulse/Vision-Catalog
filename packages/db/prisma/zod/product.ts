@@ -25,7 +25,7 @@ export const productZodSchema = z.object({
   EAN: z.string().nullish(),
   ISBN: z.string().nullish(),
   SKU: z.string().nullish(),
-  productName: z.string(),
+  productName: z.string().nullish(),
   description: z.string().nullish(),
   bulletPoints: z.string().array(),
   legalDisclaimer: z.string().nullish(),
