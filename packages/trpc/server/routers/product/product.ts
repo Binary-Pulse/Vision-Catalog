@@ -11,7 +11,7 @@ import { id, productDetailsParams } from "@repo/db";
 export const addProductZI = z.object({
   brandName: z.string(),
   categoryName: z.string(),
-  productVitalInfo: productDetailsParams,
+  productName: z.string(),
   currency: z.union([z.literal("INR"), z.literal("USD")]),
   pricePerUnit: z.number(),
   primaryImageUrl: z.string().url(),
@@ -53,7 +53,7 @@ export const productRouter = createTRPCRouter({
         input: {
           brandName,
           categoryName,
-          productVitalInfo,
+          productName,
           primaryImageUrl,
           currency,
           pricePerUnit,
@@ -71,7 +71,7 @@ export const productRouter = createTRPCRouter({
           pricePerUnit,
           brandName,
           categoryName,
-          productVitalInfo,
+          productName,
           userId,
           primaryImageUrl,
         });
