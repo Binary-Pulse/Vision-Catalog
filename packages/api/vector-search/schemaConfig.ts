@@ -41,8 +41,8 @@ export const sampleProductListForm = {}; // the type of this will be exact type 
 export type ProductListFormSchema = typeof sampleProductListForm;
 
 export const ProductSearchVectorSchema = z.object({
-  productId: z.string().optional(),
-  productName: z.string(),
+  productId: z.string(),
+  productName: z.string().nullable(),
   description: z.string().nullable().optional(),
   primaryImageUrl: z.string().nullable().optional(),
   brand: z.string().nullable().optional(),
