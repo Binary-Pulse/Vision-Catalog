@@ -1,8 +1,13 @@
 import { AddProductVitalInfoParamsType, Id } from "@repo/db";
 import { addMetadataToVectorDB, updateMetadataToVectorDB } from "./metadata";
 
+type prodVitalInfoWithoutProdNameType = Omit<
+  AddProductVitalInfoParamsType,
+  "productName"
+>;
 interface AddNewProductProps {
   productName: string;
+  productVitalInfo?: prodVitalInfoWithoutProdNameType;
   pricePerUnit: number;
   primaryImageUrl: string;
   currency: "INR" | "USD";
@@ -16,6 +21,7 @@ interface AddNewProductProps {
  */
 export async function AddNewProduct({
   productName,
+  productVitalInfo,
   pricePerUnit,
   primaryImageUrl,
   currency,
@@ -27,6 +33,7 @@ export async function AddNewProduct({
     //
     const product = await db?.product.create({
       data: {
+        ...productVitalInfo,
         productName,
         brand: { connect: { name: brandName } },
         category: { connect: { name: categoryName } },
