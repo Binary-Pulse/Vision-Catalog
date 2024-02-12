@@ -41,10 +41,13 @@ export const HeroSection = () => {
           className="absolute inset-0 -z-10 animate-fade-in"
           quantity={100}
         />
-        <Link href={"https://github.com/Binary-Pulse/Vision-Catalog"} target="_blank">
-        <button className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-         STAR ON GITHUB <Github className="w-6 h-6 ml-2" />
-        </button>
+        <Link
+          href={"https://github.com/Binary-Pulse/Vision-Catalog"}
+          target="_blank"
+        >
+          <button className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+            STAR ON GITHUB <Github className="w-6 h-6 ml-2" />
+          </button>
         </Link>
       </div>
       <div className="flex flex-col overflow-hidden">
@@ -73,12 +76,9 @@ export const HeroSection = () => {
           }}
           className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
         >
-          Get Started in  <br /> 4 Easy Steps
+          Get Started in <br /> 4 Easy Steps
         </motion.h1>
       </LampContainer>
     </section>
   );
 };
-
-        
-      
