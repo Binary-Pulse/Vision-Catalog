@@ -62,12 +62,6 @@ export const productRouter = createTRPCRouter({
         },
         ctx: { userId },
       }) => {
-        await db?.brand.findFirstOrThrow({
-          where: { name: brandName },
-        });
-        await db?.category.findFirstOrThrow({
-          where: { id: categoryName },
-        });
         const res = await AddNewProduct({
           currency,
           pricePerUnit,

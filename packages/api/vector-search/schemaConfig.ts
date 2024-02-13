@@ -37,9 +37,6 @@ export const textSchemaConfig = {
   ],
 };
 
-export const sampleProductListForm = {}; // the type of this will be exact type of form
-export type ProductListFormSchema = typeof sampleProductListForm;
-
 export const ProductSearchVectorSchema = z.object({
   productId: z.string(),
   productName: z.string().nullable(),
