@@ -45,7 +45,10 @@ export function ProductTable() {
             return (
               <TableRow className="hover:bg-transparent" key={data.id}>
                 <TableCell>
-                  <img alt="img" src={data.images?.primaryImageUrl} />
+                  <img
+                    alt="img"
+                    src={data.images?.primaryImageUrl as string | undefined}
+                  />
                 </TableCell>
                 <TableCell className="font-medium md:w-[450px]">
                   {data.productName}
