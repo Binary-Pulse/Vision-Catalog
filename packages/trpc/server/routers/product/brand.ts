@@ -7,9 +7,8 @@ import {
 } from "../../trpc";
 import { AddBrand } from "@repo/api/product";
 import { addBrandParams } from "@repo/db";
-export const addBrandZI = z.object({
-  brandData: addBrandParams,
-});
+import { addBrandZI } from "../input-zod-schema";
+
 export const brandRouter = createTRPCRouter({
   addBrand: protectedProcedure
     .meta({

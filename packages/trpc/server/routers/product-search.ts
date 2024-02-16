@@ -10,13 +10,8 @@ import {
   TextVectorMetadataRetriever,
 } from "@repo/api/vector-search";
 import { ProductSearchVectorSchema } from "@repo/api/vector-search/schemaConfig";
+import { searchByImageZI, searchByTextZI } from "./input-zod-schema";
 
-export const searchByImageZI = z.object({
-  imageURL: z.string().url(),
-});
-export const searchByTextZI = z.object({
-  text: z.string(),
-});
 export const productSearchRouter = createTRPCRouter({
   searchByImage: publicProcedure
     .meta({

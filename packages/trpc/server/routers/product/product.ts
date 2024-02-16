@@ -7,23 +7,12 @@ import {
   UpdateProductVitalInfo,
   UseParentProductToAddVariant,
 } from "@repo/api/product";
-import { id, productDetailsParams } from "@repo/db";
-export const addProductZI = z.object({
-  brandName: z.string(),
-  categoryName: z.string(),
-  productName: z.string(),
-  productVitalInfo: productDetailsParams.omit({ productName: true }).optional(),
-  currency: z.union([z.literal("INR"), z.literal("USD")]),
-  pricePerUnit: z.number(),
-  primaryImageUrl: z.string().url(),
-});
-export const addVariantWithParentZI = z.object({
-  parentProductId: id,
-});
-export const updateProductZI = z.object({
-  productId: id,
-  productVitalInfo: productDetailsParams,
-});
+import {
+  addProductZI,
+  addVariantWithParentZI,
+  updateProductZI,
+} from "../input-zod-schema";
+
 export const productRouter = createTRPCRouter({
   getUserProductList: protectedProcedure
     .meta({

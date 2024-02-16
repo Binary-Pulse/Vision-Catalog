@@ -2,11 +2,8 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "../../trpc";
 import { UpdateProductPriceInfo } from "@repo/api/product";
-import { addPriceParamsSchema, id } from "@repo/db";
-export const updateProductPriceZI = z.object({
-  productId: id,
-  priceData: addPriceParamsSchema,
-});
+import { updateProductPriceZI } from "../input-zod-schema";
+
 export const priceRouter = createTRPCRouter({
   updateProductPrice: protectedProcedure
     .meta({

@@ -2,12 +2,8 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "../../trpc";
 import { UpdateProductMoreDetails } from "@repo/api/product";
-import { addMoreDetailsParams, dimensionsParam, id } from "@repo/db";
-export const updateProductMoreDetailsZI = z.object({
-  productId: id,
-  moreDetails: addMoreDetailsParams,
-  dimensions: dimensionsParam,
-});
+import { updateProductMoreDetailsZI } from "../input-zod-schema";
+
 export const moreDetailsRouter = createTRPCRouter({
   updateProductMoreDetails: protectedProcedure
     .meta({

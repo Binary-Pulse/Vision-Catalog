@@ -6,10 +6,8 @@ import {
   publicProcedure,
 } from "../../trpc";
 import { AddCategory } from "@repo/api/product";
-import { addCategoryParams } from "@repo/db";
-export const addCategoryZI = z.object({
-  categoryData: addCategoryParams,
-});
+import { addCategoryZI } from "../input-zod-schema";
+
 export const categoryRouter = createTRPCRouter({
   addCategory: protectedProcedure
     .meta({
