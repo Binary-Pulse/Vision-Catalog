@@ -19,11 +19,6 @@ import { Icons } from "@repo/ui/icons";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  client,
-  imageSearchClassCreator,
-} from "../../../../../packages/api/vector-search";
-import { SEARCH_BY_IMAGE_CLASS } from "@repo/utils";
 
 export function SearchByImageForm() {
   const { data, isLoading, mutate } =
