@@ -1,43 +1,38 @@
 import {
   Button,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-  DialogTrigger,
-  DialogContent,
-  Dialog,
-  TypographyH3,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuItem,
 } from "@repo/ui/components";
-import { SearchByTextForm } from "./search-by-text-form";
-import { SearchByImageForm } from "./search-by-image-form";
+import { SearchCatalogModal } from "./search-catalog-modal";
+import { AddProductModal } from "./add-product-modal";
 
 export default function SellerForm() {
   return (
     <>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button className="ml-auto" size="sm">
-            Add Product
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            className="focus-visible:ring-0 pointer-events-auto"
+            size="sm"
+          >
+            Add Product By
           </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[600px]">
-          {/*  */}
-          <TypographyH3>Search in Vision Catalogue</TypographyH3>
-          <Tabs defaultValue="text" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="text">Search With Text</TabsTrigger>
-              <TabsTrigger value="image">Search With Image</TabsTrigger>
-            </TabsList>
-            <TabsContent value="text">
-              <SearchByTextForm></SearchByTextForm>
-            </TabsContent>
-            <TabsContent value="image">
-              <SearchByImageForm></SearchByImageForm>
-            </TabsContent>
-          </Tabs>
-        </DialogContent>
-      </Dialog>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Choose Method</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <SearchCatalogModal></SearchCatalogModal>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <AddProductModal></AddProductModal>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </>
   );
 }
