@@ -8,3 +8,4 @@ export const client = weaviate.client({
 export * from "./schemaConfig";
 export * from "./queries";
 export * from "./productMetadata.mutation";
+export * from "./internal/class-schema-creator";

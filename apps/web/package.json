@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "dotenv -e ../../.env next dev",
+    "build": "dotenv -e ../../.env next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -27,6 +27,7 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.16",
     "clsx": "^2.0.0",
+    "dotenv-cli": "^7.2.1",
     "framer-motion": "^11.0.3",
     "graphql": "^16.8.1",
     "i18next": "^23.8.2",

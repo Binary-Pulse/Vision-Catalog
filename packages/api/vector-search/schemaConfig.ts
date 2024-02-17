@@ -24,10 +24,9 @@ export const imageSchemaConfig = {
 
 export const textSchemaConfig = {
   class: SEARCH_BY_TEXT_CLASS,
-  vectorizer: "text2vec-palm",
-  vectorIndexType: "hnsw",
+  vectorizer: "text2vec-openai",
   moduleConfig: {
-    "text2vec-palm": {},
+    "text2vec-openai": {},
   },
   properties: [
     {
