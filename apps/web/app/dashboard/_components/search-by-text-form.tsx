@@ -13,8 +13,10 @@ import {
   Form,
   FormField,
   Input,
+  useToast,
 } from "@repo/ui/components";
-import React from "react";
+import { Icons } from "@repo/ui/icons";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -24,6 +26,26 @@ export function SearchByTextForm() {
   const searchByTextForm = useForm<z.infer<typeof searchByTextZI>>({
     resolver: zodResolver(searchByTextZI),
   });
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      if (data.length < 1) {
+        toast({
+          variant: "default",
+          title: "404 NOT FOUND",
+          description: "No Similar Products Found.",
+        });
+      } else {
+        toast({
+          variant: "success",
+          title: "Success",
+          description: `Found ${data.length} Similar Products`,
+        });
+      }
+    }
+  }, [data]);
   return (
     <Form {...searchByTextForm}>
       <form
@@ -47,10 +69,31 @@ export function SearchByTextForm() {
             />
           </CardContent>
           <CardFooter>
-            <Button>Find Similar Products</Button>
+            <Button className="w-40" disabled={isLoading} type="submit">
+              {!isLoading ? (
+                "Find Similar Products"
+              ) : (
+                <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+              )}
+            </Button>
           </CardFooter>
         </Card>
       </form>
     </Form>
   );
+}
+
+{
+  /* <Button
+  onClick={async () => {
+    // const a = await textSearchClassCreator();
+    // console.log(a);
+    // const response = await client.schema
+    //   .classDeleter()
+    //   .withClassName(SEARCH_BY_TEXT_CLASS)
+    //   .do();
+  }}
+>
+  Create Class
+</Button> */
 }
