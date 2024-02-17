@@ -9,6 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  Input,
   Select,
   SelectContent,
   SelectItem,
@@ -42,6 +43,7 @@ export default function AddProductModalForm() {
                 <FormLabel className="text-base">Product Name</FormLabel>
                 <FormControl>
                   <Textarea
+                    required
                     className="h-min "
                     placeholder="Nuskhe by Paras Ayurvedic Pigmentation Papaya Anti Blemish Cream."
                     {...field}
@@ -59,7 +61,7 @@ export default function AddProductModalForm() {
                 <FormItem>
                   <FormLabel className="text-base">Select Brand</FormLabel>
                   <FormControl>
-                    <Select>
+                    <Select required>
                       <SelectTrigger className="w-[250px]">
                         <SelectValue placeholder="Select your Brand" />
                       </SelectTrigger>
@@ -81,7 +83,7 @@ export default function AddProductModalForm() {
                 <FormItem>
                   <FormLabel className="text-base">Select Category</FormLabel>
                   <FormControl>
-                    <Select>
+                    <Select required>
                       <SelectTrigger className="w-[250px]">
                         <SelectValue placeholder="Select your Category" />
                       </SelectTrigger>
@@ -97,6 +99,62 @@ export default function AddProductModalForm() {
               )}
             />
           </div>
+          <div className="flex justify-between items-center">
+            <FormField
+              control={addProductForm.control}
+              name="currency"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-base">Select Currency</FormLabel>
+                  <FormControl>
+                    <Select required>
+                      <SelectTrigger className="w-[250px]">
+                        <SelectValue placeholder="Select your Currency" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="est">
+                          Eastern Standard Time (EST)
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={addProductForm.control}
+              name="pricePerUnit"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-base">Selling Price</FormLabel>
+                  <FormControl>
+                    <Input
+                      required
+                      className="w-[250px]"
+                      type="number"
+                      placeholder="200.99"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <FormField
+            control={addProductForm.control}
+            name="primaryImageUrl"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Primary Image URL</FormLabel>
+                <FormControl>
+                  <Input required type="url" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <Button className="w-full" disabled={isLoading} type="submit">
             {!isLoading ? (
