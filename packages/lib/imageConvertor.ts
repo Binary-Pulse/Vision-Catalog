@@ -14,13 +14,11 @@ export async function imageURLToBase64(imgUrl: string) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const blob = await response.blob();
-    const reader = new FileReader();
-    const resultPromise = new Promise<string>((resolve) => {
-      reader.onloadend = () => resolve(reader.result as string);
-    });
-    reader.readAsDataURL(blob);
-    return await resultPromise;
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const mimeType = response.headers.get("content-type");
+    const imageBase64 = `data:${mimeType};base64,${buffer.toString("base64")}`;
+    return imageBase64;
   } catch (error) {
     console.error(`Error converting image URL to base64: ${error}`);
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
