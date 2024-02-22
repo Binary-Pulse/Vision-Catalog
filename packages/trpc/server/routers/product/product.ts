@@ -13,6 +13,12 @@ import {
   updateProductZI,
 } from "../input-zod-schema";
 import { TRPCError } from "@trpc/server";
+import { id } from "@repo/db";
+
+enum CURRENCY {
+  USD = "USD",
+  INR = "INR",
+}
 
 export const productRouter = createTRPCRouter({
   getUserProductList: protectedProcedure
@@ -24,10 +30,29 @@ export const productRouter = createTRPCRouter({
       },
     })
     .input(z.undefined())
+    .output(
+      z.array(
+        z.object({
+          id: id,
+          productName: z.string().nullable(),
+          numberOfItems: z.number().nullable(),
+          price: z
+            .object({
+              ppu: z.number().nullable(),
+              currency: z.enum(["USD", "INR"]).nullable(),
+            })
+            .nullable(),
+          status: z.enum(["Private", "Published"]).nullable(),
+          images: z
+            .object({ primaryImageUrl: z.string().url().nullable() })
+            .nullable(),
+        }),
+      ),
+    )
     .query(async ({ ctx: { userId } }) => {
       try {
         const res = await GetUserProductList(userId);
-        return res?.products || [];
+        return res.products;
       } catch (error) {
         console.log(error);
         throw new TRPCError({
@@ -45,6 +70,14 @@ export const productRouter = createTRPCRouter({
       },
     })
     .input(addProductZI)
+    .output(
+      z.object({
+        msg: z.string(),
+        productId: z.string(),
+        vectorTextObjectId: z.string().optional(),
+        vectorImageObjectId: z.string().optional(),
+      }),
+    )
     .mutation(
       async ({
         input: {
