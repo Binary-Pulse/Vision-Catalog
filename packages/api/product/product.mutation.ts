@@ -30,7 +30,6 @@ export async function AddNewProduct({
   categoryName,
 }: AddNewProductProps) {
   try {
-    //
     const product = await db?.product.create({
       data: {
         ...productVitalInfo,
