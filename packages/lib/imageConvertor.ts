@@ -14,10 +14,8 @@ export async function imageURLToBase64(imgUrl: string) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const mimeType = response.headers.get("content-type");
-    const imageBase64 = `data:${mimeType};base64,${buffer.toString("base64")}`;
+    const blob = await response.arrayBuffer();
+    const imageBase64 = `${Buffer.from(blob).toString("base64")}`;
     return imageBase64;
   } catch (error) {
     console.error(`Error converting image URL to base64: ${error}`);
