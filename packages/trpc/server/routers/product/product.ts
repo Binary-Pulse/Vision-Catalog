@@ -12,6 +12,7 @@ import {
   addVariantWithParentZI,
   updateProductZI,
 } from "../input-zod-schema";
+import { TRPCError } from "@trpc/server";
 
 export const productRouter = createTRPCRouter({
   getUserProductList: protectedProcedure
@@ -23,10 +24,17 @@ export const productRouter = createTRPCRouter({
       },
     })
     .input(z.undefined())
-    .output(z.object({}))
     .query(async ({ ctx: { userId } }) => {
-      const res = await GetUserProductList(userId);
-      return res;
+      try {
+        const res = await GetUserProductList(userId);
+        return res?.products || [];
+      } catch (error) {
+        console.log(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: (error as Error).message ?? "Error, please try again",
+        });
+      }
     }),
   addProduct: protectedProcedure
     .meta({
@@ -37,7 +45,6 @@ export const productRouter = createTRPCRouter({
       },
     })
     .input(addProductZI)
-    .output(z.object({}))
     .mutation(
       async ({
         input: {
@@ -51,17 +58,25 @@ export const productRouter = createTRPCRouter({
         },
         ctx: { userId },
       }) => {
-        const res = await AddNewProduct({
-          currency,
-          pricePerUnit,
-          brandName,
-          categoryName,
-          productVitalInfo,
-          productName,
-          userId,
-          primaryImageUrl,
-        });
-        return res;
+        try {
+          const res = await AddNewProduct({
+            currency,
+            pricePerUnit,
+            brandName,
+            categoryName,
+            productVitalInfo,
+            productName,
+            userId,
+            primaryImageUrl,
+          });
+          return res;
+        } catch (error) {
+          console.log(error);
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: (error as Error).message ?? "Error, please try again",
+          });
+        }
       },
     ),
   addVariantWithExistingProduct: protectedProcedure
