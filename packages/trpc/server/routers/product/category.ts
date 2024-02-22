@@ -34,10 +34,10 @@ export const categoryRouter = createTRPCRouter({
       },
     })
     .input(z.undefined())
-    .output(z.object({}))
+    .output(z.array(z.object({ name: z.string(), id: z.string() })).optional())
     .query(async () => {
       const categoryList = await db?.category.findMany({
-        select: { name: true },
+        select: { name: true, id: true },
       });
       return categoryList;
     }),

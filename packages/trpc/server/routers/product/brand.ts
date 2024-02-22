@@ -35,9 +35,11 @@ export const brandRouter = createTRPCRouter({
       },
     })
     .input(z.undefined())
-    .output(z.object({}))
+    .output(z.array(z.object({ name: z.string(), id: z.string() })).optional())
     .query(async () => {
-      const brandList = await db?.brand.findMany({ select: { name: true } });
+      const brandList = await db?.brand.findMany({
+        select: { name: true, id: true },
+      });
       return brandList;
     }),
 });
