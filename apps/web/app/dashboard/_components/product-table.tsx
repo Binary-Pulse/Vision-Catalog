@@ -11,9 +11,15 @@ import {
 import React from "react";
 import { trpc } from "@repo/trpc/trpc/client";
 import { Icons } from "@repo/ui/icons";
-
-export function ProductTable() {
-  const { data, isLoading } = trpc.productRouter.getUserProductList.useQuery();
+import { GetUserProductListReturnType } from "@repo/api/product";
+interface ProductTableProps {
+  productsList: GetUserProductListReturnType;
+}
+export function ProductTable({ productsList }: ProductTableProps) {
+  const { data, isLoading } = trpc.productRouter.getUserProductList.useQuery(
+    undefined,
+    { initialData: productsList },
+  );
   const productsArray = data;
 
   return (

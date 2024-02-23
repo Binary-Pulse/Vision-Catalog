@@ -52,7 +52,7 @@ export const productRouter = createTRPCRouter({
     .query(async ({ ctx: { userId } }) => {
       try {
         const res = await GetUserProductList(userId);
-        return res.products;
+        return res;
       } catch (error) {
         console.log(error);
         throw new TRPCError({

@@ -37,8 +37,12 @@ export async function GetUserProductList(userId: Id) {
     if (!res) {
       throw new Error("User Not Found");
     }
-    return res;
+    return res.products;
   } catch (error) {
     throw new Error((error as Error).message ?? "INTERNAL_SERVER_ERROR");
   }
 }
+
+export type GetUserProductListReturnType = Awaited<
+  ReturnType<typeof GetUserProductList>
+>;
