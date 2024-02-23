@@ -1,5 +1,5 @@
 import { Id } from "@repo/db";
-
+import { db } from "@repo/db";
 export async function GetProductDataForAutoFill(productId: Id) {
   try {
     const res = await db?.product.findFirst({
