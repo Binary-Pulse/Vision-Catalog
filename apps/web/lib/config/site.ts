@@ -29,12 +29,12 @@ export const Company = [
   },
 ];
 export const mySocials: MySocialsProps[] = [
-  {
-    title: "Github",
-    href: "https://github.com/Binary-Pulse/Vision-Catalog",
-    external: true,
-    icon: "gitHub",
-  },
+  // {
+  //   title: "Github",
+  //   href: "https://github.com/Binary-Pulse/Vision-Catalog",
+  //   external: true,
+  //   icon: "gitHub",
+  // },
   {
     title: "Twitter",
     href: "https://linktr.ee/praashh",
