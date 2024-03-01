@@ -10,16 +10,17 @@ import {
 } from "@repo/ui/components";
 import React from "react";
 import { trpc } from "@repo/trpc/trpc/client";
-import { useMounted } from "@/lib/hooks/use-mounted";
 import { Icons } from "@repo/ui/icons";
-
-export function ProductTable() {
-  const isMounted = useMounted();
-  const { data, isLoading } = trpc.productRouter.getUserProductList.useQuery();
-  if (!isMounted) {
-    return;
-  }
-  const productsArray = data?.products;
+import { GetUserProductListReturnType } from "@repo/api/product";
+interface ProductTableProps {
+  productsList: GetUserProductListReturnType;
+}
+export function ProductTable({ productsList }: ProductTableProps) {
+  const { data, isLoading } = trpc.productRouter.getUserProductList.useQuery(
+    undefined,
+    { initialData: productsList },
+  );
+  const productsArray = data;
 
   return (
     <Table className="text-base">
@@ -33,19 +34,22 @@ export function ProductTable() {
           <TableHead>Actions</TableHead>
         </TableRow>
       </TableHeader>
-      {Boolean(isLoading) && <TableLoader />}
-      {Boolean(!isLoading && (!productsArray || productsArray.length < 0)) && (
-        <TableRow className="hover:bg-transparent items-center w-full text-lg text-muted-foreground justify-between">
-          <TableCell colSpan={6}>No products have been created yet</TableCell>
-        </TableRow>
-      )}
       <TableBody>
+        {Boolean(isLoading) && <TableLoader />}
+        {Boolean(!isLoading && (!productsArray || !productsArray[0])) && (
+          <TableRow className="hover:bg-transparent items-center w-full text-lg text-muted-foreground justify-between">
+            <TableCell colSpan={6}>No products have been created yet</TableCell>
+          </TableRow>
+        )}
         {Boolean(productsArray && productsArray.length > 0) &&
           productsArray?.map((data) => {
             return (
               <TableRow className="hover:bg-transparent" key={data.id}>
                 <TableCell>
-                  <img alt="img" src={data.images?.primaryImageUrl} />
+                  <img
+                    alt="img"
+                    src={data.images?.primaryImageUrl as string | undefined}
+                  />
                 </TableCell>
                 <TableCell className="font-medium md:w-[450px]">
                   {data.productName}
@@ -57,7 +61,7 @@ export function ProductTable() {
                   data.price?.currency === "INR" ? "₹" : "$"
                 }${data.price?.ppu} / unit`}</TableCell>
                 <TableCell className="hidden md:table-cell">
-                  {data.numberOfItems}
+                  {data.numberOfItems || 0}
                 </TableCell>
                 <TableCell className="md:flex-row flex flex-col gap-2">
                   <Button className="" variant="outline">

@@ -7,9 +7,8 @@ import {
 } from "../../trpc";
 import { AddBrand } from "@repo/api/product";
 import { addBrandParams } from "@repo/db";
-export const addBrandZI = z.object({
-  brandData: addBrandParams,
-});
+import { addBrandZI } from "../input-zod-schema";
+
 export const brandRouter = createTRPCRouter({
   addBrand: protectedProcedure
     .meta({
@@ -36,9 +35,11 @@ export const brandRouter = createTRPCRouter({
       },
     })
     .input(z.undefined())
-    .output(z.object({}))
+    .output(z.array(z.object({ name: z.string(), id: z.string() })).optional())
     .query(async () => {
-      const brandList = await db?.brand.findMany({ select: { name: true } });
+      const brandList = await db?.brand.findMany({
+        select: { name: true, id: true },
+      });
       return brandList;
     }),
 });

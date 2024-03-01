@@ -22,11 +22,11 @@
   "dependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*",
-    "eslint": "^8.50.0",
-    "turbo": "^1.10.14",
-    "typescript": "^5.2.2"
+    "eslint": "^8.56.0",
+    "turbo": "^1.12.4",
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "prettier": "^3.2.4"
+    "prettier": "^3.2.5"
   }
 }

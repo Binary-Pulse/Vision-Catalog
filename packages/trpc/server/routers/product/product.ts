@@ -7,22 +7,19 @@ import {
   UpdateProductVitalInfo,
   UseParentProductToAddVariant,
 } from "@repo/api/product";
-import { id, productDetailsParams } from "@repo/db";
-export const addProductZI = z.object({
-  brandName: z.string(),
-  categoryName: z.string(),
-  productVitalInfo: productDetailsParams,
-  currency: z.union([z.literal("INR"), z.literal("USD")]),
-  pricePerUnit: z.number(),
-  primaryImageUrl: z.string().url(),
-});
-export const addVariantWithParentZI = z.object({
-  parentProductId: id,
-});
-export const updateProductZI = z.object({
-  productId: id,
-  productVitalInfo: productDetailsParams,
-});
+import {
+  addProductZI,
+  addVariantWithParentZI,
+  updateProductZI,
+} from "../input-zod-schema";
+import { TRPCError } from "@trpc/server";
+import { id } from "@repo/db";
+
+enum CURRENCY {
+  USD = "USD",
+  INR = "INR",
+}
+
 export const productRouter = createTRPCRouter({
   getUserProductList: protectedProcedure
     .meta({
@@ -33,10 +30,36 @@ export const productRouter = createTRPCRouter({
       },
     })
     .input(z.undefined())
-    .output(z.object({}))
+    .output(
+      z.array(
+        z.object({
+          id: id,
+          productName: z.string().nullable(),
+          numberOfItems: z.number().nullable(),
+          price: z
+            .object({
+              ppu: z.number().nullable(),
+              currency: z.enum(["USD", "INR"]).nullable(),
+            })
+            .nullable(),
+          status: z.enum(["Private", "Published"]).nullable(),
+          images: z
+            .object({ primaryImageUrl: z.string().url().nullable() })
+            .nullable(),
+        }),
+      ),
+    )
     .query(async ({ ctx: { userId } }) => {
-      const res = await GetUserProductList(userId);
-      return res;
+      try {
+        const res = await GetUserProductList(userId);
+        return res;
+      } catch (error) {
+        console.log(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: (error as Error).message ?? "Error, please try again",
+        });
+      }
     }),
   addProduct: protectedProcedure
     .meta({
@@ -47,35 +70,46 @@ export const productRouter = createTRPCRouter({
       },
     })
     .input(addProductZI)
-    .output(z.object({}))
+    .output(
+      z.object({
+        msg: z.string(),
+        productId: z.string(),
+        vectorTextObjectId: z.string().optional(),
+        vectorImageObjectId: z.string().optional(),
+      }),
+    )
     .mutation(
       async ({
         input: {
           brandName,
           categoryName,
           productVitalInfo,
+          productName,
           primaryImageUrl,
           currency,
           pricePerUnit,
         },
         ctx: { userId },
       }) => {
-        await db?.brand.findFirstOrThrow({
-          where: { name: brandName },
-        });
-        await db?.category.findFirstOrThrow({
-          where: { id: categoryName },
-        });
-        const res = await AddNewProduct({
-          currency,
-          pricePerUnit,
-          brandName,
-          categoryName,
-          productVitalInfo,
-          userId,
-          primaryImageUrl,
-        });
-        return res;
+        try {
+          const res = await AddNewProduct({
+            currency,
+            pricePerUnit,
+            brandName,
+            categoryName,
+            productVitalInfo,
+            productName,
+            userId,
+            primaryImageUrl,
+          });
+          return res;
+        } catch (error) {
+          console.log(error);
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: (error as Error).message ?? "Error, please try again",
+          });
+        }
       },
     ),
   addVariantWithExistingProduct: protectedProcedure

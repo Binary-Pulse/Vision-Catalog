@@ -24,10 +24,9 @@ export const imageSchemaConfig = {
 
 export const textSchemaConfig = {
   class: SEARCH_BY_TEXT_CLASS,
-  vectorizer: "text2vec-palm",
-  vectorIndexType: "hnsw",
+  vectorizer: "text2vec-openai",
   moduleConfig: {
-    "text2vec-palm": {},
+    "text2vec-openai": {},
   },
   properties: [
     {
@@ -37,12 +36,9 @@ export const textSchemaConfig = {
   ],
 };
 
-export const sampleProductListForm = {}; // the type of this will be exact type of form
-export type ProductListFormSchema = typeof sampleProductListForm;
-
 export const ProductSearchVectorSchema = z.object({
-  productId: z.string().optional(),
-  productName: z.string(),
+  productId: z.string(),
+  productName: z.string().nullable(),
   description: z.string().nullable().optional(),
   primaryImageUrl: z.string().nullable().optional(),
   brand: z.string().nullable().optional(),

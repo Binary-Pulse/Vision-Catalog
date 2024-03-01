@@ -6,6 +6,7 @@ import { authOptions, getServerSession } from "@repo/auth/server";
 import { ProductTable } from "./_components/product-table";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { GetUserProductList } from "@repo/api/product";
 
 export default async function Component() {
   const data = await getServerSession(authOptions);
@@ -14,7 +15,7 @@ export default async function Component() {
   }
   const user = data?.user;
   const initials = `${user?.name?.charAt(0) ?? ""}`;
-
+  const prodList = await GetUserProductList(user.id);
   return (
     <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r  lg:block  backdrop-blur-md rounded-r-lg">
@@ -99,7 +100,7 @@ export default async function Component() {
             <Form />
           </div>
           <div className="border shadow-sm rounded-lg">
-            <ProductTable />
+            <ProductTable productsList={prodList} />
           </div>
         </main>
       </div>

@@ -9,20 +9,20 @@
     "db:generate": "prisma generate",
     "db:push": "dotenv -e ../../.env prisma db push --skip-generate",
     "db:migrate": "dotenv -e ../../.env prisma migrate dev --name init",
-    "db:migrate:deploy": "dotenv -e ../../.env prisma migrate deploy"
+    "db:migrate:deploy": "dotenv -e ../../.env prisma migrate deploy --name init"
   },
   "dependencies": {
-    "@prisma/client": "^5.4.2",
-    "zod": "^3.22.2",
+    "@prisma/client": "^5.10.2",
+    "zod": "^3.22.4",
     "zod-prisma": "^0.5.4",
-    "prisma": "^5.4.2"
+    "prisma": "^5.10.2"
   },
   "devDependencies": {
-    "dotenv-cli": "^7.2.1",
-    "@types/node": "20.8.0",
-    "eslint": "^8.50.0",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2",
+    "dotenv-cli": "^7.3.0",
+    "@types/node": "20.11.19",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
     "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*"
   }

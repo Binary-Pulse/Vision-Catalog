@@ -3,10 +3,8 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../../trpc";
 import { UpdateImagesForProduct } from "@repo/api/product";
 import { addImagesParams, id } from "@repo/db";
-export const updateProductImagesZI = z.object({
-  productId: id,
-  imagesData: addImagesParams,
-});
+import { updateProductImagesZI } from "../input-zod-schema";
+
 export const imagesRouter = createTRPCRouter({
   updateProductImages: protectedProcedure
     .meta({

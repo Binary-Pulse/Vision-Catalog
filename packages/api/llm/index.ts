@@ -1,6 +1,6 @@
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { RunnableSequence } from "langchain/schema/runnable";
-import { promptTemplate } from "./promptTemplate";
+import { promptTemplate, promptTemplate2 } from "./promptTemplate";
 import { StringOutputParser } from "langchain/schema/output_parser";
 
 import * as dotenv from "dotenv";
@@ -10,24 +10,28 @@ if (!process.env.GEMINI_VISION_PRO_API_KEY) {
   throw new Error("GEMINI_VISION_PRO_API_KEY is not set in your env");
 }
 
-export const model = new ChatGoogleGenerativeAI({
+export const vision = new ChatGoogleGenerativeAI({
+  apiKey: process.env.GEMINI_VISION_PRO_API_KEY,
+  streaming: false,
+  temperature: 0.7,
+  modelName: "gemini-pro-vision",
+});
+export const pro = new ChatGoogleGenerativeAI({
   apiKey: process.env.GEMINI_VISION_PRO_API_KEY,
   streaming: false,
   temperature: 0.4,
-  modelName: "gemini-pro-vision",
-  maxOutputTokens: 2048,
+  modelName: "gemini-pro",
 });
+const visionChain = promptTemplate.pipe(vision).pipe(new StringOutputParser());
 
 export const llm = RunnableSequence.from([
   {
-    metadata: (input) => input.metadata,
-    image: (input) => input.image,
+    imageData: visionChain,
     sampleOutput: (input) => input.sampleOutput,
   },
-  promptTemplate,
-  model,
+  promptTemplate2,
+  vision,
   new StringOutputParser(),
 ]);
 
-export * from "./mutation";
 export * from "./promptTemplate";

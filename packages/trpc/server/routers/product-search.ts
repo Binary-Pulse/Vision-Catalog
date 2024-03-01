@@ -10,13 +10,9 @@ import {
   TextVectorMetadataRetriever,
 } from "@repo/api/vector-search";
 import { ProductSearchVectorSchema } from "@repo/api/vector-search/schemaConfig";
+import { searchByImageZI, searchByTextZI } from "./input-zod-schema";
+import { TRPCError } from "@trpc/server";
 
-export const searchByImageZI = z.object({
-  imageURL: z.string().url(),
-});
-export const searchByTextZI = z.object({
-  text: z.string(),
-});
 export const productSearchRouter = createTRPCRouter({
   searchByImage: publicProcedure
     .meta({
@@ -29,12 +25,20 @@ export const productSearchRouter = createTRPCRouter({
     .input(searchByImageZI)
     .output(z.array(ProductSearchVectorSchema))
     .mutation(async ({ input }) => {
-      const imageBase64 = await imageURLToBase64(input.imageURL);
-      const response = await ImageVectorMetadataRetriever({
-        className: SEARCH_BY_IMAGE_CLASS,
-        image: imageBase64,
-      });
-      return response;
+      try {
+        const imageBase64 = await imageURLToBase64(input.imageURL);
+        const response = await ImageVectorMetadataRetriever({
+          className: SEARCH_BY_IMAGE_CLASS,
+          image: imageBase64,
+        });
+        return response;
+      } catch (error) {
+        console.log(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: (error as Error).message ?? "Error, please try again",
+        });
+      }
     }),
   searchByText: publicProcedure
     .meta({

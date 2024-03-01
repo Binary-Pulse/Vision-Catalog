@@ -8,7 +8,7 @@ export const priceZodSchema = z.object({
   regularPrice: z.number().nullish(),
   discountedPrice: z.number().nullish(),
   discountPercentage: z.number().nullish(),
-  currency: z.nativeEnum(CURRENCY),
+  currency: z.nativeEnum(CURRENCY).nullish(),
   tax: z.number().nullish(),
   shippingCost: z.number().nullish(),
   handlingFee: z.number().nullish(),

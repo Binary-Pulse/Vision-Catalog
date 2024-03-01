@@ -4,6 +4,9 @@ interface ImageVectorMetadataRetrieverProps {
   className: string;
   image: string;
 }
+type responseMetadata = {
+  metadata: string;
+};
 export async function ImageVectorMetadataRetriever({
   className,
   image,
@@ -16,9 +19,9 @@ export async function ImageVectorMetadataRetriever({
       .withNearImage({ image })
       // .withLimit(1)
       .do();
-    const responseArray = res.data.Get[className] as string[];
+    const responseArray = res.data.Get[className] as responseMetadata[];
     const metadataArray: ProductSearchVectorType[] = responseArray.map(
-      (response) => JSON.parse(response),
+      (response) => JSON.parse(response.metadata),
     );
     return metadataArray;
   } catch (error) {
@@ -41,9 +44,9 @@ export async function TextVectorMetadataRetriever({
       .withNearText({ concepts: [text] })
       // .withLimit(1)
       .do();
-    const responseArray = res.data.Get[className] as string[];
+    const responseArray = res.data.Get[className] as responseMetadata[];
     const metadataArray: ProductSearchVectorType[] = responseArray.map(
-      (response) => JSON.parse(response),
+      (response) => JSON.parse(response.metadata),
     );
     return metadataArray;
   } catch (error) {
