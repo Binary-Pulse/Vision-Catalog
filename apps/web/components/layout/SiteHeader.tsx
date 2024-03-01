@@ -23,7 +23,7 @@ export const SiteHeader = async () => {
                 </Skeleton>
               }
             >
-              <ProfileHeader />
+              {/* <ProfileHeader /> */}
             </Suspense>
           </nav>
         </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { authOptions, getServerSession } from "@repo/auth/server";
 import { buttonVariants } from "@repo/ui/components";
 import { UserProfileDropdown } from "./user-profile-dropdown";
+import { LogIn } from "@repo/ui/icons";
 
 export const ProfileHeader = async () => {
   const data = await getServerSession(authOptions);
@@ -34,7 +35,7 @@ export const ProfileHeader = async () => {
               size: "sm",
             })}
           >
-            Sign In
+            Sign In <LogIn />
             <span className="sr-only">Sign In</span>
           </div>
         </Link>

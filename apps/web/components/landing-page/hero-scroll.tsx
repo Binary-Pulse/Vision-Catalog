@@ -5,7 +5,7 @@ import { useScroll, useTransform, motion } from "framer-motion";
 export const ContainerScroll = ({
   titleComponent,
 }: {
-  titleComponent: string | React.ReactNode;
+  titleComponent?: string | React.ReactNode;
 }) => {
   const containerRef = useRef<any>(null);
   const { scrollYProgress } = useScroll({
